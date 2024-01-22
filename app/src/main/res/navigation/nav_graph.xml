@@ -24,7 +24,11 @@
         android:id="@+id/navigation_userDetailsFragment"
         android:name="com.example.recycleit.views.view.profile.user.UserDetailsFragment"
         android:label="fragment_user_details"
-        tools:layout="@layout/fragment_user_details" />
+        tools:layout="@layout/fragment_user_details" >
+        <action
+            android:id="@+id/action_navigation_userDetailsFragment_to_aboutFragment3"
+            app:destination="@id/aboutFragment3" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_categoryFragment"
         android:name="com.example.recycleit.views.CategoryFragment"
@@ -43,6 +47,14 @@
         <action
             android:id="@+id/action_caption_fragment_to_navigation_homeFragment"
             app:destination="@id/navigation_homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment3"
+        android:name="com.example.recycleit.views.view.profile.about.AboutFragment"
+        android:label="AboutFragment" >
+        <action
+            android:id="@+id/action_aboutFragment3_to_navigation_userDetailsFragment"
+            app:destination="@id/navigation_userDetailsFragment" />
     </fragment>
 
 </navigation>

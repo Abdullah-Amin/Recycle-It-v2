@@ -104,7 +104,7 @@ public class UserDetailsFragment extends Fragment {
         binding.cardAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //gotoAbout(v);
+               // Navigation.findNavController(requireView()).navigate(R.id.action_aboutFragment3_to_navigation_userDetailsFragment);
                 goToAbout2();
             }
         });
@@ -133,6 +133,9 @@ public class UserDetailsFragment extends Fragment {
 
     }
 
+
+
+
     private void gotoMyOrder() {
         Intent intent = new Intent(requireContext(), MyOrderActivity.class);
         startActivity(intent);
@@ -143,9 +146,8 @@ public class UserDetailsFragment extends Fragment {
         startActivity(intent);
     }
 
-    private void gotoAbout(View v) {
+    private void gotoAbout() {
 
-        Navigation.findNavController(v).navigate(R.id.action_userDetailsFragment_to_aboutFragment);
 
     }
 

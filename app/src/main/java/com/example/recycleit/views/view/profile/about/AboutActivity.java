@@ -20,12 +20,5 @@ public class AboutActivity extends AppCompatActivity {
         binding= ActivityAboutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.imArrowBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(AboutActivity.this, ProfileActivity.class));
-
-            }
-        });
     }
 }
