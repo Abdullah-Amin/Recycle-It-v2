@@ -18,6 +18,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.recycleit.databinding.FragmentEdditUserDatakBinding;
+import com.example.recycleit.views.auth.SharedPreferenceManager;
+import com.example.recycleit.views.auth.UserType;
 import com.example.recycleit.views.model.local.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -34,6 +36,7 @@ import java.util.HashMap;
 public class EditUserDataFragment extends Fragment {
 
     FragmentEdditUserDatakBinding binding;
+    SharedPreferenceManager sharedPreferenceManage=new SharedPreferenceManager();
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     StorageReference storage = FirebaseStorage.getInstance().getReference();
@@ -112,6 +115,8 @@ public class EditUserDataFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 firebaseAuth.signOut();
+              sharedPreferenceManage.remove(requireActivity());
+
             }
         });
 

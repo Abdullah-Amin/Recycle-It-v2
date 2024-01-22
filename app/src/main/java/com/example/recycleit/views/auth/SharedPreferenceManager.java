@@ -13,15 +13,19 @@ public class SharedPreferenceManager {
     }
 
 
-
-
     public String getType(Context context) {
         return getSharedPreferences(context).getString(TYPE, null);
     }
 
-    public void setType(Context context,String type) {
+    public void setType(Context context, String type) {
         SharedPreferences.Editor editor = getSharedPreferences(context).edit();
         editor.putString(TYPE, type);
+        editor.apply();
+    }
+
+    public void remove(Context context) {
+        SharedPreferences.Editor editor = getSharedPreferences(context).edit();
+        editor.clear();
         editor.apply();
     }
 }
