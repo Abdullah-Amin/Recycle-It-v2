@@ -83,6 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textSize="@dimen/_15sdp"
+                android:text="rr@rr.com"
                 android:textColor="#043E9F"
                 android:gravity="top|start"
                 android:padding="@dimen/_5sdp" />
@@ -114,6 +115,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textSize="@dimen/_15sdp"
+                android:text="Rr123456789"
                 android:textColor="#043E9F"
                 android:gravity="top|start"
                 android:padding="@dimen/_5sdp" />

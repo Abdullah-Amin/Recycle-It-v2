@@ -130,7 +130,6 @@ public class RegisterActivity extends AppCompatActivity implements Auth {
                     else
                     {
                         user.setType(UserType.REGULAR.getType());
-
                     }
                     user.setName(name);
                     user.setEmail(email);
@@ -143,7 +142,6 @@ public class RegisterActivity extends AppCompatActivity implements Auth {
 
                 } else {
                     Toast.makeText(RegisterActivity.this, "please wait until to featch data ... ", Toast.LENGTH_LONG).show();
-
                 }
             }
         });
