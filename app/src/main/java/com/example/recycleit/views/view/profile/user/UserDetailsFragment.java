@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.recycleit.R;
 import com.example.recycleit.databinding.FragmentUserDetailsBinding;
 import com.example.recycleit.views.view.auth.LoginActivity;
@@ -48,6 +49,8 @@ public class UserDetailsFragment extends Fragment {
     private ViewModelUser viewModel;
     private  FirebaseAuth auth=FirebaseAuth.getInstance();
     private FirebaseFirestore db=FirebaseFirestore.getInstance();
+    FirebaseStorage storage2 = FirebaseStorage.getInstance();
+
     private DocumentReference usersCollection = db.collection("Recycle it database schema").document("users").collection("regular").document(auth.getUid());
 
     @Override
@@ -65,6 +68,7 @@ public class UserDetailsFragment extends Fragment {
                 .getInstance(getActivity().getApplication())).get(ViewModelUser.class);
           binding.setViewModel(viewModel);
            binding.setLifecycleOwner(getViewLifecycleOwner());
+           image();
        // binding.txName.setText("Hello, "+viewModel.getUserName());
 
         usersCollection.addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -100,7 +104,7 @@ public class UserDetailsFragment extends Fragment {
         binding.cardAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //gotoAbout(v);
+               // Navigation.findNavController(requireView()).navigate(R.id.action_aboutFragment3_to_navigation_userDetailsFragment);
                 goToAbout2();
             }
         });
@@ -129,6 +133,9 @@ public class UserDetailsFragment extends Fragment {
 
     }
 
+
+
+
     private void gotoMyOrder() {
         Intent intent = new Intent(requireContext(), MyOrderActivity.class);
         startActivity(intent);
@@ -139,9 +146,8 @@ public class UserDetailsFragment extends Fragment {
         startActivity(intent);
     }
 
-    private void gotoAbout(View v) {
+    private void gotoAbout() {
 
-        Navigation.findNavController(v).navigate(R.id.action_userDetailsFragment_to_aboutFragment);
 
     }
 
@@ -169,6 +175,25 @@ private void goToAbout2()
     startActivity(intent);
 
 }
+    private void image()
+    {
+
+        storage2.getReference().child("images profiles").child(auth.getCurrentUser().getUid())
+                .getDownloadUrl()
+                .addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+//                                        task.getResult().
+                        if (task.isSuccessful() && task.getResult() != null){
+                            Glide
+                                    .with(requireActivity())
+                                    .load(task.getResult())
+                                    .into(binding.profileImage);
+                        }
+                    }
+                });
+
+    }
 
 
 

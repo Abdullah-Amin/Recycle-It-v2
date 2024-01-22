@@ -1,5 +1,6 @@
 package com.example.recycleit.views.view.home;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.recycleit.R;
 import com.example.recycleit.databinding.FragmentHomeBinding;
 import com.example.recycleit.views.adapter.HomePostAdapter;
@@ -21,6 +23,8 @@ import com.example.recycleit.views.model.firebase.CourseB;
 import com.example.recycleit.views.model.firebase.PostItem;
 import com.example.recycleit.views.model.firebase.PostList;
 import com.example.recycleit.views.model.local.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -29,6 +33,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -40,6 +45,7 @@ public class HomeFragment extends Fragment {
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private SharedPreferenceManager sharedPreferenceManager=new SharedPreferenceManager();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseStorage storage2 = FirebaseStorage.getInstance();
 
     private CollectionReference postsCollection =
             db.collection("Recycle it database schema")
@@ -125,6 +131,25 @@ public class HomeFragment extends Fragment {
         });
 
         Log.i(TAG, "onViewCreated: after ---- " + postList);
+
+    }
+    private void image()
+    {
+
+        storage2.getReference().child("images profiles").child(auth.getCurrentUser().getUid())
+                .getDownloadUrl()
+                .addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+//                                        task.getResult().
+                        if (task.isSuccessful() && task.getResult() != null){
+                            Glide
+                                    .with(requireActivity())
+                                    .load(task.getResult()).placeholder(R.drawable.girl)
+                                    .into(binding.profileImage);
+                        }
+                    }
+                });
 
     }
 
