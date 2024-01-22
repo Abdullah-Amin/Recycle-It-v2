@@ -14,12 +14,20 @@
         android:id="@+id/navigation_favoriteFragment"
         android:name="com.example.recycleit.views.FavoriteFragment"
         android:label="fragment_favorite"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_navigation_favoriteFragment_to_navigation_myBagFragment"
+            app:destination="@id/navigation_myBagFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_myBagFragment"
         android:name="com.example.recycleit.views.MyBagFragment"
         android:label="fragment_my_bag"
-        tools:layout="@layout/fragment_my_bag" />
+        tools:layout="@layout/fragment_my_bag" >
+        <action
+            android:id="@+id/action_navigation_myBagFragment_to_navigation_favoriteFragment"
+            app:destination="@id/navigation_favoriteFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_userDetailsFragment"
         android:name="com.example.recycleit.views.view.profile.user.UserDetailsFragment"

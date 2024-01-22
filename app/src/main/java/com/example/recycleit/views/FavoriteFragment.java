@@ -36,6 +36,7 @@ public class FavoriteFragment extends Fragment {
     private ArrayList<PostItem> list = new ArrayList<>();
 
     private static final String TAG = "FavoriteFragment";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,8 +48,8 @@ public class FavoriteFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        binding.favoriteRecycler.setAdapter(new FavoritesAdapter(list));
+        getFavoriteItems();
+//        Log.i(TAG, "onViewCreated: " + getFavoriteItems());
     }
 
     public ArrayList<PostItem> getFavoriteItems() {
@@ -60,20 +61,23 @@ public class FavoriteFragment extends Fragment {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             for (DocumentSnapshot snap :
                                     task.getResult().getDocuments()) {
-                                Log.i(TAG, "onComplete: "+ snap);
+                                Log.i(TAG, "onComplete: " + snap.toObject(PostItem.class));
                                 PostItem postItem = snap.toObject(PostItem.class);
                                 list.add(postItem);
+                                FavoritesAdapter adapter = new FavoritesAdapter(list);
+                                binding.favoriteRecycler.setAdapter(adapter);
+                                adapter.notifyDataSetChanged();
                             }
-                        }else {
+                        } else {
                             Log.i(TAG, "onComplete: error");
                         }
 
                     }
                 });
-        Log.i(TAG, "getHomeItems: "+ list.toString());
+        Log.i(TAG, "getHomeItems: " + list.toString());
         return list == null ? list = new ArrayList<>() : list;
     }
 }
