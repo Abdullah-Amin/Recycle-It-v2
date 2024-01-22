@@ -1,0 +1,82 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" tools:ignore="ExtraTranslation">Recycle It</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" tools:ignore="ExtraTranslation">Hello blank fragment</string>
+    <string name="about">About</string>
+    <string name="text_about">In our application,\n
+        we help you in your journey towards a healthier and cleaner environment for yourself and your community.\n
+        You can share materials that you recycle and sell in an appropriate manner,\n
+        and you can also purchase products that have been recycled. Additionally, you can register for courses and workshops offered by renowned institutions and companies to learn about recycling.</string>
+    <string name="register">Register</string>
+    <string name="welcome">Welcome</string>
+    <string name="name">Name :</string>
+    <string name="UserName">User Name :</string>
+    <string name="email">Email :</string>
+    <string name="password">Password :</string>
+    <string name="kind_of_account">business account</string>
+    <string name="company_name">Company Name</string>
+    <string name="commerical_registeration_number">commercial Registeration No :</string>
+    <string name="create_account">Create Account</string>
+    <string name="create_new_account">create new account</string>
+    <string name="search">Search</string>
+    <string name="address">Address</string>
+    <string name="_02662565">02662565</string>
+    <string name="delete">Delete</string>
+    <string name="Edit">Edit</string>
+    <string name="mypost">My Post</string>
+    <string name="add_address">Add Address</string>
+    <string name="clock_made_of_wood">Clock made of wood</string>
+    <string name="deteails">
+    It is a clock made of wood,\n measuring 30*30 cm and available in blue,\n green and pink
+    </string>
+    <string name="myorder">My Order</string>
+    <string name="Recycling">Recycling</string>
+    <string name="hero">hero\n\n</string>
+    <string name="live">live</string>
+    <string name="course">COURSE</string>
+    <string name="workshop">WORKSHOP</string>
+    <string name="post">post</string>
+    <string name="color">Color</string>
+    <string name="add_to_bag">add to bag</string>
+    <string name="_20sar">20SAR</string>
+    <string name="course_name">course 1</string>
+    <string name="course_date">course date : 12\\3\\2024 ,  10:30AM</string>
+    <string name="Online">Online \\ one day</string>
+    <string name="more_details">More Details</string>
+    <string name="what_s_your_name">What\'s your name ? </string>
+    <string name="first_name">First name : </string>
+    <string name="last_name">Last name : </string>
+    <string name="what_s_your_email">What\'s your Email ?</string>
+    <string name="EMail">E-Email</string>
+    <string name="email_sampile">email@gmail.com</string>
+    <string name="what_s_your_place">Where are you live ?</string>
+    <string name="email_smpile">email@gmail.com</string>
+    <string name="chose_country">chose your country</string>
+    <string name="cancel">Cancel</string>
+    <string name="workshop_date">Workshop date : 1232024 , 1:30PM</string>
+    <string name="add_course">Add Courses</string>
+    <string name="write_a_name_of_course">write a name of course...</string>
+    <string name="name_of_course">name of course ?</string>
+    <string name="date_of_course">Date of course ?</string>
+    <string name="write_a_date_of_course">write a Date of course...</string>
+    <string name="type_Online">Online</string>
+    <string name="person">in-person</string>
+    <string name="goal_of_course">Goal of course ?</string>
+    <string name="Goal_of_course">write the goal of course...</string>
+    <string name="add_workshope">add workshope</string>
+    <string name="name_of_workshop">Name of workshop?</string>
+    <string name="write_a_name_of_workshop">write a name of workshop...</string>
+    <string name="date_of_workshop">Date of workshop?</string>
+    <string name="write_a_date_of_workshop">write a Date of workshop...</string>
+    <string name="location_of_workshop">Location of workshop?</string>
+    <string name="write_the_location_of_workshop">write the Location of workshop...</string>
+    <string name="goal_of_workshop">Goal of workshop?</string>
+    <string name="write_a_caption">write a caption...</string>
+    <string name="favorite">Favorite</string>
+    <string name="_50_sar">50 SAR</string>
+    <string name="address2">Address</string>
+    <string name="save">Save</string>
+    <string name="point">Point</string>
+    <string name="logout">Logout</string>
+
+</resources>

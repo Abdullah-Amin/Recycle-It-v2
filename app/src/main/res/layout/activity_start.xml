@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.view.home.StartActivity"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/background_purple">
+
+    <ImageView
+        android:layout_width="@dimen/_90sdp"
+        android:layout_height="@dimen/_90sdp"
+        android:src="@drawable/recycle" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recycling"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_30ssp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/startBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="start"
+        android:textSize="@dimen/_18ssp"
+        android:textColor="@color/txt_blue_1"
+        android:paddingVertical="@dimen/_8sdp"
+        android:backgroundTint="@color/btn_bg_white"
+        app:cornerRadius="@dimen/_16sdp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_40sdp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/loginBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="login"
+        android:textSize="@dimen/_18ssp"
+        android:textColor="@color/txt_blue_1"
+        android:paddingVertical="@dimen/_8sdp"
+        android:backgroundTint="@color/btn_bg_white"
+        app:cornerRadius="@dimen/_16sdp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_20sdp"/>
+
+</LinearLayout>

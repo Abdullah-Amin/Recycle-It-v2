@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_workshop"
+    app:startDestination="@id/listWorkshopFragment">
+
+    <fragment
+        android:id="@+id/listWorkshopFragment"
+        android:name="com.example.recycleit.views.view.workshop.ListWorkshopFragment"
+        android:label="fragment_list_workshop"
+        tools:layout="@layout/fragment_list_workshop" >
+        <action
+            android:id="@+id/action_listWorkshopFragment_to_addWorkShopeFragment"
+            app:destination="@id/addWorkShopeFragment" />
+        <action
+            android:id="@+id/action_listWorkshopFragment_to_categoryFragment2"
+            app:destination="@id/categoryFragment2" />
+        <action
+            android:id="@+id/action_listWorkshopFragment_to_registerWorkshopFragment"
+            app:destination="@id/registerWorkshopFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addWorkShopeFragment"
+        android:name="com.example.recycleit.views.view.workshop.AddWorkShopeFragment"
+        android:label="AddWorkShopeFragment" >
+        <action
+            android:id="@+id/action_addWorkShopeFragment_to_listWorkshopFragment"
+            app:destination="@id/listWorkshopFragment" />
+        <action
+            android:id="@+id/action_addWorkShopeFragment_to_categoryFragment2"
+            app:destination="@id/categoryFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryFragment2"
+        android:name="com.example.recycleit.views.CategoryFragment"
+        android:label="CategoryFragment" />
+    <fragment
+        android:id="@+id/registerWorkshopFragment"
+        android:name="com.example.recycleit.views.view.workshop.RegisterWorkshopFragment"
+        android:label="RegisterWorkshopFragment" >
+        <action
+            android:id="@+id/action_registerWorkshopFragment_to_listWorkshopFragment"
+            app:destination="@id/listWorkshopFragment" />
+    </fragment>
+</navigation>

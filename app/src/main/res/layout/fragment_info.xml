@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_white_1"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".views.InfoFragment">
+
+    <LinearLayout
+        android:id="@+id/topLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_24sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:src="@drawable/recycle_blue" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="@font/daily"
+            android:text="@string/welcome"
+            android:textColor="@color/txt_blue_2"
+            android:textSize="@dimen/_26ssp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_12sdp"
+        android:background="@drawable/view_bg"
+        app:layout_constraintTop_toBottomOf="@id/topLayout" />
+
+    <TextView
+        android:id="@+id/txt_create_new_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:text="What's your name ?"
+        android:textColor="@color/background_purple"
+        android:textSize="@dimen/_18ssp"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        app:layout_constraintTop_toBottomOf="@id/view" />
+
+    <TextView
+        app:layout_constraintTop_toBottomOf="@id/txt_create_new_account"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/firstNameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="First name :"
+        android:textSize="@dimen/_16sdp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/firstNameLayout"
+        android:layout_width="@dimen/_130sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:background="@drawable/edit_txt_outlines"
+        android:gravity="center"
+        app:boxCornerRadiusBottomEnd="@dimen/_15sdp"
+        app:boxCornerRadiusBottomStart="@dimen/_15sdp"
+        app:boxCornerRadiusTopEnd="@dimen/_15sdp"
+        app:boxCornerRadiusTopStart="@dimen/_15sdp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/firstNameTv">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/firstNameEt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="top|start"
+            android:padding="@dimen/_5sdp"
+            android:textColor="#043E9F"
+            android:textSize="@dimen/_15sdp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:id="@+id/firstNameView"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_8sdp"
+        android:background="@drawable/under_views_shadow"
+        android:layout_marginHorizontal="@dimen/_6sdp"
+        app:layout_constraintStart_toStartOf="@id/firstNameLayout"
+        app:layout_constraintEnd_toEndOf="@id/firstNameLayout"
+        app:layout_constraintTop_toBottomOf="@id/firstNameLayout" />
+
+    <TextView
+        app:layout_constraintTop_toBottomOf="@id/txt_create_new_account"
+        app:layout_constraintStart_toStartOf="@id/lastNameLayout"
+        android:id="@+id/lastNameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/_4sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="Last name :"
+        android:textSize="@dimen/_16sdp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lastNameLayout"
+        android:layout_width="@dimen/_130sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:background="@drawable/edit_txt_outlines"
+        android:gravity="center"
+        app:boxCornerRadiusBottomEnd="@dimen/_15sdp"
+        app:boxCornerRadiusBottomStart="@dimen/_15sdp"
+        app:boxCornerRadiusTopEnd="@dimen/_15sdp"
+        app:boxCornerRadiusTopStart="@dimen/_15sdp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lastNameTv">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/lastNameEt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="top|start"
+            android:padding="@dimen/_5sdp"
+            android:textColor="#043E9F"
+            android:textSize="@dimen/_15sdp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:id="@+id/lastNameView"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_8sdp"
+        android:background="@drawable/under_views_shadow"
+        android:layout_marginHorizontal="@dimen/_6sdp"
+        app:layout_constraintStart_toStartOf="@id/lastNameLayout"
+        app:layout_constraintEnd_toEndOf="@id/lastNameLayout"
+        app:layout_constraintTop_toBottomOf="@id/lastNameLayout" />
+
+    <TextView
+        android:id="@+id/emailQueryTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:text="What's your E-mail ?"
+        android:textColor="@color/background_purple"
+        android:textSize="@dimen/_18ssp"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        app:layout_constraintTop_toBottomOf="@id/lastNameView" />
+
+    <TextView
+        app:layout_constraintTop_toBottomOf="@id/emailQueryTxt"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/emailTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="E-mail :"
+        android:textSize="@dimen/_16sdp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:background="@drawable/edit_txt_outlines"
+        android:gravity="center"
+        app:boxCornerRadiusBottomEnd="@dimen/_15sdp"
+        app:boxCornerRadiusBottomStart="@dimen/_15sdp"
+        app:boxCornerRadiusTopEnd="@dimen/_15sdp"
+        app:boxCornerRadiusTopStart="@dimen/_15sdp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emailTv">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailEt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="top|start"
+            android:padding="@dimen/_5sdp"
+            android:textColor="#043E9F"
+            android:textSize="@dimen/_15sdp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:id="@+id/emailView"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_6sdp"
+        android:background="@drawable/under_views_shadow"
+        android:layout_marginHorizontal="@dimen/_6sdp"
+        app:layout_constraintStart_toStartOf="@id/emailLayout"
+        app:layout_constraintEnd_toEndOf="@id/emailLayout"
+        app:layout_constraintTop_toBottomOf="@id/emailLayout" />
+
+    <TextView
+        android:id="@+id/livingQueryTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:text="Where do you live ?"
+        android:textColor="@color/background_purple"
+        android:textSize="@dimen/_18ssp"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        app:layout_constraintTop_toBottomOf="@id/emailView" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/livingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:background="@drawable/edit_txt_outlines"
+        android:gravity="center"
+        app:boxCornerRadiusBottomEnd="@dimen/_15sdp"
+        app:boxCornerRadiusBottomStart="@dimen/_15sdp"
+        app:boxCornerRadiusTopEnd="@dimen/_15sdp"
+        app:boxCornerRadiusTopStart="@dimen/_15sdp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/livingQueryTxt"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+        <androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView
+            android:id="@+id/livingEt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="top|start"
+            android:padding="@dimen/_5sdp"
+            android:textColor="#043E9F"
+            android:textSize="@dimen/_15sdp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:id="@+id/countryView"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_6sdp"
+        android:background="@drawable/under_views_shadow"
+        android:layout_marginHorizontal="@dimen/_6sdp"
+        app:layout_constraintStart_toStartOf="@id/livingLayout"
+        app:layout_constraintEnd_toEndOf="@id/livingLayout"
+        app:layout_constraintTop_toBottomOf="@id/livingLayout" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/cancelBtn"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:backgroundTint="@color/white"
+        android:layout_width="@dimen/_140sdp"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:textAllCaps="false"
+        android:textSize="@dimen/_12ssp"
+        android:textColor="@color/background_purple"
+        app:cornerRadius="@dimen/_18sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_marginVertical="@dimen/_30sdp"
+        />
+
+    <View
+        android:id="@+id/cancelView"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_6sdp"
+        android:background="@drawable/under_views_shadow"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        app:layout_constraintStart_toStartOf="@id/cancelBtn"
+        app:layout_constraintEnd_toEndOf="@id/cancelBtn"
+        app:layout_constraintTop_toBottomOf="@id/cancelBtn" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/registrationBtn2"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:backgroundTint="@color/background_purple"
+        android:layout_width="@dimen/_130sdp"
+        android:layout_height="wrap_content"
+        android:text="Registration"
+        android:textAllCaps="true"
+        android:textSize="@dimen/_12ssp"
+        android:textColor="@color/white"
+        app:cornerRadius="@dimen/_18sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_marginVertical="@dimen/_30sdp"
+        />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_6sdp"
+        android:background="@drawable/under_views_shadow"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        app:layout_constraintStart_toStartOf="@id/registrationBtn"
+        app:layout_constraintEnd_toEndOf="@id/registrationBtn"
+        app:layout_constraintTop_toBottomOf="@id/registrationBtn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_course"
+    app:startDestination="@id/courseFragment">
+
+    <fragment
+        android:id="@+id/courseFragment"
+        android:name="com.example.recycleit.views.view.courses.CourseFragment"
+        android:label="fragment_course"
+        tools:layout="@layout/fragment_course" >
+        <action
+            android:id="@+id/action_courseFragment_to_addCoursesFragment"
+            app:destination="@id/addCoursesFragment" />
+        <action
+            android:id="@+id/action_courseFragment_to_registerCourseFragment"
+            app:destination="@id/registerCourseFragment" />
+        <action
+            android:id="@+id/action_courseFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addCoursesFragment"
+        android:name="com.example.recycleit.views.view.courses.AddCoursesFragment"
+        android:label="fragment_add_courses"
+        tools:layout="@layout/fragment_add_courses" >
+        <action
+            android:id="@+id/action_addCoursesFragment_to_courseFragment"
+            app:destination="@id/courseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerCourseFragment"
+        android:name="com.example.recycleit.views.view.courses.RegisterCourseFragment"
+        android:label="fragment_register_course"
+        tools:layout="@layout/fragment_register_course" >
+        <action
+            android:id="@+id/action_registerCourseFragment_to_courseFragment"
+            app:destination="@id/courseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.example.recycleit.views.CategoryFragment"
+        android:label="CategoryFragment" />
+</navigation>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_margin="@dimen/_16sdp"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/item_add_image"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_margin="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_500sdp"
+            app:layout_constraintEnd_toStartOf="@+id/item_add_name"
+           android:src="@drawable/baseline_add_location_alt_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/item_add_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name"
+            android:layout_marginStart="@dimen/_20sdp"
+            app:layout_constraintStart_toEndOf="@+id/item_add_image"
+            app:layout_constraintTop_toTopOf="@+id/item_add_image"
+
+            />
+
+        <TextView
+            android:id="@+id/item_add_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/address"
+            android:layout_marginStart="@dimen/_20sdp"
+
+            app:layout_constraintStart_toEndOf="@+id/item_add_image"
+            app:layout_constraintTop_toBottomOf="@+id/item_add_name"
+
+            />
+
+        <TextView
+            android:id="@+id/item_add_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_02662565"
+            android:layout_marginStart="@dimen/_20sdp"
+
+            app:layout_constraintStart_toEndOf="@+id/item_add_image"
+            app:layout_constraintTop_toBottomOf="@+id/item_add_address"
+
+            />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@drawable/view_bg"
+            app:layout_constraintTop_toBottomOf="@id/item_add_image" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:id="@+id/it_add_bt_delete"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:text="@string/delete"
+            android:textColor="#191717"
+            android:backgroundTint="@color/white"
+            android:textSize="@dimen/_16sdp"
+            android:fontFamily="@font/mangabey"
+            android:drawableStart="@drawable/baseline_auto_delete_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/it_add_bt_edit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/it_add_bt_edit"
+            android:layout_width="@dimen/_150sdp"
+            android:text="@string/Edit"
+            android:textColor="#191717"
+            android:textSize="@dimen/_16sdp"
+            android:fontFamily="@font/mangabey"
+            android:layout_height="@dimen/_50sdp"
+            android:backgroundTint="@color/white"
+             android:drawableStart="@drawable/edit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/it_add_bt_delete"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

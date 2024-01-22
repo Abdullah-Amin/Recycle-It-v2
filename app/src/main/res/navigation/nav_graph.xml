@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navigation_homeFragment">
+
+    <fragment
+        android:id="@+id/navigation_homeFragment"
+        android:name="com.example.recycleit.views.view.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/navigation_favoriteFragment"
+        android:name="com.example.recycleit.views.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" />
+    <fragment
+        android:id="@+id/navigation_myBagFragment"
+        android:name="com.example.recycleit.views.MyBagFragment"
+        android:label="fragment_my_bag"
+        tools:layout="@layout/fragment_my_bag" />
+    <fragment
+        android:id="@+id/navigation_userDetailsFragment"
+        android:name="com.example.recycleit.views.view.profile.user.UserDetailsFragment"
+        android:label="fragment_user_details"
+        tools:layout="@layout/fragment_user_details" />
+    <fragment
+        android:id="@+id/navigation_categoryFragment"
+        android:name="com.example.recycleit.views.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category" />
+    <fragment
+        android:id="@+id/add_courses"
+        android:name="com.example.recycleit.views.view.courses.AddCoursesFragment"
+        android:label="fragment_add_courses"
+        tools:layout="@layout/fragment_add_courses" />
+    <fragment
+        android:id="@+id/caption_fragment"
+        android:name="com.example.recycleit.views.CaptionFragment"
+        android:label="fragment_caption"
+        tools:layout="@layout/fragment_caption" >
+        <action
+            android:id="@+id/action_caption_fragment_to_navigation_homeFragment"
+            app:destination="@id/navigation_homeFragment" />
+    </fragment>
+
+</navigation>

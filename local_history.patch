@@ -1,0 +1,130 @@
+Index: app/src/main/java/com/example/recycleit/views/view/auth/RegisterActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/recycleit/views/view/auth/RegisterActivity.java b/app/src/main/java/com/example/recycleit/views/view/auth/RegisterActivity.java
+--- a/app/src/main/java/com/example/recycleit/views/view/auth/RegisterActivity.java	
++++ b/app/src/main/java/com/example/recycleit/views/view/auth/RegisterActivity.java	(date 1705879400276)
+@@ -26,8 +26,6 @@
+     private static final String TAG = "RegisterActivity";
+     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+-    private Boolean ischeck = false;
+-
+ 
+     private ViewModelAuth viewModelAuth;
+ 
+@@ -40,17 +38,6 @@
+                 this, ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication())).get(ViewModelAuth.class);
+ 
+ 
+-        binding.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+-            @Override
+-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+-                if (isChecked) {
+-                    binding.constraintlayoutCompany.setVisibility(View.VISIBLE);
+-                } else
+-                    binding.constraintlayoutCompany.setVisibility(View.GONE);
+-
+-            }
+-        });
+-        checkBoxLogic();
+ 
+         binding.btRegister.setOnClickListener(new View.OnClickListener() {
+             @Override
+@@ -63,39 +50,11 @@
+ 
+     }
+ 
+-    private void checkBoxLogic() {
+-        binding.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+-            @Override
+-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+-                if (isChecked) {
+-                    if (binding.etdCompany.getText().toString().isEmpty()) {
+-                        binding.etdCompany.setError("Error");
+-                        Toast.makeText(RegisterActivity.this, "please Fill your company Name is mandatory", Toast.LENGTH_LONG).show();
+-                        Log.i(TAG, "onCheckedChanged: please Fill your company Name is mandatory");
+-                    }
+-                    if (binding.etdCompanyNumber.getText().toString().isEmpty()) {
+-                        binding.etdCompanyNumber.setError("Error");
+-                        Toast.makeText(RegisterActivity.this, "please Fill your company Number ID is mandatory", Toast.LENGTH_LONG).show();
+-                        Log.i(TAG, "onCheckedChanged: please Fill your company Number ID is mandatory ");
+-                        return;
+-                    }
+-
+-                    String companyName = binding.etdCompany.getText().toString().trim();
+-                    String companyNumber = binding.etdCompanyNumber.getText().toString().trim();
+-                } else {
+-                    Toast.makeText(RegisterActivity.this, "take care this is regular user", Toast.LENGTH_LONG).show();
+-                    Log.i(TAG, "onCheckedChanged: take care this is regular user ");
+-
+-                }
+-            }
+-        });
+-    }
+ 
+ 
+ 
+     private void fetchData() {
+         User user=new User();
+-
+         String name=binding.etdName.getText().toString().trim();
+         String password =binding.etdPassword.getText().toString().trim();
+         String email =binding.etdEmail.getText().toString().trim();
+@@ -120,21 +79,13 @@
+         }
+         if(binding.checkbox.isChecked()) {
+             user.setType("business");
+-            checkBoxLogic();
++
+         }
+         else{
+             user.setType("regular");
+         }
+-        user.setName(name);
+-        user.setEmail(email);
+-        user.setPassword(password);
+-        user.setCompany_number(companyNumber);
+-        user.setCompany(companyName);
+-        checkBoxLogic();
+-        viewModelAuth.loadUserData(user);
+         viewModelAuth.register(email,password);
+-        navigate();
+-        Log.i(TAG, "fetchData: your outside status observe");
++
+         viewModelAuth.getStatus().observe(this, new Observer<Boolean>() {
+ 
+             @Override
+@@ -142,17 +93,19 @@
+                 Log.i(TAG, "fetchData: your inside status observe without any condition");
+                 if (status)
+                 {
+-                    User user=new User();
+                     user.setName(name);
+                     user.setEmail(email);
+                     user.setPassword(password);
++                    user.setCompany_number(companyNumber);
++                    user.setCompany(companyName);
++                    viewModelAuth.loadUserData(user);
++                    viewModelAuth.register(email,password);
+                     if(binding.checkbox.isChecked())
+                     {
+                         user.setType("business");
+                         user.setCompany(companyName);
+                         user.setCompany_number(companyNumber);
+                         viewModelAuth.loadUserData(user);
+-                        viewModelAuth.register(email,password);
+                     }
+                     else {
+                         user.setType("regular");
+@@ -167,7 +120,7 @@
+ 
+                 }
+                 else {
+-
++                    Toast.makeText(RegisterActivity.this, "not navigate", Toast.LENGTH_SHORT).show();
+                 }
+             }
+         });

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_address"
+    app:startDestination="@id/homeAddressFragment">
+
+    <fragment
+        android:id="@+id/editShippingAddressFragment"
+        android:name="com.example.recycleit.views.view.profile.address.EditShippingAddressFragment"
+        android:label="EditShippingAddressFragment" />
+    <fragment
+        android:id="@+id/shippingAddressFragment"
+        android:name="com.example.recycleit.views.view.profile.address.ShippingAddressFragment"
+        android:label="ShippingAddressFragment" >
+        <action
+            android:id="@+id/action_shippingAddressFragment_to_editShippingAddressFragment"
+            app:destination="@id/editShippingAddressFragment" />
+    </fragment>
+    <activity
+        android:id="@+id/addressActivity"
+        android:name="com.example.recycleit.views.view.profile.address.AddressActivity"
+        android:label="AddressActivity" />
+    <fragment
+        android:id="@+id/homeAddressFragment"
+        android:name="com.example.recycleit.views.view.profile.address.HomeAddressFragment"
+        android:label="HomeAddressFragment" >
+        <action
+            android:id="@+id/action_homeAddressFragment_to_shippingAddressFragment"
+            app:destination="@id/shippingAddressFragment" />
+    </fragment>
+</navigation>

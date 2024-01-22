@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_purple"
+        tools:context=".views.view.profile.about.AboutActivity">
+        <LinearLayout
+            android:id="@+id/topLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:elevation="@dimen/_1ssp"
+
+
+            >
+
+            <ImageView
+                android:id="@+id/im_arrow_back"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:src="@drawable/baseline_arrow_back_24"
+                android:layout_marginTop="@dimen/_24sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_10sdp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_26ssp"
+                android:paddingStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_28sdp"
+                android:layout_marginStart="@dimen/_6sdp"/>
+
+        </LinearLayout>
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@drawable/view_bg"
+            app:layout_constraintTop_toBottomOf="@id/topLayout"/>
+
+        <TextView
+            android:layout_margin="10dp"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/_14sdp"
+            android:padding="@dimen/_3sdp"
+            android:layout_height="@dimen/_250sdp"
+            app:layout_constraintTop_toBottomOf="@+id/view"
+            android:text="@string/text_about"
+            android:shadowRadius="10"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

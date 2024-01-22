@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:ignore="MissingDefaultResource">
+<item
+android:id="@+id/A1"
+    android:title="@string/point"
+    android:icon="@drawable/baseline_add_home_24"
+    />
+    <item
+        android:id="@+id/A2"
+        android:title="@string/about"
+
+        android:icon="@drawable/about"
+        />
+    <item
+        android:id="@+id/A3"
+        android:title="@string/address" />
+    <item
+        android:id="@+id/A4"
+        android:title="@string/mypost"
+        android:icon="@drawable/hero"
+        />
+    <item
+        android:id="@+id/A5"
+        android:title="@string/myorder"
+        android:icon="@drawable/live"
+        />
+</menu>

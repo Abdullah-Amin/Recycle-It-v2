@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:ignore="MissingDefaultResource">
+
+    <corners
+        android:bottomLeftRadius="@dimen/_45sdp"
+        android:bottomRightRadius="@dimen/_45sdp"/>
+
+    <solid
+        android:color="@color/txt_blue_1"/>
+
+</shape>

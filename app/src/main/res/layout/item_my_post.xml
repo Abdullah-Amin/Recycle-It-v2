@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/_10sdp"
+    android:layout_margin="@dimen/_6sdp">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/it_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:scrollbarStyle="insideOverlay"
+        android:src="@drawable/wwwww"
+        />
+<TextView
+    android:id="@+id/it_header"
+    app:layout_constraintStart_toEndOf="@+id/it_image"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/clock_made_of_wood"
+    android:textStyle="bold"
+    app:layout_constraintTop_toTopOf="parent"
+       android:gravity="start"
+    android:layout_marginBottom="@dimen/_26sdp"
+    android:padding="@dimen/_10sdp"
+
+    />
+
+    <TextView
+        android:id="@+id/desc"
+        android:padding="@dimen/_10sdp"
+        app:layout_constraintStart_toEndOf="@+id/it_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/deteails"
+        app:layout_constraintTop_toBottomOf="@+id/it_header"
+
+        />
+<androidx.cardview.widget.CardView
+    app:cardCornerRadius="@dimen/_100sdp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:backgroundTint="@color/background_purple"
+    android:layout_width="wrap_content"
+    android:layout_margin="@dimen/_6sdp"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/baseline_auto_delete_24"
+        />
+
+
+</androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_16sdp"
+    app:cardCornerRadius="@dimen/_16sdp">
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+
+<!--            android:id="@+id/constraint_workshop_name"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_margin="@dimen/_8sdp">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/im_workshop_name"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:src="@drawable/about"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+
+<!--                />-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="@dimen/_16sdp"-->
+<!--                android:text="@string/workshop"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/im_workshop_name"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/im_workshop_name"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/im_workshop_name" />-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/constraint_date"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_margin="@dimen/_8sdp">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/im_date"-->
+<!--                android:layout_width="@dimen/_20sdp"-->
+<!--                android:layout_height="@dimen/_20sdp"-->
+<!--                android:src="@drawable/calendar"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+
+<!--                />-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="@dimen/_16sdp"-->
+<!--                android:text="@string/workshop_date"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/im_date"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/im_date"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/im_date" />-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+
+<!--            android:id="@+id/constraint_wk_location"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_margin="@dimen/_8sdp">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/im_wk_location"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:src="@drawable/baseline_add_location_alt_24"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+
+<!--                />-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="@dimen/_16sdp"-->
+<!--                android:text="Riada"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/im_wk_location"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/im_wk_location"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/im_wk_location" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tv_workshope_more_details"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginEnd="@dimen/_3sdp"-->
+<!--                android:text="@string/more_details"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/im_wk_add_more_arrow" />-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/im_wk_add_more_arrow"-->
+<!--                android:layout_width="@dimen/_20sdp"-->
+<!--                android:layout_height="@dimen/_20sdp"-->
+<!--                android:src="@drawable/arrow"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="4" />-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--    </LinearLayout>-->
+
+</androidx.cardview.widget.CardView>

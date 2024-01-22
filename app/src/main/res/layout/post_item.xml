@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="@dimen/_6sdp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:ignore="MissingDefaultResource">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profileImage"
+        android:layout_width="@dimen/_34sdp"
+        android:layout_height="@dimen/_34sdp"
+        android:src="@drawable/addcircle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/_5sdp"/>
+
+    <TextView
+        android:id="@+id/nameTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sarah"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_13ssp"
+        android:fontFamily="@font/mangabey"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:ems="15"
+        android:maxLines="1"
+        app:layout_constraintBottom_toBottomOf="@id/profileImage"
+        app:layout_constraintStart_toEndOf="@id/profileImage"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/imageLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_18sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        app:layout_constraintTop_toBottomOf="@id/profileImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/itemImage"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_168sdp"
+            android:src="@drawable/download"
+            android:scaleType="fitXY" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <ImageView
+        android:id="@+id/favouriteImage"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:src="@drawable/favourite_icon"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_2sdp"
+        app:layout_constraintTop_toBottomOf="@id/imageLayout"
+        app:layout_constraintStart_toStartOf="@id/imageLayout"/>
+
+    <ImageView
+        android:id="@+id/commentImage"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:src="@drawable/comment"
+        android:layout_marginStart="@dimen/_6sdp"
+        app:layout_constraintTop_toTopOf="@id/favouriteImage"
+        app:layout_constraintStart_toEndOf="@id/favouriteImage" />
+
+    <TextView
+        android:id="@+id/itemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="item name"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_13ssp"
+        android:fontFamily="@font/abr"
+        android:layout_marginStart="@dimen/_14sdp"
+        android:ems="10"
+        android:maxLines="1"
+        app:layout_constraintTop_toTopOf="@id/commentImage"
+        app:layout_constraintBottom_toBottomOf="@id/commentImage"
+        app:layout_constraintStart_toEndOf="@id/commentImage"/>
+
+    <TextView
+        android:id="@+id/itemPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="20.00 sr"
+        android:maxWidth="@dimen/_100sdp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_13ssp"
+        android:fontFamily="@font/abr"
+        android:layout_marginStart="@dimen/_14sdp"
+        android:maxLines="1"
+        android:layout_marginEnd="@dimen/_18sdp"
+        app:layout_constraintEnd_toEndOf="@id/imageLayout"
+        app:layout_constraintTop_toTopOf="@id/itemName"
+        app:layout_constraintBottom_toBottomOf="@id/itemName"
+        app:layout_constraintStart_toEndOf="@id/itemName"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_2sdp"
+        android:background="@color/nav_view_bg"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        app:layout_constraintTop_toBottomOf="@id/itemName"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

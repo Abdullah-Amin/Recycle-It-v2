@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profile_nav"
+    app:startDestination="@id/editUserDataFragment">
+
+    <fragment
+        android:id="@+id/editUserDataFragment"
+        android:name="com.example.recycleit.views.view.profile.user.EditUserDataFragment"
+        android:label="fragment_eddit_user_datak"
+        tools:layout="@layout/fragment_eddit_user_datak" />
+    <fragment
+        android:id="@+id/aboutFragment2"
+        android:name="com.example.recycleit.views.profile.AboutFragment"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/addressFragment"
+        android:name="com.example.recycleit.views.profile.AddressFragment"
+        android:label="fragment_address"
+        tools:layout="@layout/fragment_address" />
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="com.example.recycleit.views.PostFragment"
+        android:label="fragment_post"
+        tools:layout="@layout/fragment_post" />
+    <fragment
+        android:id="@+id/myOrderFragment"
+        android:name="com.example.recycleit.views.MyOrderFragment"
+        android:label="fragment_my_order"
+        tools:layout="@layout/fragment_my_order" />
+    <fragment
+        android:id="@+id/userDetailsFragment"
+        android:name="com.example.recycleit.views.view.profile.user.UserDetailsFragment"
+        android:label="UserDetailsFragment" >
+        <action
+            android:id="@+id/action_userDetailsFragment_to_addressFragment"
+            app:destination="@id/addressFragment" />
+        <action
+            android:id="@+id/action_userDetailsFragment_to_myOrderFragment"
+            app:destination="@id/myOrderFragment" />
+        <action
+            android:id="@+id/action_userDetailsFragment_to_aboutFragment2"
+            app:destination="@id/aboutFragment2" />
+        <action
+            android:id="@+id/action_userDetailsFragment_to_postFragment"
+            app:destination="@id/postFragment" />
+        <action
+            android:id="@+id/action_userDetailsFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.example.recycleit.views.view.profile.about.AboutFragment"
+        android:label="AboutFragment" />
+</navigation>

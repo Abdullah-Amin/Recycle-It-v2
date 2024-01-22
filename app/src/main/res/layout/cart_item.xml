@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:layout_marginHorizontal="@dimen/_6sdp"
+    android:layout_marginVertical="@dimen/_6sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/itemImage"
+        android:layout_width="@dimen/_66sdp"
+        android:layout_height="@dimen/_66sdp"
+        android:src="@drawable/ox"
+        android:scaleType="fitXY"
+        android:layout_marginVertical="@dimen/_6sdp"
+        android:layout_marginStart="@dimen/_4sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/itemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="item name"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14ssp"
+        android:textStyle="bold"
+        android:layout_marginVertical="@dimen/_3sdp"
+        android:layout_marginStart="@dimen/_6sdp"
+        app:layout_constraintTop_toTopOf="@id/itemImage"
+        app:layout_constraintStart_toEndOf="@id/itemImage"/>
+
+    <TextView
+        android:id="@+id/itemPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="50 SAR"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14ssp"
+        android:textStyle="bold"
+        android:layout_marginVertical="@dimen/_3sdp"
+        android:layout_marginStart="@dimen/_6sdp"
+        app:layout_constraintBottom_toBottomOf="@id/itemImage"
+        app:layout_constraintTop_toTopOf="@id/itemImage"
+        app:layout_constraintStart_toEndOf="@id/itemImage"/>
+
+    <ImageView
+        android:id="@+id/deleteBtn"
+        android:layout_width="@dimen/_24sdp"
+        android:layout_height="@dimen/_24sdp"
+        android:src="@drawable/favourite_icon"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_6sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginHorizontal="@dimen/_4sdp"
+        android:gravity="center"
+        app:boxCornerRadiusBottomEnd="@dimen/_15sdp"
+        app:boxCornerRadiusBottomStart="@dimen/_15sdp"
+        app:boxCornerRadiusTopEnd="@dimen/_15sdp"
+        app:boxCornerRadiusTopStart="@dimen/_15sdp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:layout_constraintEnd_toStartOf="@id/deleteBtn"
+        app:layout_constraintTop_toTopOf="@id/deleteBtn"
+        app:layout_constraintBottom_toBottomOf="@id/deleteBtn"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView
+            android:id="@+id/livingEt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/nav_view_bg"
+            android:gravity="top|start"
+            android:padding="@dimen/_5sdp"
+            android:text="1"
+            android:textColor="#043E9F"
+            android:textSize="@dimen/_11sdp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
