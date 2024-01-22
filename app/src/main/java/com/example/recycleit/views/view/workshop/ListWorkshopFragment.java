@@ -20,6 +20,8 @@ import com.example.recycleit.R;
 import com.example.recycleit.databinding.FragmentListWorkshopBinding;
 import com.example.recycleit.views.adapter.CourseAdapter;
 import com.example.recycleit.views.adapter.WorkshopAdaptor;
+import com.example.recycleit.views.auth.SharedPreferenceManager;
+import com.example.recycleit.views.auth.UserType;
 import com.example.recycleit.views.model.WorkShop;
 import com.example.recycleit.views.model.firebase.CourseB;
 import com.example.recycleit.views.view.courses.CourseViewModel;
@@ -42,6 +44,7 @@ import java.util.ArrayList;
 
 public class ListWorkshopFragment extends Fragment {
 
+    private SharedPreferenceManager sharedPreferenceManager=new SharedPreferenceManager();
 
     FragmentListWorkshopBinding binding;
     private static final String TAG = "ListWorkshopFragment";
@@ -71,7 +74,22 @@ public class ListWorkshopFragment extends Fragment {
 
         viewModel = new ViewModelProvider(requireActivity(), ViewModelProvider.AndroidViewModelFactory
                 .getInstance(getActivity().getApplication())).get(WorkShopViewModel.class);
+        if(sharedPreferenceManager.getType(requireContext()).equals(UserType.BUSINESS.getType())){
+            Log.i(TAG, "ttttttttt "+sharedPreferenceManager.getType(requireContext()));
 
+
+        }
+        else if(sharedPreferenceManager.getType(requireContext()).equals(UserType.REGULAR.getType()))
+        {
+            binding.workshopFAB.setVisibility(View.INVISIBLE);
+            Log.i(TAG, "ttttttttt "+sharedPreferenceManager.getType(requireContext()));
+
+        }
+        else {
+            binding.workshopFAB.setVisibility(View.INVISIBLE);
+            Log.i(TAG, "ttttttttt "+sharedPreferenceManager.getType(requireContext()));
+
+        }
         recyclerView = binding.recyclerview;
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));

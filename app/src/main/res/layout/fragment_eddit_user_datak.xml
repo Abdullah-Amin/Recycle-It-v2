@@ -141,12 +141,19 @@
                 app:boxCornerRadiusTopEnd="@dimen/_15sdp"
                 app:boxCornerRadiusTopStart="@dimen/_15sdp"
                 app:boxStrokeWidth="0dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 app:boxStrokeWidthFocused="0dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textFiled_etd_username">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etd_email"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="top|start"

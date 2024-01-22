@@ -9,7 +9,11 @@
         android:id="@+id/editUserDataFragment"
         android:name="com.example.recycleit.views.view.profile.user.EditUserDataFragment"
         android:label="fragment_eddit_user_datak"
-        tools:layout="@layout/fragment_eddit_user_datak" />
+        tools:layout="@layout/fragment_eddit_user_datak" >
+        <action
+            android:id="@+id/action_editUserDataFragment_to_userDetailsFragment"
+            app:destination="@id/userDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/aboutFragment2"
         android:name="com.example.recycleit.views.profile.AboutFragment"
