@@ -68,9 +68,15 @@ public class HomeFragment extends Fragment {
 
 
         }
-        else
+        else if(sharedPreferenceManager.getType(requireContext()).equals(UserType.REGULAR.getType()))
         {
             Log.i(TAG, "ttttttttt "+sharedPreferenceManager.getType(requireContext()));
+
+        }
+        else {
+            binding.greetingTxt.setText("welcome to our project Guest");
+            Log.i(TAG, "ttttttttt "+sharedPreferenceManager.getType(requireContext()));
+
 
         }
         postList = new ArrayList<>();
@@ -122,26 +128,26 @@ public class HomeFragment extends Fragment {
 
     }
 
-    @Override
-    public void onPause() {
-        binding.postsRecycler.invalidate();
-        postList.clear();
-        super.onPause();
-        binding.postsRecycler.invalidate();
-        postList.clear();
-    }
-
-    @Override
-    public void onResume() {
-        postList.clear();
-        super.onResume();
-        postList.clear();
-    }
-
-    @Override
-    public void onDetach() {
-        postList.clear();
-        super.onDetach();
-        postList.clear();
-    }
+//    @Override
+//    public void onPause() {
+//        binding.postsRecycler.invalidate();
+//        postList.clear();
+//        super.onPause();
+//        binding.postsRecycler.invalidate();
+//        postList.clear();
+//    }
+//
+//    @Override
+//    public void onResume() {
+//        postList.clear();
+//        super.onResume();
+//        postList.clear();
+//    }
+//
+//    @Override
+//    public void onDetach() {
+//        postList.clear();
+//        super.onDetach();
+//        postList.clear();
+//    }
 }

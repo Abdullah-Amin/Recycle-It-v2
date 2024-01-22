@@ -39,13 +39,13 @@ public class StartActivity extends AppCompatActivity {
             startActivity(new Intent(StartActivity.this, LoginActivity.class));
         });
 
-        binding.startBtn.setOnClickListener(view -> {
+     binding.startBtn.setOnClickListener(view -> {
+            sharedPreferenceManager.setType(this,UserType.GUEST.getType());
 
-//            sharedPreferenceManager.setType(this,UserType.GUEST.getType());
-//            Log.i(TAG, "onCreate:  "+UserType.GUEST.getType());
-//           startActivity(new Intent(StartActivity.this, MainActivity.class));
-            FirebaseUser currentUser = auth.getCurrentUser();
-            viewModelAuth.signInAnonymously(currentUser);
+          //  Log.i(TAG, "onCreate:  "+UserType.GUEST.getType());
+           startActivity(new Intent(StartActivity.this, MainActivity.class));
+       //    FirebaseUser currentUser = auth.getCurrentUser();
+      //   viewModelAuth.signInAnonymously(currentUser);
 
 
         });
