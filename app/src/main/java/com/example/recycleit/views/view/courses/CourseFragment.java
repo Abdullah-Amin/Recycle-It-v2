@@ -20,6 +20,8 @@ import android.widget.Toast;
 import com.example.recycleit.R;
 import com.example.recycleit.databinding.FragmentCourseBinding;
 import com.example.recycleit.views.adapter.CourseAdapter;
+import com.example.recycleit.views.auth.SharedPreferenceManager;
+import com.example.recycleit.views.auth.UserType;
 import com.example.recycleit.views.model.WorkShop;
 import com.example.recycleit.views.model.firebase.CourseB;
 import com.example.recycleit.views.model.local.User;
@@ -48,6 +50,7 @@ public class CourseFragment extends Fragment {
     private static final String TAG = "CourseFragment";
     private FragmentCourseBinding binding;
     private FirebaseAuth auth = FirebaseAuth.getInstance();
+    private SharedPreferenceManager sharedPreferenceManager=new SharedPreferenceManager();
 
     NavController navController;
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
@@ -60,6 +63,7 @@ public class CourseFragment extends Fragment {
             firestore.collection("Recycle it database schema")
                     .document("Courses").collection(Objects.requireNonNull(auth.getUid()));
     CourseViewModel viewModel;
+
 
     private RecyclerView recyclerView;
     private CourseAdapter adapter;
@@ -82,7 +86,22 @@ public class CourseFragment extends Fragment {
 
 //        viewModel.getCourses();
 
+        if(sharedPreferenceManager.getType(requireContext()).equals(UserType.BUSINESS.getType())){
+            Log.i(TAG, "ttttttttt "+sharedPreferenceManager.getType(requireContext()));
 
+
+        }
+        else if(sharedPreferenceManager.getType(requireContext()).equals(UserType.REGULAR.getType()))
+        {
+            binding.fabCourse.setVisibility(View.INVISIBLE);
+            Log.i(TAG, "ttttttttt "+sharedPreferenceManager.getType(requireContext()));
+
+        }
+        else {
+            binding.fabCourse.setVisibility(View.INVISIBLE);
+            Log.i(TAG, "ttttttttt "+sharedPreferenceManager.getType(requireContext()));
+
+        }
         recyclerView = binding.recyclerview;
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
