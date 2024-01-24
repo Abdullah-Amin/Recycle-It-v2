@@ -17,13 +17,7 @@ public class MyPostActivity extends AppCompatActivity {
           binding= ActivityMyPostBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.imGobackMypost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MyPostActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
+
 
     }
     @Override

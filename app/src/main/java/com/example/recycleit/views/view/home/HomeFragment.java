@@ -54,7 +54,6 @@ public class HomeFragment extends Fragment {
     private ArrayList<PostItem> postList;
     HomePostAdapter adapter;
 
-    private DocumentReference usersCollection = db.collection("Recycle it database schema").document("users").collection("regular").document(auth.getUid());
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,9 +67,10 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
         if(sharedPreferenceManager.getType(requireContext()).equals( UserType.BUSINESS.getType())){
             Log.i(TAG, "ttttttttt "+sharedPreferenceManager.getType(requireContext()));
-            binding.all.setVisibility(View.INVISIBLE);
 
 
         }
@@ -83,58 +83,66 @@ public class HomeFragment extends Fragment {
             binding.greetingTxt.setText("welcome to our project Guest");
             Log.i(TAG, "ttttttttt "+sharedPreferenceManager.getType(requireContext()));
 
-
         }
         postList = new ArrayList<>();
         if (auth.getUid() != null) {
-//            usersCollection.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-//                @Override
-//                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-//                    if (error != null) {
-//                        Toast.makeText(requireContext(), error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-//                        Log.i(TAG, "onEvent: " + error.getLocalizedMessage());
-//                        return;
-//                    }
-//
-//                    binding.greetingTxt.setText("Hello, " + value.toObject(User.class).getName());
-//                    binding.addressTxt.setText("Saudi," + value.toObject(User.class).getCompany());
-//                    //   binding.txName.setText("Hello, "+viewModel.getUserName());
-//
-//                }
-//            });
+             DocumentReference usersCollection = db.collection("Recycle it database schema").document("users").collection("regular").document(auth.getUid());
+
+                usersCollection.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (error != null) {
+                            Toast.makeText(requireContext(), error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                            Log.i(TAG, "onEvent: " + error.getLocalizedMessage());
+                            return;
+                        }
+                        if(sharedPreferenceManager.getType(requireContext()).equals("GUEST"))
+                        {
+                            binding.greetingTxt.setText("Hello Guest");
+                        }
+                        else {
+
+                            binding.greetingTxt.setText("Hello, " + value.toObject(User.class).getName());
+                            binding.addressTxt.setText("Saudi," + value.toObject(User.class).getCompany());
+                            //   binding.txName.setText("Hello, "+viewModel.getUserName());
+                        }
+                    }
+                });
+                postsCollection.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                        if (error != null) {
+                            Toast.makeText(requireContext(), error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                            Log.i(TAG, "onEvent: error to create course");
+                            return;
+                        }
+
+                        for (DocumentSnapshot snapshot : value.getDocuments()) {
+                            postList.add(snapshot.toObject(PostItem.class));
+                            Log.i(TAG, "onEvent: workshop created " + snapshot.toObject(PostItem.class));
+                            adapter = new HomePostAdapter(postList);
+                            binding.postsRecycler.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+                            Log.i(TAG, "onViewCreated: " + postList);
+
+                        }
+                    }
+                });
+                image();
 
 
-
-        } else {
-            Toast.makeText(requireContext(), "you should to register account first ", Toast.LENGTH_SHORT).show();
         }
-        postsCollection.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+        else
+        {
+            Toast.makeText(requireContext(), "you should to register account first ", Toast.LENGTH_SHORT).show();
 
-                if (error != null) {
-                    Toast.makeText(requireContext(), error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                    Log.i(TAG, "onEvent: error to create course");
-                    return;
-                }
-
-                for (DocumentSnapshot snapshot : value.getDocuments()) {
-                    postList.add(snapshot.toObject(PostItem.class));
-                    Log.i(TAG, "onEvent: workshop created " + snapshot.toObject(PostItem.class));
-                    adapter = new HomePostAdapter(postList);
-                    binding.postsRecycler.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
-                    Log.i(TAG, "onViewCreated: " + postList);
-
-                }
-            }
-        });
+        }
 
         Log.i(TAG, "onViewCreated: after ---- " + postList);
 
     }
-    private void image()
-    {
+    private void image() {
 
         storage2.getReference().child("images profiles").child(auth.getCurrentUser().getUid())
                 .getDownloadUrl()

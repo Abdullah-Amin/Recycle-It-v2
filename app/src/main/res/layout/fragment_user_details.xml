@@ -79,7 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/_16sdp"
-                    android:text="Point:23"
+                    android:text="Point :  0"
                     android:fontFamily="@font/mangabey"
                     android:textSize="@dimen/_16sdp"
                     android:textStyle="bold" />

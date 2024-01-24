@@ -7,10 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.recycleit.databinding.ActivityAboutBinding;
-import com.example.recycleit.views.view.home.HomeFragment;
-import com.example.recycleit.views.view.home.MainActivity;
-import com.example.recycleit.views.view.home.StartActivity;
-import com.example.recycleit.views.view.profile.user.ProfileActivity;
 
 public class AboutActivity extends AppCompatActivity {
     ActivityAboutBinding binding;
