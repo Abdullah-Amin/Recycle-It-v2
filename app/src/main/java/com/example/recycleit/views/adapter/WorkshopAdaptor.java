@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,7 +48,7 @@ public class WorkshopAdaptor extends RecyclerView.Adapter<WorkshopAdaptor.Worksh
         holder.workshopName.setText(WorkShop.getWorkshopName());
         holder.workshopDate.setText(WorkShop.getWorkshopDate());
         holder.workshopState.setText(WorkShop.getWorkshopGoal());
-
+        holder.goal_1.setText("1- "+WorkShop.getWorkshopGoal());
 
     }
     @Override
@@ -59,6 +60,8 @@ public class WorkshopAdaptor extends RecyclerView.Adapter<WorkshopAdaptor.Worksh
 
         TextView workshopName,workshopDate,workshopState ;
         ImageView displayMore;
+        EditText goal_1,goal_2,goal_3;
+
         ConstraintLayout theGoals;
         MaterialButton button;
         Boolean state=true;
@@ -72,7 +75,9 @@ public class WorkshopAdaptor extends RecyclerView.Adapter<WorkshopAdaptor.Worksh
             displayMore=itemView.findViewById(R.id.im_arrow_down);
             theGoals.setVisibility(View.GONE);
             button=itemView.findViewById(R.id.registrationBtn);
-
+            goal_1=itemView.findViewById(R.id.firstGoalEt);
+            goal_2=itemView.findViewById(R.id.secondGoalEt);
+            goal_3=itemView.findViewById(R.id.thirdGoalEt);
             displayMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

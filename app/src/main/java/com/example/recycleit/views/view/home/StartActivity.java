@@ -40,13 +40,14 @@ public class StartActivity extends AppCompatActivity {
         });
 
      binding.startBtn.setOnClickListener(view -> {
-            sharedPreferenceManager.setType(this,UserType.GUEST.getType());
+
 
           //  Log.i(TAG, "onCreate:  "+UserType.GUEST.getType());
-           startActivity(new Intent(StartActivity.this, MainActivity.class));
-       //    FirebaseUser currentUser = auth.getCurrentUser();
-      //   viewModelAuth.signInAnonymously(currentUser);
-
+       //    startActivity(new Intent(StartActivity.this, MainActivity.class));
+           FirebaseUser currentUser = auth.getCurrentUser();
+         viewModelAuth.signInAnonymously(currentUser);
+         sharedPreferenceManager.setType(this,UserType.GUEST.getType());
+         startActivity(new Intent(StartActivity.this, MainActivity.class));
 
         });
     }

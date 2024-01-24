@@ -71,6 +71,13 @@ public class UserDetailsFragment extends Fragment {
            image();
        // binding.txName.setText("Hello, "+viewModel.getUserName());
 
+
+        binding.cardMyPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(requireActivity(),"you didn't create any payment method yet.",Toast.LENGTH_LONG).show();
+            }
+        });
         usersCollection.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -142,14 +149,17 @@ public class UserDetailsFragment extends Fragment {
     }
 
     private void gotoMyPost() {
-        Intent intent = new Intent(requireContext(), MyPostActivity.class);
-        startActivity(intent);
+       Intent intent = new Intent(requireContext(), MyPostActivity.class);
+     startActivity(intent);
+ //       Navigation.findNavController(requireView()).navigate(R.id.action_navigation_userDetailsFragment_to_myPostFragment);
     }
 
     private void gotoAbout() {
 
 
     }
+
+
 
     private void gotoAddress() {
         Intent intent = new Intent(requireContext(), AddressActivity.class);

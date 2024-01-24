@@ -36,6 +36,9 @@
         <action
             android:id="@+id/action_navigation_userDetailsFragment_to_aboutFragment3"
             app:destination="@id/aboutFragment3" />
+        <action
+            android:id="@+id/action_navigation_userDetailsFragment_to_myPostFragment"
+            app:destination="@id/myPostFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_categoryFragment"
@@ -62,6 +65,14 @@
         android:label="AboutFragment" >
         <action
             android:id="@+id/action_aboutFragment3_to_navigation_userDetailsFragment"
+            app:destination="@id/navigation_userDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myPostFragment"
+        android:name="com.example.recycleit.views.view.profile.post.MyPostFragment"
+        android:label="MyPostFragment" >
+        <action
+            android:id="@+id/action_myPostFragment_to_navigation_userDetailsFragment"
             app:destination="@id/navigation_userDetailsFragment" />
     </fragment>
 

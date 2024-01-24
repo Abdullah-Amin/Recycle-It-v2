@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +44,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
         holder.courseName.setText(courseB.getCourseName());
         holder.courseDate.setText(courseB.getCourseDate());
         holder.courseState.setText(courseB.getCourseGoals());
+        holder.goal_1.setText("1- "+courseB.getCourseGoals());
 
 
 
@@ -56,6 +58,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
     public static class CourseViewHolder extends RecyclerView.ViewHolder{
         Boolean state=true;
         TextView courseName,courseDate,courseState ;
+        EditText goal_1,goal_2,goal_3;
         ConstraintLayout theGoals;
         ImageView displayMore;
         MaterialButton button;
@@ -66,6 +69,9 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             courseState=itemView.findViewById(R.id.tv_state);
               displayMore=itemView.findViewById(R.id.im_arrow_down);
               theGoals=itemView.findViewById(R.id.constraint_displaymore);
+              goal_1=itemView.findViewById(R.id.firstGoalEt);
+              goal_2=itemView.findViewById(R.id.secondGoalEt);
+              goal_3=itemView.findViewById(R.id.thirdGoalEt);
            button=itemView.findViewById(R.id.registrationBtn);
             theGoals.setVisibility(View.GONE);
             displayMore.setOnClickListener(new View.OnClickListener() {

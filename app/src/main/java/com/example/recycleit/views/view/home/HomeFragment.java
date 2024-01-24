@@ -70,7 +70,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         if(sharedPreferenceManager.getType(requireContext()).equals( UserType.BUSINESS.getType())){
             Log.i(TAG, "ttttttttt "+sharedPreferenceManager.getType(requireContext()));
-//            binding.all.setVisibility(View.INVISIBLE);
+            binding.all.setVisibility(View.INVISIBLE);
 
 
         }
