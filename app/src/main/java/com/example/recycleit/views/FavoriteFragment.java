@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,6 +50,13 @@ public class FavoriteFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getFavoriteItems();
+
+        binding.back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).popBackStack();
+            }
+        });
 //        Log.i(TAG, "onViewCreated: " + getFavoriteItems());
     }
 
@@ -56,7 +64,7 @@ public class FavoriteFragment extends Fragment {
         String userId = Objects.requireNonNull(auth.getCurrentUser()).getUid();
 
         store.collection("Recycle it database schema").document("Favorites")
-                .collection("all posts")
+                .collection(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

@@ -15,6 +15,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", user_id='" + userId + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
+                ", type='" + type + '\'' +
                 '}';
     }
 

@@ -1,5 +1,6 @@
 package com.example.recycleit.views.adapter;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -14,7 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.recycleit.databinding.PostItemBinding;
+import com.example.recycleit.views.auth.SharedPreferenceManager;
 import com.example.recycleit.views.auth.Status;
+import com.example.recycleit.views.auth.UserType;
 import com.example.recycleit.views.model.firebase.PostItem;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -52,11 +55,16 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.Holder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Holder holder, int position) {
+    public void onBindViewHolder(@NonNull Holder holder, @SuppressLint("RecyclerView") int position) {
         PostItemBinding binding = holder.binding;
 
         Log.i(TAG, "onBindViewHolder: " + items);
 
+        SharedPreferenceManager manager = new SharedPreferenceManager();
+
+        binding.itemName.setText(items.get(position).getCaption());
+        binding.itemPrice.setText(items.get(position).getPrice());
+        binding.nameTxt.setText(items.get(position).getUserName());
 
         reference.child("profileImages")
                 .child(firebaseAuth.getUid())
@@ -99,32 +107,50 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.Holder
                     }
                 });
 
-        binding.favouriteImage.setOnClickListener(new View.OnClickListener() {
+        if (manager.getType(holder.itemView.getContext()) == UserType.GUEST.getType()) {
+            binding.addOrderBtn.setVisibility(View.INVISIBLE);
+            binding.favouriteImage.setVisibility(View.INVISIBLE);
+            return;
+        }
+
+        binding.addOrderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                store.collection("Recycle it database schema").document("Favorites")
-                        .collection("all posts").add(items.get(position))
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                store.collection("Recycle it database schema").document("Orders")
+                        .collection(firebaseAuth.getCurrentUser().getUid()).document(items.get(position).getCaption()
+                                + items.get(position).getPrice()
+                                + items.get(position).getDescription()
+                        ).set(items.get(position))
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Toast.makeText(view.getContext(), "Added to favorites successfully successfully", Toast.LENGTH_SHORT).show();
-                                Status.getInstance().state = "success";
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.i(TAG, "onFailure: " + e.getLocalizedMessage());
-                                Status.getInstance().state = "success";
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()){
+                                    Toast.makeText(view.getContext(), "Added to cart successfully", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         });
             }
         });
 
-        binding.itemName.setText(items.get(position).getCaption());
-        binding.itemPrice.setText(items.get(position).getPrice());
-        binding.nameTxt.setText(items.get(position).getUserName());
+        binding.favouriteImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                store.collection("Recycle it database schema").document("Favorites")
+                        .collection(firebaseAuth.getCurrentUser().getUid()).document(items.get(position).getCaption()
+                                + items.get(position).getPrice()
+                                + items.get(position).getDescription()
+                        ).set(items.get(position))
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()){
+                                    Toast.makeText(view.getContext(), "Added to favorites successfully", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+            }
+        });
     }
-
 
     @Override
     public int getItemCount() {

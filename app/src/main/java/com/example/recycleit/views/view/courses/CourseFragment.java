@@ -88,8 +88,6 @@ public class CourseFragment extends Fragment {
 
         if(sharedPreferenceManager.getType(requireContext()).equals(UserType.BUSINESS.getType())){
             Log.i(TAG, "ttttttttt "+sharedPreferenceManager.getType(requireContext()));
-
-
         }
         else if(sharedPreferenceManager.getType(requireContext()).equals(UserType.REGULAR.getType()))
         {

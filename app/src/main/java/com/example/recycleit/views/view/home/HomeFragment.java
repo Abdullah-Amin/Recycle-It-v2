@@ -1,5 +1,6 @@
 package com.example.recycleit.views.view.home;
 
+import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -15,14 +16,12 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.recycleit.R;
+
 import com.example.recycleit.databinding.FragmentHomeBinding;
 import com.example.recycleit.views.adapter.HomePostAdapter;
 import com.example.recycleit.views.auth.SharedPreferenceManager;
 import com.example.recycleit.views.auth.UserType;
-import com.example.recycleit.views.model.firebase.CourseB;
 import com.example.recycleit.views.model.firebase.PostItem;
-import com.example.recycleit.views.model.firebase.PostList;
-import com.example.recycleit.views.model.local.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,14 +35,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
-import java.util.Objects;
-
 
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private static final String TAG = "HomeFragment";
     private FirebaseAuth auth = FirebaseAuth.getInstance();
-    private SharedPreferenceManager sharedPreferenceManager=new SharedPreferenceManager();
+    private SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseStorage storage2 = FirebaseStorage.getInstance();
 
@@ -68,23 +65,17 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if(sharedPreferenceManager.getType(requireContext()).equals( UserType.BUSINESS.getType())){
-            Log.i(TAG, "ttttttttt "+sharedPreferenceManager.getType(requireContext()));
+        Log.i("AuthRepo", "onViewCreated: " + sharedPreferenceManager.getType(requireContext()));
+        if (sharedPreferenceManager.getType(requireContext()).equals(UserType.BUSINESS.getType())) {
+            Log.i(TAG, "ttttttttt " + sharedPreferenceManager.getType(requireContext()));
             binding.all.setVisibility(View.INVISIBLE);
-
-
-        }
-        else if(sharedPreferenceManager.getType(requireContext()).equals(UserType.REGULAR.getType()))
-        {
-            Log.i(TAG, "ttttttttt "+sharedPreferenceManager.getType(requireContext()));
-
-        }
-        else {
+        } else if (sharedPreferenceManager.getType(requireContext()).equals(UserType.REGULAR.getType())) {
+            Log.i(TAG, "ttttttttt " + sharedPreferenceManager.getType(requireContext()));
+        } else {
             binding.greetingTxt.setText("welcome to our project Guest");
-            Log.i(TAG, "ttttttttt "+sharedPreferenceManager.getType(requireContext()));
-
-
+            Log.i(TAG, "ttttttttt " + sharedPreferenceManager.getType(requireContext()));
         }
+
         postList = new ArrayList<>();
         if (auth.getUid() != null) {
 //            usersCollection.addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -104,11 +95,11 @@ public class HomeFragment extends Fragment {
 //            });
 
 
-
         } else {
             Toast.makeText(requireContext(), "you should to register account first ", Toast.LENGTH_SHORT).show();
         }
         postsCollection.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
@@ -133,46 +124,22 @@ public class HomeFragment extends Fragment {
         Log.i(TAG, "onViewCreated: after ---- " + postList);
 
     }
-    private void image()
-    {
 
-        storage2.getReference().child("images profiles").child(auth.getCurrentUser().getUid())
-                .getDownloadUrl()
-                .addOnCompleteListener(new OnCompleteListener<Uri>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Uri> task) {
-//                                        task.getResult().
-                        if (task.isSuccessful() && task.getResult() != null){
-                            Glide
-                                    .with(requireActivity())
-                                    .load(task.getResult()).placeholder(R.drawable.girl)
-                                    .into(binding.profileImage);
-                        }
-                    }
-                });
-
-    }
-
-//    @Override
-//    public void onPause() {
-//        binding.postsRecycler.invalidate();
-//        postList.clear();
-//        super.onPause();
-//        binding.postsRecycler.invalidate();
-//        postList.clear();
-//    }
+//    private void image() {
+//        storage2.getReference().child("images profiles").child(auth.getCurrentUser().getUid())
+//                .getDownloadUrl()
+//                .addOnCompleteListener(new OnCompleteListener<Uri>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Uri> task) {
+////                                        task.getResult().
+//                        if (task.isSuccessful() && task.getResult() != null) {
+//                            Glide
+//                                    .with(requireActivity())
+//                                    .load(task.getResult()).placeholder(R.drawable.girl)
+//                                    .into(binding.profileImage);
+//                        }
+//                    }
+//                });
 //
-//    @Override
-//    public void onResume() {
-//        postList.clear();
-//        super.onResume();
-//        postList.clear();
-//    }
-//
-//    @Override
-//    public void onDetach() {
-//        postList.clear();
-//        super.onDetach();
-//        postList.clear();
 //    }
 }

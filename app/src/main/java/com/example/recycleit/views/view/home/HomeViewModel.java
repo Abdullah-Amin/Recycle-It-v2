@@ -14,10 +14,9 @@ public class HomeViewModel extends ViewModel {
         HomeRepo homeRepo = new HomeRepo();
         homeRepo.uploadPost(postItem);
     }
-    public List<PostItem> getItems(){
-        HomeRepo homeRepo = new HomeRepo();
-        return homeRepo.getHomeItems();
-    }
-
+//    public List<PostItem> getItems(){
+//        HomeRepo homeRepo = new HomeRepo();
+//        return homeRepo.getHomeItems();
+//    }
 
 }

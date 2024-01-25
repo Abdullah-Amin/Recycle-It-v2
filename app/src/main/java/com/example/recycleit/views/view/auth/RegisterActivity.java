@@ -39,6 +39,10 @@ public class RegisterActivity extends AppCompatActivity implements Auth {
         super.onCreate(savedInstanceState);
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        SharedPreferenceManager manager = new SharedPreferenceManager();
+        manager.remove(this);
+
         viewModelAuth = new ViewModelProvider(
                 this, ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication())).get(ViewModelAuth.class);
 

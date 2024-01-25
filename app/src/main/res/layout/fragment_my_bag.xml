@@ -29,6 +29,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:id="@+id/favorite"
             android:layout_width="@dimen/_36sdp"
             android:layout_height="@dimen/_36sdp"
             android:src="@drawable/favourite_icon_white"

@@ -44,11 +44,11 @@ import com.squareup.picasso.Picasso;
 import java.util.Objects;
 
 public class UserDetailsFragment extends Fragment {
-   private FragmentUserDetailsBinding binding ;
+    private FragmentUserDetailsBinding binding;
     private static final String TAG = "UserDetailsFragment";
     private ViewModelUser viewModel;
-    private  FirebaseAuth auth=FirebaseAuth.getInstance();
-    private FirebaseFirestore db=FirebaseFirestore.getInstance();
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseStorage storage2 = FirebaseStorage.getInstance();
 
     private DocumentReference usersCollection = db.collection("Recycle it database schema").document("users").collection("regular").document(auth.getUid());
@@ -66,30 +66,30 @@ public class UserDetailsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory
                 .getInstance(getActivity().getApplication())).get(ViewModelUser.class);
-          binding.setViewModel(viewModel);
-           binding.setLifecycleOwner(getViewLifecycleOwner());
-           image();
-       // binding.txName.setText("Hello, "+viewModel.getUserName());
+        binding.setViewModel(viewModel);
+        binding.setLifecycleOwner(getViewLifecycleOwner());
+        image();
+        // binding.txName.setText("Hello, "+viewModel.getUserName());
 
 
         binding.cardMyPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(requireActivity(),"you didn't create any payment method yet.",Toast.LENGTH_LONG).show();
+                Toast.makeText(requireActivity(), "you didn't create any payment method yet.", Toast.LENGTH_LONG).show();
             }
         });
         usersCollection.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                if (error != null)
-                {
-                    Toast.makeText(requireContext(),error.getLocalizedMessage(),Toast.LENGTH_LONG).show();
-                    Log.i(TAG, "onEvent: "+error.getLocalizedMessage());
+                if (error != null) {
+                    Toast.makeText(requireContext(), error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    Log.i(TAG, "onEvent: " + error.getLocalizedMessage());
                     return;
                 }
 
-                binding.txName.setText("Hello, "+value.toObject(User.class).getName());
-             //   binding.txName.setText("Hello, "+viewModel.getUserName());
+                Log.i(TAG, "onEvent: " + value);
+                binding.txName.setText("Hello, " + value.toObject(User.class).getName());
+                //   binding.txName.setText("Hello, "+viewModel.getUserName());
 
             }
         });
@@ -111,7 +111,7 @@ public class UserDetailsFragment extends Fragment {
         binding.cardAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Navigation.findNavController(requireView()).navigate(R.id.action_aboutFragment3_to_navigation_userDetailsFragment);
+                // Navigation.findNavController(requireView()).navigate(R.id.action_aboutFragment3_to_navigation_userDetailsFragment);
                 goToAbout2();
             }
         });
@@ -141,24 +141,21 @@ public class UserDetailsFragment extends Fragment {
     }
 
 
-
-
     private void gotoMyOrder() {
         Intent intent = new Intent(requireContext(), MyOrderActivity.class);
         startActivity(intent);
     }
 
     private void gotoMyPost() {
-       Intent intent = new Intent(requireContext(), MyPostActivity.class);
-     startActivity(intent);
- //       Navigation.findNavController(requireView()).navigate(R.id.action_navigation_userDetailsFragment_to_myPostFragment);
+        Intent intent = new Intent(requireContext(), MyPostActivity.class);
+        startActivity(intent);
+        //       Navigation.findNavController(requireView()).navigate(R.id.action_navigation_userDetailsFragment_to_myPostFragment);
     }
 
     private void gotoAbout() {
 
 
     }
-
 
 
     private void gotoAddress() {
@@ -179,14 +176,12 @@ public class UserDetailsFragment extends Fragment {
         Log.i(TAG, "goToLogin: you did logout");
     }
 
-private void goToAbout2()
-{
-    Intent intent = new Intent(requireContext(), AboutActivity.class);
-    startActivity(intent);
+    private void goToAbout2() {
+        Intent intent = new Intent(requireContext(), AboutActivity.class);
+        startActivity(intent);
+    }
 
-}
-    private void image()
-    {
+    private void image() {
 
         storage2.getReference().child("images profiles").child(auth.getCurrentUser().getUid())
                 .getDownloadUrl()
@@ -194,7 +189,7 @@ private void goToAbout2()
                     @Override
                     public void onComplete(@NonNull Task<Uri> task) {
 //                                        task.getResult().
-                        if (task.isSuccessful() && task.getResult() != null){
+                        if (task.isSuccessful() && task.getResult() != null) {
                             Glide
                                     .with(requireActivity())
                                     .load(task.getResult())
@@ -202,9 +197,5 @@ private void goToAbout2()
                         }
                     }
                 });
-
     }
-
-
-
 }

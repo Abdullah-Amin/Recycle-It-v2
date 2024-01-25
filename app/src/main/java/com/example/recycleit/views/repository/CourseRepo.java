@@ -57,16 +57,6 @@ public class CourseRepo {
                 });
     }
 
-//    public void getCourses() {
-//        store.collection("Recycle it database schema").document("Courses").get()
-//                .addOnCompleteListener(task -> {
-//                    if (task.isSuccessful()){
-//
-//                    }else{
-//                        Log.i(TAG, "getCourses: " + task.getException().getLocalizedMessage());
-//                    }
-//                });
-//    }
 
     public static long generateIdBasedOnSeconds() {
         long currentTimestampSeconds = 0;

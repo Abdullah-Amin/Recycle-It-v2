@@ -63,9 +63,10 @@
         app:layout_constraintStart_toStartOf="@id/imageLayout"/>
 
     <ImageView
-        android:id="@+id/commentImage"
+        android:id="@+id/addOrderBtn"
         android:layout_width="@dimen/_20sdp"
         android:layout_height="@dimen/_20sdp"
+        android:translationZ="@dimen/_10sdp"
         android:src="@drawable/comment"
         android:layout_marginStart="@dimen/_6sdp"
         app:layout_constraintTop_toTopOf="@id/favouriteImage"
@@ -82,9 +83,9 @@
         android:layout_marginStart="@dimen/_14sdp"
         android:ems="10"
         android:maxLines="1"
-        app:layout_constraintTop_toTopOf="@id/commentImage"
-        app:layout_constraintBottom_toBottomOf="@id/commentImage"
-        app:layout_constraintStart_toEndOf="@id/commentImage"/>
+        app:layout_constraintTop_toTopOf="@id/addOrderBtn"
+        app:layout_constraintBottom_toBottomOf="@id/addOrderBtn"
+        app:layout_constraintStart_toEndOf="@id/addOrderBtn"/>
 
     <TextView
         android:id="@+id/itemPrice"
@@ -95,7 +96,7 @@
         android:textColor="@color/black"
         android:textSize="@dimen/_13ssp"
         android:fontFamily="@font/abr"
-        android:layout_marginStart="@dimen/_14sdp"
+        android:layout_marginStart="@dimen/_4sdp"
         android:maxLines="1"
         android:layout_marginEnd="@dimen/_18sdp"
         app:layout_constraintEnd_toEndOf="@id/imageLayout"

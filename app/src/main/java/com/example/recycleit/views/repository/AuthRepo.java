@@ -1,10 +1,7 @@
 package com.example.recycleit.views.repository;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.app.Application;
-import android.content.Intent;
-import android.text.TextUtils;
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -15,9 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.recycleit.views.Auth;
 import com.example.recycleit.views.auth.SharedPreferenceManager;
 import com.example.recycleit.views.auth.Status;
+import com.example.recycleit.views.auth.UserType;
+import com.example.recycleit.views.model.firebase.PostItem;
+import com.example.recycleit.views.model.firebase.UserItem;
 import com.example.recycleit.views.model.local.User;
 import com.example.recycleit.views.view.auth.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,17 +29,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.HashMap;
-import java.util.concurrent.Executor;
+import java.util.Objects;
 
 public class AuthRepo {
     private static final String TAG = "AuthRepo";
     private Application application;
     private MutableLiveData<FirebaseUser> firebaseUserMutableLiveData;
     private MutableLiveData<Boolean> status;
-    private MutableLiveData<CheckBox>check=getCheck();
-    private FirebaseAuth auth=FirebaseAuth.getInstance();
+    private MutableLiveData<CheckBox> check = getCheck();
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private FirebaseFirestore store = FirebaseFirestore.getInstance();
     private DatabaseReference root = db.getReference().child("Users");
@@ -61,7 +60,7 @@ public class AuthRepo {
         this.application = application;
         firebaseUserMutableLiveData = new MutableLiveData<>();
         status = new MutableLiveData<>();
-        check=new MutableLiveData<>();
+        check = new MutableLiveData<>();
 
 
         if (auth.getCurrentUser() != null) {
@@ -70,24 +69,6 @@ public class AuthRepo {
     }
 
     public void register(String email, String pass) {
-//if(auth.getCurrentUser().getUid()!=null) {    auth.signOut();}
-//    status.postValue(false);
-//    auth.createUserWithEmailAndPassword(email, pass)
-//            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                @Override
-//                public void onComplete(@NonNull Task<AuthResult> task) {
-//                    if (task.isSuccessful()) {
-//                        firebaseUserMutableLiveData.postValue(auth.getCurrentUser());
-//                        Toast.makeText(application, "user created", Toast.LENGTH_LONG).show();
-//                        if (check.getValue().isChecked())
-//
-//                            status.postValue(true);
-//                    } else {
-//                        Toast.makeText(application, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-//                        Status.getInstance().setState("error");
-//                    }
-//                }
-//            });
 
         status.postValue(false);
         auth.createUserWithEmailAndPassword(email, pass)
@@ -111,7 +92,7 @@ public class AuthRepo {
                 });
     }
 
-    public void login(String email, String pass) {
+    public void login(Context context, String email, String pass) {
 
         if (!email.isEmpty() && !pass.isEmpty()) {
             status.postValue(false);
@@ -120,9 +101,9 @@ public class AuthRepo {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                status.postValue(true);
-                                firebaseUserMutableLiveData.postValue(auth.getCurrentUser());
-                                Status.getInstance().setState("success");
+                                Log.i(TAG, "onComplete login :  success1");
+                                getUser(context, email);
+                                Log.i(TAG, "onComplete login :  success2");
                             } else {
                                 status.postValue(false);
                                 Log.i(TAG, "onFailure: --- " + task.getException().getLocalizedMessage());
@@ -140,6 +121,59 @@ public class AuthRepo {
         } else {
             Toast.makeText(application, "please fill your data ", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void getUser(Context context, String email) {
+        Log.i(TAG, "getUser: kkkkkkkkkkkkkk");
+        store.collection("Recycle it database schema")
+                .document("users")
+                .collection("regular")
+                .document(auth.getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        Log.i(TAG, "onComplete: " + task.getResult().toObject(User.class));
+
+                        if (task.isSuccessful()) {
+                            status.postValue(true);
+                            firebaseUserMutableLiveData.postValue(auth.getCurrentUser());
+                            Status.getInstance().setState("success");
+                            Log.i(TAG, "onComplete: successssssssss");
+                            User user = task.getResult().toObject(User.class);
+                            Log.i(TAG, "onComplete: user "+ user);
+                            SharedPreferenceManager manager = new SharedPreferenceManager();
+                            Log.i(TAG, "getUser2: " + manager.getType(context));
+                            Log.i(TAG, "onComplete:  success3");
+                            if (Objects.equals(user.getType(), "BUSINESS")) {
+                                Log.i(TAG, "onComplete: 1");
+                                manager.setType(context, UserType.BUSINESS.getType());
+                            } else if (Objects.equals(user.getType(),"REGULAR")) {
+                                Log.i(TAG, "onComplete: 2");
+                                manager.setType(context, UserType.REGULAR.getType());
+                            } else {
+                                Log.i(TAG, "onComplete: 3");
+                                manager.setType(context, UserType.GUEST.getType());
+                            }
+                        } else {
+                            Log.i(TAG, "onComplete: error");
+                        }
+                    }
+                });
+        store.collection("Recycle it database schema").document("users")
+                .collection("regular")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i(TAG, "onFailure: " + e.getLocalizedMessage());
+                    }
+                });
     }
 
     public void signOut() {
@@ -177,17 +211,6 @@ public class AuthRepo {
     }
 
     public void upload(User user) {
-//            store.collection("Recycle it database schema").document("users").collection("regular").document(auth.getCurrentUser().getUid()).set(user)
-//                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<Void> task) {
-//                            if (task.isSuccessful()) {
-//                                Log.i(TAG, "onComplete: data saved");
-//                            } else {
-//                                Log.i(TAG, "onComplete: error to load data");
-//                            }
-//                        }
-//                    });
 
         store.collection("Recycle it database schema").document("users").collection("regular").document(auth.getCurrentUser().getUid()).set(user)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -200,45 +223,36 @@ public class AuthRepo {
                         }
                     }
                 });
-
-
-
-
-
     }
+
     private void displayConstrain(ConstraintLayout constraintLayout) {
-        if (check.getValue().isChecked())
-        {
+        if (check.getValue().isChecked()) {
             constraintLayout.setVisibility(View.VISIBLE);
 
-        }
-        else {
+        } else {
             constraintLayout.setVisibility(View.GONE);
             constraintLayout.setVisibility(View.INVISIBLE);
         }
 
     }
+
     public Boolean checkField(EditText editText) {
-        if(editText.getText().toString().isEmpty())
-        {
+        if (editText.getText().toString().isEmpty()) {
             editText.setError("Error");
             return false;
-        }
-        else return true;
+        } else return true;
 
     }
-    public void signInAnonymously()
-    {
+
+    public void signInAnonymously() {
         auth.signInAnonymously().addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Log.d(TAG, "signInAnonymously:success");
                     FirebaseUser user = auth.getCurrentUser();
-
-
-                }
-                else {
+                    upload(new User("Guest", "", "anonymous", "", "", UserType.GUEST.getType()));
+                } else {
                     Log.w(TAG, "signInAnonymously:failure", task.getException());
                     Toast.makeText(application, "Authentication failed.", Toast.LENGTH_SHORT).show();
 
@@ -246,7 +260,5 @@ public class AuthRepo {
             }
         });
     }
-
-
 
 }

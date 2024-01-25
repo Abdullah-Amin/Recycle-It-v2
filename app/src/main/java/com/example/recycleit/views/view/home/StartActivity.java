@@ -22,7 +22,7 @@ public class StartActivity extends AppCompatActivity {
     private static final String TAG = "StartActivity";
     private FirebaseAuth auth;
     ViewModelAuth viewModelAuth;
-    SharedPreferenceManager sharedPreferenceManager=new SharedPreferenceManager();
+    SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager();
 
 
     @Override
@@ -30,24 +30,29 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityStartBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+//        SharedPreferenceManager manager = new SharedPreferenceManager();
+//        manager.remove(this);
+
         viewModelAuth = new ViewModelProvider(
                 this, ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication())).get(ViewModelAuth.class);
 
-        auth=FirebaseAuth.getInstance();
+        auth = FirebaseAuth.getInstance();
 
         binding.loginBtn.setOnClickListener(view -> {
             startActivity(new Intent(StartActivity.this, LoginActivity.class));
         });
 
-     binding.startBtn.setOnClickListener(view -> {
+        binding.startBtn.setOnClickListener(view -> {
 
 
-          //  Log.i(TAG, "onCreate:  "+UserType.GUEST.getType());
-       //    startActivity(new Intent(StartActivity.this, MainActivity.class));
-           FirebaseUser currentUser = auth.getCurrentUser();
-         viewModelAuth.signInAnonymously(currentUser);
-         sharedPreferenceManager.setType(this,UserType.GUEST.getType());
-         startActivity(new Intent(StartActivity.this, MainActivity.class));
+            //  Log.i(TAG, "onCreate:  "+UserType.GUEST.getType());
+            //    startActivity(new Intent(StartActivity.this, MainActivity.class));
+            FirebaseUser currentUser = auth.getCurrentUser();
+            Log.i(TAG, "onCreate: " + currentUser);
+            viewModelAuth.signInAnonymously(currentUser);
+            sharedPreferenceManager.setType(this, UserType.GUEST.getType());
+            startActivity(new Intent(StartActivity.this, MainActivity.class));
 
         });
     }
@@ -55,7 +60,7 @@ public class StartActivity extends AppCompatActivity {
     private void updateUI(FirebaseUser user) {
         // Implement UI update logic based on the authenticated user
         // This could involve showing/hiding elements, displaying user info, etc.
-        if(user.isAnonymous())
+        if (user.isAnonymous())
             Toast.makeText(this, "Authentication done.", Toast.LENGTH_SHORT).show();
 
         else {
