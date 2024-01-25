@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.recycleit.views.model.firebase.Address;
+import com.example.recycleit.views.model.firebase.RegisterCourses;
 import com.example.recycleit.views.repository.AddressRepo;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -33,5 +34,10 @@ public class AddressViewModel extends AndroidViewModel{
     public void uploadAddressAbject(Address address)
     {
         repository.uploadAddress(address);
+    }
+
+    public void registerForAddress(Address address)
+    {
+        repository.registerAddress(address);
     }
 }

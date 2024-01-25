@@ -11,7 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
+import com.example.recycleit.R;
 import com.example.recycleit.databinding.FragmentEditShippingAddressBinding;
 import com.example.recycleit.views.model.firebase.Address;
 import com.example.recycleit.views.view.auth.ViewModelAuth;
@@ -46,6 +48,8 @@ private AddressViewModel viewModel;
 binding.confirmationBtn.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
+        Navigation.findNavController(v).navigate(R.id.action_editShippingAddressFragment_to_homeAddressFragment);
+
 
 
     }

@@ -34,6 +34,7 @@
                 >
 
                 <ImageView
+                    android:id="@+id/im_arrow_back"
                     android:layout_width="@dimen/_40sdp"
                     android:layout_height="@dimen/_40sdp"
                     android:layout_marginStart="@dimen/_10sdp"
@@ -67,7 +68,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view"
-                tools:itemCount="1"
+                tools:itemCount="3"
                 tools:listitem="@layout/item_address" />
 
             <com.google.android.material.button.MaterialButton

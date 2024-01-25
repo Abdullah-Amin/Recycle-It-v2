@@ -312,8 +312,8 @@
         android:layout_height="@dimen/_6sdp"
         android:background="@drawable/under_views_shadow"
         android:layout_marginHorizontal="@dimen/_12sdp"
-        app:layout_constraintStart_toStartOf="@id/registrationBtn"
-        app:layout_constraintEnd_toEndOf="@id/registrationBtn"
-        app:layout_constraintTop_toBottomOf="@id/registrationBtn" />
+        app:layout_constraintStart_toStartOf="@id/registrationBtn2"
+        app:layout_constraintEnd_toEndOf="@id/registrationBtn2"
+        app:layout_constraintTop_toBottomOf="@id/registrationBtn2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
