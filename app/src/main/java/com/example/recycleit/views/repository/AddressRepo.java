@@ -1,5 +1,7 @@
 package com.example.recycleit.views.repository;
 
+import static com.example.recycleit.views.repository.CourseRepo.generateIdBasedOnSeconds;
+
 import android.app.Application;
 import android.util.Log;
 
@@ -7,11 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.recycleit.views.model.firebase.Address;
+import com.example.recycleit.views.model.firebase.RegisterCourses;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
@@ -50,21 +54,37 @@ public class AddressRepo {
 
 
     public void uploadAddress(Address address) {
-        store.collection("Recycle it database schema").document("address").collection(auth.getUid()).document()
-                .set(address).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful())
-                {
-                    Log.i(TAG, "onComplete:  address added ");
-                }
-                else
-                {
-                    Log.i(TAG, "onComplete:error "+task.getException().getLocalizedMessage());
-                }
+        String generatedId = String.valueOf(generateIdBasedOnSeconds());
+        store.collection("Recycle it database schema").document("address").collection(auth.getUid())
+                .document(generatedId).set(address).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.i(TAG, "onComplete:  address added ");
+                        } else {
+                            Log.i(TAG, "onComplete:error " + task.getException().getLocalizedMessage());
+                        }
 
-            }
-        });
+                    }
+                });
+
+    }
+    public void registerAddress(Address address) {
+        String generatedId = String.valueOf(generateIdBasedOnSeconds());
+        store.collection("Recycle it database schema")
+                .document("address")
+                .collection(auth.getUid())
+                .document(generatedId).set(address).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.i(TAG, "onComplete:  address register ");
+                        } else {
+                            Log.i(TAG, "onComplete:error " + task.getException().getLocalizedMessage());
+                        }
+
+                    }
+                });
     }
 
 }

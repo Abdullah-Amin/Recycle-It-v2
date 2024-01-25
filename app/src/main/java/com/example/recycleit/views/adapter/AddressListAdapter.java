@@ -1,65 +1,96 @@
 package com.example.recycleit.views.adapter;
 
 
+import static java.security.AccessController.getContext;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.recycleit.R;
 import com.example.recycleit.views.model.firebase.Address;
-import com.example.recycleit.views.model.firebase.CourseB;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.AddressListViewHolder> {
+public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.AddressViewHolder> {
 
-    ArrayList<Address> addresses;
+    ArrayList<Address>addressList=new ArrayList<>();
     Context context;
 
-    public AddressListAdapter(ArrayList<Address> addresses, Context context) {
-        this.addresses = addresses;
+    public AddressListAdapter(ArrayList<Address> addressList, Context context) {
+        this.addressList = addressList;
         this.context = context;
     }
 
     @NonNull
     @Override
-    public AddressListAdapter.AddressListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AddressViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(context).inflate(R.layout.item_address,parent,false);
-        return new AddressListAdapter.AddressListViewHolder(view);
+        return new AddressListAdapter.AddressViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AddressListAdapter.AddressListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AddressListAdapter.AddressViewHolder holder, int position) {
 
-        Address addressA=addresses.get(position);
-        holder.addressName.setText(addressA.getFirstname());
-        holder.addressDate.setText(addressA.getCountry());
-        holder.addressState.setText(addressA.getPhone());
+        Address address=addressList.get(position);
+        holder.courseName.setText(address.getFirstname());
+        holder.courseDate.setText(address.getCountry());
+        holder.courseState.setText(address.getPhone());
+
+
 
 
     }
 
     @Override
     public int getItemCount() {
-        return  addresses.size();
+        return addressList.size();
     }
 
-    public static class AddressListViewHolder extends RecyclerView.ViewHolder{
+    public static class AddressViewHolder extends RecyclerView.ViewHolder{
+        Boolean state=true;
+        TextView courseName,courseDate,courseState ;
+        MaterialButton delete,edit;
 
-        TextView addressName,addressDate,addressState ;
-        public AddressListViewHolder(@NonNull View itemView) {
+        private AddressListAdapter adapter;
+        public AddressViewHolder(@NonNull View itemView) {
             super(itemView);
-            addressName=itemView.findViewById(R.id.tv_course);
-            addressDate=itemView.findViewById(R.id.tv_calender);
-            addressState=itemView.findViewById(R.id.tv_state);
+            courseName=itemView.findViewById(R.id.item_add_name);
+            courseDate=itemView.findViewById(R.id.item_add_address);
+            courseState=itemView.findViewById(R.id.item_add_phone);
+            delete=itemView.findViewById(R.id.it_add_bt_delete);
+            edit=itemView.findViewById(R.id.it_add_bt_edit);
 
+delete.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Navigation.findNavController(v).navigate(R.id.action_homeAddressFragment_to_editShippingAddressFragment);
+//adapter.addressList.remove(getAdapterPosition());
+adapter.notifyDataSetChanged();
+    }
+});
+edit.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Navigation.findNavController(v).navigate(R.id.action_homeAddressFragment_to_editShippingAddressFragment);
+
+
+    }
+});
         }
+
+
+
 
 
     }

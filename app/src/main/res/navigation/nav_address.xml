@@ -8,7 +8,11 @@
     <fragment
         android:id="@+id/editShippingAddressFragment"
         android:name="com.example.recycleit.views.view.profile.address.EditShippingAddressFragment"
-        android:label="EditShippingAddressFragment" />
+        android:label="EditShippingAddressFragment" >
+        <action
+            android:id="@+id/action_editShippingAddressFragment_to_homeAddressFragment"
+            app:destination="@id/homeAddressFragment" />
+    </fragment>
     <fragment
         android:id="@+id/shippingAddressFragment"
         android:name="com.example.recycleit.views.view.profile.address.ShippingAddressFragment"
@@ -16,6 +20,9 @@
         <action
             android:id="@+id/action_shippingAddressFragment_to_editShippingAddressFragment"
             app:destination="@id/editShippingAddressFragment" />
+        <action
+            android:id="@+id/action_shippingAddressFragment_to_homeAddressFragment"
+            app:destination="@id/homeAddressFragment" />
     </fragment>
     <activity
         android:id="@+id/addressActivity"
@@ -28,5 +35,8 @@
         <action
             android:id="@+id/action_homeAddressFragment_to_shippingAddressFragment"
             app:destination="@id/shippingAddressFragment" />
+        <action
+            android:id="@+id/action_homeAddressFragment_to_editShippingAddressFragment"
+            app:destination="@id/editShippingAddressFragment" />
     </fragment>
 </navigation>

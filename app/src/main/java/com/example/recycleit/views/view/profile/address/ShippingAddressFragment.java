@@ -11,6 +11,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.recycleit.R;
 import com.example.recycleit.databinding.FragmentShippingAddressBinding;
@@ -40,20 +41,20 @@ FragmentShippingAddressBinding binding;
         binding.confirmationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//              //  Log.i(TAG, "onClick: "+ viewModel.getAddress().getValue().getCity());
-//                String firstName=binding.firstNameET.getText().toString().trim();
-//                String secondName =binding.secondNameET.getText().toString().trim();
-//                String phone =binding.phoneNumberET.getText().toString().trim();
-//                String county=binding.countryEt.getText().toString().trim();
-//                String street=binding.streetET.getText().toString().trim();
-//                String city=binding.cityEt.getText().toString().trim();
-//               String regin=binding.blockNumberET.getText().toString().trim();
-//                String postID=binding.blockET.getText().toString().trim();
-//                Log.i(TAG, "onClick: "+firstName +secondName);
-//                Address address=new Address(firstName,secondName,phone,county,city,street,postID,regin);
-                Address address=new Address("abdo","gamal","","","","","","");
+              //  Log.i(TAG, "onClick: "+ viewModel.getAddress().getValue().getCity());
+                String firstName=binding.firstNameET.getText().toString().trim();
+                String secondName =binding.secondNameET.getText().toString().trim();
+                String phone =binding.phoneNumberET.getText().toString().trim();
+                String county=binding.countryEt.getText().toString().trim();
+                String street=binding.streetET.getText().toString().trim();
+                String city=binding.cityEt.getText().toString().trim();
+                String postID=binding.blockNumberET.getText().toString().trim();
+               String regin=binding.blockNumberET.getText().toString().trim();
+                Address address=new Address(firstName,secondName,phone,county,city,street,postID,regin);
     //viewModel.uploadAddressAbject(viewModel.getAddress().getValue());
-                viewModel.uploadAddressAbject(address);
+                viewModel.registerForAddress(address);
+                Toast.makeText(requireContext(),"address add",Toast.LENGTH_LONG).show();
+                Navigation.findNavController(v).navigate(R.id.action_shippingAddressFragment_to_homeAddressFragment);
 
             }
         });
