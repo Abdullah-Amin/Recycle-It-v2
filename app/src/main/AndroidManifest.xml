@@ -45,7 +45,7 @@
             android:name=".views.view.auth.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".views.ResetPasswordActivity"
+            android:name=".views.view.auth.ResetPasswordActivity"
             android:exported="false" />
         <activity
             android:name=".views.view.auth.LoginActivity"

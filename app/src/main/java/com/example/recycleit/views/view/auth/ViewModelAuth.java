@@ -66,5 +66,8 @@ public class ViewModelAuth extends AndroidViewModel {
     public void signInAnonymously(FirebaseUser firebaseUser) {
         repository.signInAnonymously();
     }
-
+    public void resetPassword(String email)
+    {
+        repository.resetPassword(email);
+    }
 }

@@ -167,13 +167,13 @@ public class HomeAddressFragment extends Fragment {
                 adapter.notifyDataSetChanged();
                 if (error != null) {
                     Toast.makeText(requireContext(), "" + error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                    Log.i(TAG, "onEvent: error to create course");
+                    Log.i(TAG, "onEvent: error to create address");
                     return;
                 }
                 for (DocumentSnapshot snapshot : value.getDocuments()) {
                     address = snapshot.toObject(Address.class);
                     list.add(address);
-                    Log.i(TAG, "onEvent: workshop created" + address.getCity());
+                    Log.i(TAG, "onEvent: address created" + address.toString());
                     adapter.notifyDataSetChanged();
 
                 }

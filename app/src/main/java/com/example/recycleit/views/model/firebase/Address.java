@@ -2,7 +2,7 @@ package com.example.recycleit.views.model.firebase;
 
 public class Address {
 
-    String firstname,SecondName,phone,country,city,street,post_id,regin;
+    String id,firstname,SecondName,phone,country,city,street,post_id,regin;
 
 
     public Address(String firstname, String secondName, String phone, String country, String city, String street, String post_id,String regin) {
@@ -16,6 +16,15 @@ public class Address {
         this.regin=regin;
     }
 public Address(){}
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getRegin() {
         return regin;
     }

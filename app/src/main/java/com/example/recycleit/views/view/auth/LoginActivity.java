@@ -1,35 +1,20 @@
 package com.example.recycleit.views.view.auth;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.recycleit.databinding.ActivityLoginBinding;
-import com.example.recycleit.views.ResetPasswordActivity;
 import com.example.recycleit.views.auth.SharedPreferenceManager;
-import com.example.recycleit.views.auth.Status;
-import com.example.recycleit.views.auth.UserType;
-import com.example.recycleit.views.model.local.User;
 import com.example.recycleit.views.repository.AuthRepo;
 import com.example.recycleit.views.view.home.MainActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class LoginActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();

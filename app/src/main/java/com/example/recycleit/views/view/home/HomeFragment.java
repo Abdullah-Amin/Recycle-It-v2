@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -17,11 +18,13 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.recycleit.R;
 
+
 import com.example.recycleit.databinding.FragmentHomeBinding;
 import com.example.recycleit.views.adapter.HomePostAdapter;
 import com.example.recycleit.views.auth.SharedPreferenceManager;
 import com.example.recycleit.views.auth.UserType;
 import com.example.recycleit.views.model.firebase.PostItem;
+import com.example.recycleit.views.model.local.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,7 +46,6 @@ public class HomeFragment extends Fragment {
     private SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseStorage storage2 = FirebaseStorage.getInstance();
-
     private CollectionReference postsCollection =
             db.collection("Recycle it database schema")
                     .document("Posts").collection("all posts");
@@ -58,7 +60,10 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Log.i(TAG, "onCreateView: " + postList);
+
+
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+
         return binding.getRoot();
     }
 
@@ -67,37 +72,48 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Log.i("AuthRepo", "onViewCreated: " + sharedPreferenceManager.getType(requireContext()));
         if (sharedPreferenceManager.getType(requireContext()).equals(UserType.BUSINESS.getType())) {
-            Log.i(TAG, "ttttttttt " + sharedPreferenceManager.getType(requireContext()));
-            binding.all.setVisibility(View.INVISIBLE);
+        //    binding.all.setVisibility(View.INVISIBLE);
         } else if (sharedPreferenceManager.getType(requireContext()).equals(UserType.REGULAR.getType())) {
-            Log.i(TAG, "ttttttttt " + sharedPreferenceManager.getType(requireContext()));
         } else {
             binding.greetingTxt.setText("welcome to our project Guest");
-            Log.i(TAG, "ttttttttt " + sharedPreferenceManager.getType(requireContext()));
         }
+        binding.searchBar.clearFocus();
+        binding.searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                search(newText);
+                return true;
+            }
+        });
 
         postList = new ArrayList<>();
         if (auth.getUid() != null) {
-//            usersCollection.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-//                @Override
-//                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-//                    if (error != null) {
-//                        Toast.makeText(requireContext(), error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-//                        Log.i(TAG, "onEvent: " + error.getLocalizedMessage());
-//                        return;
-//                    }
-//
-//                    binding.greetingTxt.setText("Hello, " + value.toObject(User.class).getName());
-//                    binding.addressTxt.setText("Saudi," + value.toObject(User.class).getCompany());
-//                    //   binding.txName.setText("Hello, "+viewModel.getUserName());
-//
-//                }
-//            });
+            usersCollection.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if (error != null) {
+                        Toast.makeText(requireContext(), error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                        Log.i(TAG, "onEvent: " + error.getLocalizedMessage());
+                        return;
+                    }
+
+                    binding.greetingTxt.setText("Hello, " + value.toObject(User.class).getName());
+                    binding.addressTxt.setText("Saudi," + value.toObject(User.class).getCompany());
+                    //   binding.txName.setText("Hello, "+viewModel.getUserName());
+
+                }
+            });
 
 
         } else {
-            Toast.makeText(requireContext(), "you should to register account first ", Toast.LENGTH_SHORT).show();
         }
+
+
         postsCollection.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -121,7 +137,8 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        Log.i(TAG, "onViewCreated: after ---- " + postList);
+      //  Log.i(TAG, "onViewCreated: after ---- " + postList);
+
 
     }
 
@@ -142,4 +159,21 @@ public class HomeFragment extends Fragment {
 //                });
 //
 //    }
+
+    public void search(String textInput)
+    {
+        ArrayList<PostItem> postList1=new ArrayList<>();
+        for (PostItem postItem:postList)
+        {
+            if(postItem.getCaption().toLowerCase().contains(textInput.toLowerCase()))
+            {
+                postList1.add(postItem);
+
+            }
+        }
+        if(postList1.isEmpty())
+            Toast.makeText(requireActivity(),"No Data Found",Toast.LENGTH_LONG).show();
+        adapter.Search(postList1);
+        adapter.notifyDataSetChanged();
+    }
 }

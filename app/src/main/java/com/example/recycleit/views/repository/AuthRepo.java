@@ -19,6 +19,7 @@ import com.example.recycleit.views.model.firebase.PostItem;
 import com.example.recycleit.views.model.firebase.UserItem;
 import com.example.recycleit.views.model.local.User;
 import com.example.recycleit.views.view.auth.LoginActivity;
+import com.example.recycleit.views.view.auth.ResetPasswordActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -257,6 +258,20 @@ public class AuthRepo {
                     Toast.makeText(application, "Authentication failed.", Toast.LENGTH_SHORT).show();
 
                 }
+            }
+        });
+    }
+    public void resetPassword(String email) {
+        auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Toast.makeText(application,"Rest password can you check your email please ",Toast.LENGTH_LONG).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(application, e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+
             }
         });
     }

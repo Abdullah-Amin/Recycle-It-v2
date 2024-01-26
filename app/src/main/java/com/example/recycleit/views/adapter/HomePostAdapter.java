@@ -166,5 +166,10 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.Holder
             this.binding = binding;
         }
     }
+    public void Search(ArrayList<PostItem>searchList)
+    {
+        this.items=searchList;
+        notifyDataSetChanged();
+    }
 
 }

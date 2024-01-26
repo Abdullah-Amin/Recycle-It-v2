@@ -76,7 +76,7 @@
         android:id="@+id/itemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="item name"
+        android:text="@string/item_name"
         android:textColor="@color/black"
         android:textSize="@dimen/_13ssp"
         android:fontFamily="@font/abr"

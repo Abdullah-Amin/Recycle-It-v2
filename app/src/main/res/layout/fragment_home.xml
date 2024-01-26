@@ -76,32 +76,31 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/topLayout">
 
-            <EditText
+            <androidx.appcompat.widget.SearchView
                 android:id="@+id/searchBar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_32sdp"
                 android:hint="search"
                 android:paddingStart="@dimen/_6sdp"
-                android:drawablePadding="@dimen/_4sdp"
                 android:drawableStart="@drawable/ic_search"
                 android:background="@null"
                 />
 
         </com.google.android.material.card.MaterialCardView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/searchRecycler"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="vertical"
-            tools:listitem="@layout/search_item"
-            tools:itemCount="20"
-            android:translationZ="@dimen/_100sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/searchCard"
-            app:layout_constraintEnd_toEndOf="@id/searchCard"
-            app:layout_constraintTop_toBottomOf="@id/searchCard"/>
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/searchRecycler"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--            android:orientation="vertical"-->
+<!--            tools:listitem="@layout/search_item"-->
+<!--            tools:itemCount="20"-->
+<!--            android:translationZ="@dimen/_100sdp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="@id/searchCard"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/searchCard"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/searchCard"/>-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/postsRecycler"

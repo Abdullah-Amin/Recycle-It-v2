@@ -70,11 +70,11 @@ public class AddressRepo {
 
     }
     public void registerAddress(Address address) {
-        String generatedId = String.valueOf(generateIdBasedOnSeconds());
+        address.setId(  String.valueOf(generateIdBasedOnSeconds()));
         store.collection("Recycle it database schema")
                 .document("address")
                 .collection(auth.getUid())
-                .document(generatedId).set(address).addOnCompleteListener(new OnCompleteListener<Void>() {
+                .document(address.getId()).set(address).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {

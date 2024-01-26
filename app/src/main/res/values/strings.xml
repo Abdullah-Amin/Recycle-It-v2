@@ -78,5 +78,6 @@
     <string name="save">Save</string>
     <string name="point">Point</string>
     <string name="logout">Logout</string>
+    <string name="item_name">item name</string>
 
 </resources>
