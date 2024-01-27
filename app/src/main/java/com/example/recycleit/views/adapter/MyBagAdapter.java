@@ -1,8 +1,11 @@
 package com.example.recycleit.views.adapter;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +17,10 @@ import com.example.recycleit.databinding.ItemFavoriteBinding;
 import com.example.recycleit.views.model.Price;
 import com.example.recycleit.views.model.PriceI;
 import com.example.recycleit.views.model.firebase.PostItem;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -21,6 +28,10 @@ public class MyBagAdapter extends RecyclerView.Adapter<MyBagAdapter.Holder> {
 
     private ArrayList<PostItem> favoriteItem;
     private PriceI priceI;
+
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+    FirebaseFirestore store = FirebaseFirestore.getInstance();
 
     public MyBagAdapter(ArrayList<PostItem> favoriteItem, PriceI priceI) {
         this.favoriteItem = favoriteItem;
@@ -34,15 +45,40 @@ public class MyBagAdapter extends RecyclerView.Adapter<MyBagAdapter.Holder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Holder holder, int position) {
+    public void onBindViewHolder(@NonNull Holder holder, @SuppressLint("RecyclerView") int position) {
+        if (position == 0){
+            Price.totalPrice = 0;
+        }
         holder.binding.itemName.setText(favoriteItem.get(position).getUserName());
         holder.binding.itemPrice.setText(favoriteItem.get(position).getPrice());
         Price.totalPrice = Price.totalPrice + Integer.parseInt(favoriteItem.get(position).getPrice().split("\\.")[0]);
-//        priceI.getPrice(Integer.parseInt(favoriteItem.get(position).getPrice().split("\\.")[0]));
+
         priceI.getPrice(Price.totalPrice);
         Log.i("MyBagFragment", "onBindViewHolder: " + favoriteItem.get(position).getPrice().split("\\.")[0]);
         Log.i("MyBagFragment", "onBindViewHolder: " + Price.totalPrice);
 //        Log.i("MyBagFragment", "onBindViewHolder: " + favoriteItem.get(position).getPrice().split("\\.")[0]);
+
+        holder.binding.deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                store.collection("Recycle it database schema").document("Orders")
+                        .collection(firebaseAuth.getCurrentUser().getUid()).document(favoriteItem.get(position).getCaption()
+                                + favoriteItem.get(position).getPrice()
+                                + favoriteItem.get(position).getDescription()
+                        ).delete()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()){
+                                    Toast.makeText(view.getContext(), "Item deleted successfully", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                favoriteItem.remove(position);
+                notifyDataSetChanged();
+            }
+        });
 
         Glide
                 .with(holder.itemView.getContext())

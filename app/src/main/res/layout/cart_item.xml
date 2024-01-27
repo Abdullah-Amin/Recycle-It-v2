@@ -56,7 +56,7 @@
             android:id="@+id/deleteBtn"
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_24sdp"
-            android:src="@drawable/favourite_icon"
+            android:src="@drawable/delete"
             android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_6sdp"

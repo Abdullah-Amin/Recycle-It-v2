@@ -65,6 +65,8 @@ public class MyBagFragment extends Fragment {
 
     public ArrayList<PostItem> getFavoriteItems() {
         String userId = Objects.requireNonNull(auth.getCurrentUser()).getUid();
+        list.clear();
+
 
         store.collection("Recycle it database schema").document("Orders")
                 .collection(FirebaseAuth.getInstance().getCurrentUser().getUid())
