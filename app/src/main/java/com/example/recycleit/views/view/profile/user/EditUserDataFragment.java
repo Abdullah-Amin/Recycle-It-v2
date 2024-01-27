@@ -24,6 +24,9 @@ import com.example.recycleit.databinding.FragmentEdditUserDatakBinding;
 import com.example.recycleit.views.auth.SharedPreferenceManager;
 import com.example.recycleit.views.auth.UserType;
 import com.example.recycleit.views.model.local.User;
+import com.example.recycleit.views.view.auth.LoginActivity;
+import com.example.recycleit.views.view.auth.RegisterActivity;
+import com.example.recycleit.views.view.home.StartActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -105,6 +108,8 @@ updateUserData();
             public void onClick(View v) {
                 firebaseAuth.signOut();
               sharedPreferenceManage.remove(requireActivity());
+                Intent intent = new Intent(requireActivity(), StartActivity.class);
+                startActivity(intent);
 
             }
         });

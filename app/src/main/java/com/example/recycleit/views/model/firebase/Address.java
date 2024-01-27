@@ -5,7 +5,8 @@ public class Address {
     String id,firstname,SecondName,phone,country,city,street,post_id,regin;
 
 
-    public Address(String firstname, String secondName, String phone, String country, String city, String street, String post_id,String regin) {
+    public Address(String id, String firstname, String secondName, String phone, String country, String city, String street, String post_id, String regin) {
+        this.id = id;
         this.firstname = firstname;
         SecondName = secondName;
         this.phone = phone;
@@ -13,9 +14,10 @@ public class Address {
         this.city = city;
         this.street = street;
         this.post_id = post_id;
-        this.regin=regin;
+        this.regin = regin;
     }
-public Address(){}
+
+    public Address(){}
 
     public String getId() {
         return id;

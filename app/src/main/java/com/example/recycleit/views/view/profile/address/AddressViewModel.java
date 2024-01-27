@@ -36,8 +36,10 @@ public class AddressViewModel extends AndroidViewModel{
         repository.uploadAddress(address);
     }
 
-    public void registerForAddress(Address address)
+    public String registerForAddress(Address address)
     {
+        String result=
         repository.registerAddress(address);
+        return result;
     }
 }

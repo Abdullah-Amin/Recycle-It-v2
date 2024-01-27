@@ -1,6 +1,12 @@
 package com.example.recycleit.views.view.profile.address;
 
 
+import static android.content.Intent.getIntent;
+import static android.content.Intent.getIntentOld;
+import static android.content.Intent.parseIntent;
+
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,6 +33,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.HashMap;
+
 public class EditShippingAddressFragment extends Fragment {
 FragmentEditShippingAddressBinding binding;
     SharedPreferenceManager sharedPreferenceManage=new SharedPreferenceManager();
@@ -36,6 +44,7 @@ FragmentEditShippingAddressBinding binding;
 
     StorageReference storage = FirebaseStorage.getInstance().getReference();
 private AddressViewModel viewModel;
+
 private Address address=new Address();
     private static final String TAG = "EditShippingAddressFrag";
     @Override
@@ -72,29 +81,50 @@ binding.confirmationBtn.setOnClickListener(new View.OnClickListener() {
         address.setCity(binding.cityEt.getText().toString());
         address.setRegin(binding.blockNumberET.getText().toString());
         address.setStreet(binding.streetET.getText().toString());
+        HashMap<String, Object> userHashMap = new HashMap<>();
+        userHashMap.put("firstname",address.getFirstname());
+        userHashMap.put("secondName", address.getSecondName());
+        userHashMap.put("city", address.getCity());
+        userHashMap.put("country", address.getCountry());
+        userHashMap.put("phone", address.getPhone());
+        userHashMap.put("post_id", address.getPost_id());
+        userHashMap.put("regin", address.getRegin());
+        userHashMap.put("street", address.getStreet());
+        Bundle args = getArguments();
+        String key="";
+        if (args != null)
+        {
+            key = args.getString("key");
+        }
         if(firebaseAuth.getCurrentUser().getUid()!=null)
         {
-//            firebaseFirestore.collection("Recycle it database schema")
-//                    .document("address").collection(firebaseAuth.getCurrentUser().getUid())
-//                    .update(address).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<Void> task) {
-//                            if (task.isSuccessful()) {
-//                                Log.i(TAG, "onComplete:  yes updated");
-//                                Toast.makeText(requireContext(), "Data updated. ", Toast.LENGTH_LONG).show();
-//                                Navigation.findNavController(requireView()).navigate(R.id.action_editUserDataFragment_to_userDetailsFragment);
-//
-//                            } else {
-//                                Log.i(TAG, "onComplete: " + task.getException().getLocalizedMessage().toString());
-//                            }
-//                        }
-//                    }).addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Log.i(TAG, "onComplete: " + e.getLocalizedMessage().toString());
-//
-//                        }
-//                    });
+
+
+//need to get id of item was click to update called key in adaptor
+
+            firebaseFirestore.collection("Recycle it database schema")
+                .document("address")
+                .collection(firebaseAuth.getUid())
+                    .document("")
+                    .update(userHashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.i(TAG, "onComplete:  yes updated");
+                                Toast.makeText(requireContext(), "Data updated. ", Toast.LENGTH_LONG).show();
+                                Navigation.findNavController(requireView()).navigate(R.id.action_editUserDataFragment_to_userDetailsFragment);
+
+                            } else {
+                                Log.i(TAG, "onComplete: " + task.getException().getLocalizedMessage().toString());
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.i(TAG, "onComplete: " + e.getLocalizedMessage().toString());
+
+                        }
+                    });
         }
 
         Navigation.findNavController(v).navigate(R.id.action_editShippingAddressFragment_to_homeAddressFragment);

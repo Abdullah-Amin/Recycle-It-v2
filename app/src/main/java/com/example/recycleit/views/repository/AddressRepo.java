@@ -69,12 +69,13 @@ public class AddressRepo {
                 });
 
     }
-    public void registerAddress(Address address) {
-        address.setId(  String.valueOf(generateIdBasedOnSeconds()));
+    public String registerAddress(Address address) {
+       String id= String.valueOf(generateIdBasedOnSeconds());
+       address.setId(id);
         store.collection("Recycle it database schema")
                 .document("address")
                 .collection(auth.getUid())
-                .document(address.getId()).set(address).addOnCompleteListener(new OnCompleteListener<Void>() {
+                .document(id).set(address).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
@@ -85,6 +86,7 @@ public class AddressRepo {
 
                     }
                 });
+        return id;
     }
 
 }
