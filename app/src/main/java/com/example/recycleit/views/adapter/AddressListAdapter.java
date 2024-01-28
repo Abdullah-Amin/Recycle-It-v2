@@ -110,8 +110,6 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
                             } else {
                                 for (DocumentSnapshot snapshot : value.getDocuments()) {
                                     key.add(snapshot.toObject(Address.class).getId());
-
-
                                 }
                                 Log.i(TAG, "onEvent: tttttttttt     " + key.get(position));
                                 if (!addressList.isEmpty()) {
@@ -123,11 +121,12 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful()) {
                                                         addressList.remove(position);
-                                                        notifyItemRemoved(position);
+//                                                        notifyItemRemoved(position);
                                                         Toast.makeText(context, "Address deleted", Toast.LENGTH_LONG).show();
                                                         Log.i(TAG, "onComplete: Address deleted");
                                                     }
-                                                    notifyItemRemoved(position);
+                                                    notifyDataSetChanged();
+//                                                    notifyItemRemoved(position);
                                                 }
                                             }).addOnFailureListener(new OnFailureListener() {
                                                 @Override

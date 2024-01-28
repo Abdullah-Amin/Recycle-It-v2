@@ -79,5 +79,21 @@ public class HomeRepo {
                         Status.getInstance().state = "success";
                     }
                 });
+
+        store.collection("Recycle it database schema").document("My posts")
+                .collection(auth.getUid()).add(postItem)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+//                        Toast.makeText(application, "Post uploaded successfully", Toast.LENGTH_SHORT).show();
+                        Status.getInstance().state = "success";
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i(TAG, "onFailure: " + e.getLocalizedMessage());
+                        Status.getInstance().state = "success";
+                    }
+                });
     }
 }

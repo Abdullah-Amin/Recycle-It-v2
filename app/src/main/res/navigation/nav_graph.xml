@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_navigation_myBagFragment_to_navigation_favoriteFragment"
             app:destination="@id/navigation_favoriteFragment" />
+        <action
+            android:id="@+id/action_navigation_myBagFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_userDetailsFragment"
@@ -74,6 +77,15 @@
         <action
             android:id="@+id/action_myPostFragment_to_navigation_userDetailsFragment"
             app:destination="@id/navigation_userDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.example.recycleit.views.PaymentFragment"
+        android:label="fragment_payment"
+        tools:layout="@layout/fragment_payment" >
+        <action
+            android:id="@+id/action_paymentFragment_to_navigation_myBagFragment"
+            app:destination="@id/navigation_myBagFragment" />
     </fragment>
 
 </navigation>

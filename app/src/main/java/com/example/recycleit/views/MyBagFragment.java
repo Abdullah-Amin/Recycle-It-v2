@@ -55,6 +55,14 @@ public class MyBagFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         getFavoriteItems();
+
+        binding.checkoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_navigation_myBagFragment_to_paymentFragment);
+            }
+        });
+
         binding.favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
