@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -66,6 +67,13 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.Holder
         binding.itemName.setText(items.get(position).getCaption());
         binding.itemPrice.setText(items.get(position).getPrice());
         binding.nameTxt.setText(items.get(position).getUserName());
+        binding.imageLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_navigation_homeFragment_to_postFragment2);
+
+            }
+        });
 
 //        reference.child("profileImages")
 //                .child(firebaseAuth.getUid())

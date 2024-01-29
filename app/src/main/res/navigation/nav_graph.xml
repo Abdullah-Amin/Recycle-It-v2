@@ -9,7 +9,11 @@
         android:id="@+id/navigation_homeFragment"
         android:name="com.example.recycleit.views.view.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_homeFragment_to_postFragment2"
+            app:destination="@id/postFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_favoriteFragment"
         android:name="com.example.recycleit.views.FavoriteFragment"
@@ -87,5 +91,10 @@
             android:id="@+id/action_paymentFragment_to_navigation_myBagFragment"
             app:destination="@id/navigation_myBagFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/postFragment2"
+        android:name="com.example.recycleit.views.PostFragment"
+        android:label="fragment_post"
+        tools:layout="@layout/fragment_post" />
 
 </navigation>

@@ -1,123 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FAFBFB"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".views.PostFragment">
-<com.google.android.material.navigation.NavigationView
-    app:layout_constraintTop_toTopOf="parent"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/nav_View">
-    <LinearLayout
-        android:padding="@dimen/_10sdp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:src="@drawable/back"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/post"
-        android:textSize="@dimen/_16sdp"
-        />
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FAFBFB"
+        tools:context=".views.PostFragment">
+
+        <com.google.android.material.navigation.NavigationView
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/nav_View">
+
+            <LinearLayout
+                android:padding="@dimen/_10sdp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/im_arrow_back"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/back"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/post"
+                    android:textSize="@dimen/_16sdp" />
+
+                <ImageView
+                    android:layout_marginStart="@dimen/_150sdp"
+                    android:layout_width="@dimen/_50sdp"
+                    android:src="@drawable/share"
+                    android:layout_height="@dimen/_30sdp" />
+
+                <ImageView
+                    android:layout_width="@dimen/_50sdp"
+                    android:src="@drawable/heart"
+                    android:layout_height="@dimen/_30sdp" />
+
+            </LinearLayout>
+
+        </com.google.android.material.navigation.NavigationView>
+
         <ImageView
-            android:layout_marginStart="@dimen/_150sdp"
-            android:layout_width="@dimen/_50sdp"
-            android:src="@drawable/share"
-            android:layout_height="@dimen/_30sdp"/>
-        <ImageView
-            android:layout_width="@dimen/_50sdp"
-            android:src="@drawable/heart"
-            android:layout_height="@dimen/_30sdp"/>
+            app:layout_constraintTop_toTopOf="@+id/nav_View"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/wwwww"
+            android:id="@+id/image" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/it_header"
+            app:layout_constraintTop_toBottomOf="@+id/image"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/clock_made_of_wood"
+            android:textStyle="bold"
+            android:gravity="start"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:padding="@dimen/_10sdp"
 
-</com.google.android.material.navigation.NavigationView>
-    <ImageView
-        app:layout_constraintTop_toTopOf="@+id/nav_View"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/wwwww"
-        android:id="@+id/image"
-        />
+            />
 
-    <TextView
-        android:id="@+id/it_header"
-        app:layout_constraintTop_toBottomOf="@+id/image"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/clock_made_of_wood"
-        android:textStyle="bold"
-        android:gravity="start"
-        android:layout_marginBottom="@dimen/_2sdp"
-        android:padding="@dimen/_10sdp"
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/deteails"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/it_header" />
 
-        />
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@drawable/view_bg"
+            app:layout_constraintTop_toBottomOf="@id/desc" />
 
-    <TextView
-        android:id="@+id/desc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/deteails"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/it_header" />
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_1sdp"
-        android:background="@drawable/view_bg"
-        app:layout_constraintTop_toBottomOf="@id/desc" />
-    <TextView
-        android:id="@+id/text_color"
-        app:layout_constraintTop_toBottomOf="@+id/desc"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/color"
-        android:textStyle="bold"
-        android:gravity="start"
-        android:padding="@dimen/_8sdp"
-        android:layout_marginBottom="@dimen/_2sdp"
+        <TextView
+            android:id="@+id/text_color"
+            app:layout_constraintTop_toBottomOf="@+id/desc"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/color"
+            android:textStyle="bold"
+            android:gravity="start"
+            android:padding="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
 
-        />
-    <androidx.recyclerview.widget.RecyclerView
+            />
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/text_color"
-        tools:itemCount="3"
-        tools:listitem="@layout/item_color" />
+        <androidx.recyclerview.widget.RecyclerView
 
-<LinearLayout
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintBottom_toBottomOf="parent"
-    android:layout_width="match_parent"
-    android:padding="@dimen/_8sdp"
-    android:layout_height="wrap_content">
-    <Button
-        android:padding="@dimen/_15sdp"
-        android:text="@string/add_to_bag"
-        android:textSize="@dimen/_16sdp"
-        android:layout_width="@dimen/_150sdp"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/_16sdp"
-android:layout_marginStart="@dimen/_100sdp"
-        android:text="@string/_20sar"/>
-</LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/text_color"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_color" />
+
+        <LinearLayout
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:padding="@dimen/_8sdp"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:padding="@dimen/_15sdp"
+                android:text="@string/add_to_bag"
+                android:textSize="@dimen/_16sdp"
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_16sdp"
+                android:layout_marginStart="@dimen/_100sdp"
+                android:text="@string/_20sar" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
