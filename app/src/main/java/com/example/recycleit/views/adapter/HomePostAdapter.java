@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.recycleit.R;
 import com.example.recycleit.databinding.PostItemBinding;
 import com.example.recycleit.views.auth.SharedPreferenceManager;
 import com.example.recycleit.views.auth.Status;
@@ -66,46 +67,47 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.Holder
         binding.itemPrice.setText(items.get(position).getPrice());
         binding.nameTxt.setText(items.get(position).getUserName());
 
-        reference.child("profileImages")
-                .child(firebaseAuth.getUid())
-                .getDownloadUrl()
-                .addOnCompleteListener(new OnCompleteListener<Uri>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Uri> task) {
-                        if (task.isSuccessful() && task.getResult() != null) {
-                            Glide.with(holder.itemView.getContext()).load(task.getResult()).into(binding.itemImage);
-                        }
-                    }
-                });
+//        reference.child("profileImages")
+//                .child(firebaseAuth.getUid())
+//                .getDownloadUrl()
+//                .addOnCompleteListener(new OnCompleteListener<Uri>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Uri> task) {
+//                        if (task.isSuccessful() && task.getResult() != null) {
+                            Glide.with(holder.itemView.getContext())
+                                    .load(items.get(position).getItemImage())
+                                    .placeholder(R.drawable.ox).into(binding.itemImage);
+//                        }
+//                    }
+//                });
 
-        if (items.get(position).getItemImage() != null) {
-//            try {
-//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(
-//                        holder.itemView.getContext().getContentResolver(), items.get(position).getItemImage());
-            Glide
-                    .with(holder.itemView.getContext())
-                    .load(items.get(position).getItemImage())
-                    .into(binding.itemImage);
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-        }
+//        if (items.get(position).getItemImage() != null) {
+////            try {
+////                Bitmap bitmap = MediaStore.Images.Media.getBitmap(
+////                        holder.itemView.getContext().getContentResolver(), items.get(position).getItemImage());
+//            Glide
+//                    .with(holder.itemView.getContext())
+//                    .load(items.get(position).getItemImage())
+//                    .into(binding.itemImage);
+////            } catch (IOException e) {
+////                throw new RuntimeException(e);
+////            }
+//        }
 
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        storage.getReference().child("profileImage").child("posts")
-                .getDownloadUrl()
-                .addOnCompleteListener(new OnCompleteListener<Uri>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Uri> task) {
-//                                        task.getResult().
-                        if (task.isSuccessful() && task.getResult() != null) {
-                            Glide
-                                    .with(holder.itemView.getContext())
-                                    .load(task.getResult())
-                                    .into(binding.itemImage);
-                        }
-                    }
-                });
+//        FirebaseStorage storage = FirebaseStorage.getInstance();
+//        storage.getReference().child("profileImage").child("posts")
+//                .getDownloadUrl()
+//                .addOnCompleteListener(new OnCompleteListener<Uri>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Uri> task) {
+////                                        task.getResult().
+//                        if (task.isSuccessful() && task.getResult() != null) {
+//                            Glide.with(holder.itemView.getContext())
+//                                    .load(items.get(position).getItemImage())
+//                                    .placeholder(R.drawable.ox).into(binding.itemImage);
+//                        }
+//                    }
+//                });
 
         if (manager.getType(holder.itemView.getContext()) == UserType.GUEST.getType()) {
             binding.addOrderBtn.setVisibility(View.INVISIBLE);

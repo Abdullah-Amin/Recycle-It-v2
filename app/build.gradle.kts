@@ -79,4 +79,6 @@ dependencies {
     // Saved state module for ViewModel
     implementation ("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version")
 
+    implementation (platform("com.google.firebase:firebase-bom:32.7.0"))
+
 }

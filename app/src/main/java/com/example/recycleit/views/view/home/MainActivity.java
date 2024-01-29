@@ -10,10 +10,15 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.recycleit.R;
 import com.example.recycleit.databinding.ActivityMainBinding;
+import com.example.recycleit.views.auth.SharedPreferenceManager;
+import com.example.recycleit.views.auth.UserType;
 import com.example.recycleit.views.view.auth.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,6 +41,16 @@ public class MainActivity extends AppCompatActivity {
         else {
                Toast.makeText(this,"welcome ",Toast.LENGTH_SHORT).show();
               }
+
+        SharedPreferenceManager manager = new SharedPreferenceManager();
+
+        String type = manager.getType(this);
+
+        if (type.equals(UserType.GUEST.getType())){
+            binding.fab2.setVisibility(View.VISIBLE);
+            binding.fab.setVisibility(View.GONE);
+            binding.fab.setClickable(false);
+        }
 
         // BottomNavigationView navView = binding.bottomNav;
         // Passing each menu ID as a set of Ids because each
