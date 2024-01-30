@@ -12,6 +12,12 @@
         <action
             android:id="@+id/action_editShippingAddressFragment_to_homeAddressFragment"
             app:destination="@id/homeAddressFragment" />
+        <argument
+            android:name="key"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_editShippingAddressFragment_to_shippingAddressFragment"
+            app:destination="@id/shippingAddressFragment" />
     </fragment>
     <fragment
         android:id="@+id/shippingAddressFragment"
@@ -23,11 +29,10 @@
         <action
             android:id="@+id/action_shippingAddressFragment_to_homeAddressFragment"
             app:destination="@id/homeAddressFragment" />
+        <argument
+            android:name="key"
+            app:argType="string" />
     </fragment>
-    <activity
-        android:id="@+id/addressActivity"
-        android:name="com.example.recycleit.views.view.profile.address.AddressActivity"
-        android:label="AddressActivity" />
     <fragment
         android:id="@+id/homeAddressFragment"
         android:name="com.example.recycleit.views.view.profile.address.HomeAddressFragment"
@@ -38,5 +43,8 @@
         <action
             android:id="@+id/action_homeAddressFragment_to_editShippingAddressFragment"
             app:destination="@id/editShippingAddressFragment" />
+        <argument
+            android:name="key"
+            app:argType="string" />
     </fragment>
 </navigation>

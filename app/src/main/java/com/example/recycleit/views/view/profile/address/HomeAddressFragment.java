@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -54,7 +55,6 @@ public class HomeAddressFragment extends Fragment {
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private SharedPreferenceManager sharedPreferenceManager=new SharedPreferenceManager();
 
-    NavController navController;
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private DatabaseReference root = db.getReference().child("address");
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
@@ -87,7 +87,9 @@ public class HomeAddressFragment extends Fragment {
         binding.btAddAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_homeAddressFragment_to_shippingAddressFragment);
+               Navigation.findNavController(v).navigate(R.id.action_homeAddressFragment_to_shippingAddressFragment);
+
+
 
             }
         });
@@ -99,17 +101,16 @@ public class HomeAddressFragment extends Fragment {
         adapter = new AddressListAdapter(list, requireContext());
         recyclerView.setAdapter(adapter);
 
+
 //        root.addValueEventListener(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                adapter.notifyDataSetChanged();
 //                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-//                     address = dataSnapshot.getValue(Address.class);
+//                    Address address = dataSnapshot.getValue(Address.class);
 //                    list.add(address);
-//                    Log.i(TAG, "onDataChange: " + address.toString());
-//                    adapter.notifyDataSetChanged();
+//                    Log.i(TAG, "onDataChange: "+ address.toString());
 //                }
-//
+////                adapter.notifyDataSetChanged();
 //            }
 //
 //            @Override
@@ -117,49 +118,6 @@ public class HomeAddressFragment extends Fragment {
 //
 //            }
 //        });
-//
-//    usersCollection.addSnapshotListener(new EventListener<QuerySnapshot>() {
-//        @Override
-//        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//            adapter.notifyDataSetChanged();
-//            if (error != null) {
-//                Toast.makeText(requireContext(), "" + error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-//                Log.i(TAG, "onEvent: error to create address");
-//                return;
-//            } else {
-//                for (DocumentSnapshot snapshot : value.getDocuments()) {
-//
-////                    adapter.notifyDataSetChanged();
-//                    Log.i(TAG, "onEvent:create address well"+address.toString());
-//                    list = new ArrayList<>();
-//               list.add(snapshot.toObject(Address.class));
-//                   adapter = new AddressListAdapter(list, requireContext());
-//                 recyclerView.setAdapter(adapter);
-//
-//                    adapter.notifyDataSetChanged();
-//
-//                }
-//
-//            }
-//        }
-//    });
-
-        root.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Address address = dataSnapshot.getValue(Address.class);
-                    list.add(address);
-                    Log.i(TAG, "onDataChange: "+ address.toString());
-                }
-//                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
         usersCollection.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -181,11 +139,6 @@ public class HomeAddressFragment extends Fragment {
         });
 
 
-
-
-
-
-
         binding.imArrowBack.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
@@ -193,24 +146,7 @@ public class HomeAddressFragment extends Fragment {
     }
 });
 
-//        usersCollection.addSnapshotListener(new EventListener<QuerySnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//                adapter.notifyDataSetChanged();
-//                if (error != null) {
-//                    Toast.makeText(requireContext(), "" + error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-//                    Log.i(TAG, "onEvent: error to create address");
-//                    return;
-//                }
-//                for (DocumentSnapshot snapshot : value.getDocuments()) {
-//                    address = snapshot.toObject(Address.class);
-//                    list.add(address);
-//                    Log.i(TAG, "onEvent: workshop created" + address.getCity());
-//                    adapter.notifyDataSetChanged();
-//
-//                }
-//            }
-//        });
+
 
 
     }

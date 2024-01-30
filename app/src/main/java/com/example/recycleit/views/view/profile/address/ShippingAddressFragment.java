@@ -20,10 +20,13 @@ import com.example.recycleit.R;
 import com.example.recycleit.databinding.FragmentShippingAddressBinding;
 import com.example.recycleit.views.model.firebase.Address;
 
+import java.math.BigInteger;
+
 public class ShippingAddressFragment extends Fragment {
     FragmentShippingAddressBinding binding;
     private AddressViewModel viewModel;
     private static final String TAG = "ShippingAddressFragment";
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

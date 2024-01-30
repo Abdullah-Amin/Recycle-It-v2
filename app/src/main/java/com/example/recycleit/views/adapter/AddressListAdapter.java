@@ -27,9 +27,14 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.recycleit.R;
+import com.example.recycleit.views.auth.SharedPreferenceManager;
 import com.example.recycleit.views.model.firebase.Address;
 import com.example.recycleit.views.view.home.StartActivity;
 import com.example.recycleit.views.view.profile.address.EditShippingAddressFragment;
+import com.example.recycleit.views.view.profile.address.HomeAddressFragment;
+import com.example.recycleit.views.view.profile.address.HomeAddressFragmentDirections;
+import com.example.recycleit.views.view.profile.address.ShippingAddressFragment;
+import com.example.recycleit.views.view.profile.address.ShippingAddressFragmentDirections;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -60,6 +65,7 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private ArrayList<String> key = new ArrayList<>();
+    private SharedPreferenceManager preferenceManager=new SharedPreferenceManager();
     private CollectionReference usersCollection =
             firestore.collection("Recycle it database schema")
                     .document("address").collection(auth.getCurrentUser().getUid());
@@ -100,33 +106,21 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
             @Override
             public void onClick(View v) {
                 if (!addressList.isEmpty()) {
-                    usersCollection.addSnapshotListener(new EventListener<QuerySnapshot>() {
-                        @Override
-                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                            if (error != null) {
 
-                                Toast.makeText(context, "Can't delete address because key is null", Toast.LENGTH_LONG).show();
-
-                            } else {
-                                for (DocumentSnapshot snapshot : value.getDocuments()) {
-                                    key.add(snapshot.toObject(Address.class).getId());
-                                }
-                                Log.i(TAG, "onEvent: tttttttttt     " + key.get(position));
-                                if (!addressList.isEmpty()) {
                                     firestore.collection("Recycle it database schema")
                                             .document("address")
                                             .collection(auth.getUid())
-                                            .document(key.get(position)).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            .document(addressList.get(position).getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful()) {
                                                         addressList.remove(position);
-//                                                        notifyItemRemoved(position);
+                                                    notifyItemRemoved(position);
                                                         Toast.makeText(context, "Address deleted", Toast.LENGTH_LONG).show();
                                                         Log.i(TAG, "onComplete: Address deleted");
                                                     }
-                                                    notifyDataSetChanged();
-//                                                    notifyItemRemoved(position);
+                                                  //  notifyDataSetChanged();
+                                                   notifyItemRemoved(position);
                                                 }
                                             }).addOnFailureListener(new OnFailureListener() {
                                                 @Override
@@ -140,30 +134,26 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
                                     Toast.makeText(context, "Can't delete address because the list of empty", Toast.LENGTH_LONG).show();
 
                                 }
-                            }
-                        }
-                    });
 
-                } else {
-                    Toast.makeText(context, "your list is empty", Toast.LENGTH_LONG).show();
-                }
             }
         });
 
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent("my address key");
-                intent.putExtra("id",key);
-                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+//                Intent intent=new Intent(context, EditShippingAddressFragment.class);
+//                intent.putExtra("id",key);
+//                context.startActivity(intent);
+//                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
 //                FragmentManager fragmentManager
 //                FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
 //                Bundle args = new Bundle();
 //                args.putString("id",key.get(position));
 
-                Navigation.findNavController(v).navigate(R.id.action_homeAddressFragment_to_editShippingAddressFragment);
+                preferenceManager.setAddKey(context,addressList.get(position).getId());
 
+                Navigation.findNavController(v).navigate(R.id.action_homeAddressFragment_to_editShippingAddressFragment);
             }
         });
 
@@ -194,25 +184,7 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
             edit = itemView.findViewById(R.id.it_add_bt_edit);
 
 
-//.whereEqualTo("")
-
-
-//            delete.setOnClickListener(new View.OnClickListener() {
-//
-//                @Override
-//                public void onClick(View v) {
-//
-//
-////adapter.addressList.get(getAdapterPosition()).getId()
-//
-//
-//
-//                }
-//
-//            });
         }
-
-
         public AddressViewHolder link(AddressListAdapter adaptor) {
             this.adapter = adaptor;
             return this;

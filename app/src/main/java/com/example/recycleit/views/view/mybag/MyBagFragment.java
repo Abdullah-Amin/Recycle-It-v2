@@ -1,4 +1,4 @@
-package com.example.recycleit.views;
+package com.example.recycleit.views.view.mybag;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +19,8 @@ import com.example.recycleit.R;
 import com.example.recycleit.databinding.FragmentMyBagBinding;
 import com.example.recycleit.views.adapter.FavoritesAdapter;
 import com.example.recycleit.views.adapter.MyBagAdapter;
+import com.example.recycleit.views.adapter.WorkshopAdaptor;
+import com.example.recycleit.views.auth.SharedPreferenceManager;
 import com.example.recycleit.views.model.Price;
 import com.example.recycleit.views.model.PriceI;
 import com.example.recycleit.views.model.firebase.PostItem;
@@ -36,10 +40,14 @@ public class MyBagFragment extends Fragment {
     FragmentMyBagBinding binding;
 
     private static final String TAG = "MyBagFragment";
+    SharedPreferenceManager manager=new SharedPreferenceManager();
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
     FirebaseFirestore store = FirebaseFirestore.getInstance();
+    private RecyclerView recyclerView;
+    private MyBagAdapter  adapter;
+
 
     private ArrayList<PostItem> list = new ArrayList<>();
     @Override
@@ -54,7 +62,13 @@ public class MyBagFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getFavoriteItems();
+//        recyclerView = binding.recycler;
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+//        list = new ArrayList<>();
+//        adapter = new MyBagAdapter(list, price -> {});
+//        recyclerView.setAdapter(adapter);
+//        getFavoriteItems();
 
         binding.checkoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override

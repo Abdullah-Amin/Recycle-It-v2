@@ -42,6 +42,7 @@ FragmentEditShippingAddressBinding binding;
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     FirebaseStorage storage2 = FirebaseStorage.getInstance();
 
+
     StorageReference storage = FirebaseStorage.getInstance().getReference();
 private AddressViewModel viewModel;
 
@@ -68,7 +69,12 @@ private Address address=new Address();
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
+        binding.imArrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requireActivity().finish();
+            }
+        });
 
         //edit data for address object
 binding.confirmationBtn.setOnClickListener(new View.OnClickListener() {
@@ -90,22 +96,20 @@ binding.confirmationBtn.setOnClickListener(new View.OnClickListener() {
         userHashMap.put("post_id", address.getPost_id());
         userHashMap.put("regin", address.getRegin());
         userHashMap.put("street", address.getStreet());
-        Bundle args = getArguments();
-        String key="";
-        if (args != null)
-        {
-            key = args.getString("key");
-        }
+
+
+
         if(firebaseAuth.getCurrentUser().getUid()!=null)
         {
 
 
-//need to get id of item was click to update called key in adaptor
+
+                //need to get id of item was click to update called key in adaptor
 
             firebaseFirestore.collection("Recycle it database schema")
                 .document("address")
                 .collection(firebaseAuth.getUid())
-                    .document("")
+                    .document(sharedPreferenceManage.getAddKey(requireContext()))
                     .update(userHashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -127,7 +131,7 @@ binding.confirmationBtn.setOnClickListener(new View.OnClickListener() {
                     });
         }
 
-        Navigation.findNavController(v).navigate(R.id.action_editShippingAddressFragment_to_homeAddressFragment);
+        Navigation.findNavController(v).navigate(R.id.action_editShippingAddressFragment_to_shippingAddressFragment);
 
 
 

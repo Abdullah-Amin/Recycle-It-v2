@@ -26,7 +26,7 @@
         tools:layout="@layout/fragment_address" />
     <fragment
         android:id="@+id/postFragment"
-        android:name="com.example.recycleit.views.PostFragment"
+        android:name="com.example.recycleit.views.view.home.PostFragment"
         android:label="fragment_post"
         tools:layout="@layout/fragment_post" />
     <fragment

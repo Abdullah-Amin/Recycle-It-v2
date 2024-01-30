@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -152,6 +153,19 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.Holder
                         });
             }
         });
+        binding.imageLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                manager.setAddPostImage(v.getContext(),items.get(position).getItemImage() );
+                manager.setAddPostDescr(v.getContext(), items.get(position).getCaption());
+                manager.setAddPostPrice(v.getContext(), items.get(position).getPrice());
+
+                Navigation.findNavController(v).navigate(R.id.action_navigation_homeFragment_to_postFragment2);
+
+            }
+        });
+
     }
 
     @Override
@@ -168,8 +182,7 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.Holder
             this.binding = binding;
         }
     }
-    public void Search(ArrayList<PostItem>searchList)
-    {
+    public void Search(ArrayList<PostItem>searchList) {
         this.items=searchList;
         notifyDataSetChanged();
     }
