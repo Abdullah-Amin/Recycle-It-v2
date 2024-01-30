@@ -68,6 +68,8 @@ public class CaptionFragment extends Fragment {
     ActivityResultLauncher<Intent> imagePickerLauncher = null;
     private Bitmap bitmap;
     private Uri imageUri;
+    private Uri userImage;
+
     private static final String TAG = "CaptionFragment";
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -219,12 +221,13 @@ public class CaptionFragment extends Fragment {
                 }
 
                 User user = value.toObject(User.class);
+//                user.setImageUrl(userImage+"");
                 Log.i(TAG, "uploadPostToServer: on event - " + imageUri);
 
 
 //                    Log.i(TAG, "uploadPostToServer: on event - " + new URL(imageUri.toString()));
                 viewModel.upload(
-                        new PostItem(user.getName(), user.getImageUrl(), imageUri + "", caption, price +".SR", "Wow!!")
+                        new PostItem(user.getName(), userImage + "", auth.getCurrentUser().getUid(), imageUri + "", caption, price +".SR", "Wow!!")
                 );
 
                 if (Status.getInstance().state.equals("success")) {
@@ -266,6 +269,8 @@ public class CaptionFragment extends Fragment {
                     public void onComplete(@NonNull Task<Uri> task) {
 //                                        task.getResult().
                         if (task.isSuccessful() && task.getResult() != null) {
+
+                            userImage = task.getResult();
                             Glide
                                     .with(requireActivity())
                                     .load(task.getResult())

@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,"Guest Can't add Posts",Toast.LENGTH_LONG).show();
                 }
             });
-
         }
 
         // BottomNavigationView navView = binding.bottomNav;

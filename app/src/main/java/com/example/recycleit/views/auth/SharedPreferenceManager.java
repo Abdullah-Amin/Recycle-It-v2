@@ -14,6 +14,8 @@ public class SharedPreferenceManager {
     private static final String ADD_POST_PRICE = "price";
     private static final String ADD_POST_DESCR = "description";
     private static final String ITEM_POST = "item";
+    private static final String LOGIN_STATUS = "login_status";
+    private static final String EMAIL = "email_address";
 
 
 
@@ -73,6 +75,16 @@ public class SharedPreferenceManager {
     public void setAddKey(Context context, String key) {
         SharedPreferences.Editor editor = getSharedPreferences(context).edit();
         editor.putString(ADD_KEY, key);
+        editor.apply();
+    }
+
+    public Boolean getLoginStatus(Context context) {
+        return getSharedPreferences(context).getBoolean(LOGIN_STATUS, false);
+    }
+
+    public void setLoginStatus(Context context, Boolean loginStatus) {
+        SharedPreferences.Editor editor = getSharedPreferences(context).edit();
+        editor.putBoolean(LOGIN_STATUS, loginStatus);
         editor.apply();
     }
 

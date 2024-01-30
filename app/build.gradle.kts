@@ -83,5 +83,5 @@ dependencies {
   //gson
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     // firebase due delete user
-    //implementation ("com.google.firebase:firebase-admin:24.10.0")
+//    implementation ("com.google.firebase:firebase-admin:24.10.0")
 }

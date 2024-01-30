@@ -43,12 +43,13 @@ import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 
 public class EditUserDataFragment extends Fragment {
 
     FragmentEdditUserDatakBinding binding;
-    SharedPreferenceManager sharedPreferenceManage=new SharedPreferenceManager();
+    SharedPreferenceManager sharedPreferenceManage = new SharedPreferenceManager();
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     FirebaseStorage storage2 = FirebaseStorage.getInstance();
@@ -57,7 +58,7 @@ public class EditUserDataFragment extends Fragment {
     private static final String TAG = "EditUserDataFragment";
     User user = new User("", "", "", "", "", "type");
     private ViewModelUser viewModelUser;
-    private FirebaseFirestore db=FirebaseFirestore.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private DocumentReference usersCollection = db.collection("Recycle it database schema").document("users").collection("regular").document(firebaseAuth.getUid());
 
@@ -79,60 +80,92 @@ public class EditUserDataFragment extends Fragment {
         viewModelUser = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory
                 .getInstance(getActivity().getApplication())).get(ViewModelUser.class);
 
+        if (Objects.equals(sharedPreferenceManage.getType(requireContext()), UserType.GUEST.getType())){
+            binding.buttonLogout.setEnabled(false);
+            binding.buttonSave.setEnabled(false);
+            binding.etdEmail.setEnabled(false);
+            binding.etdName.setEnabled(false);
+            binding.etdUsername.setEnabled(false);
+            binding.etdPassword.setEnabled(false);
+            binding.buttonDelete.setEnabled(false);
+        }else {
+
+        }
+
         displayEmail();
-            image();
-            binding.buttonCancel.setOnClickListener(new View.OnClickListener() {
+        image();
+        binding.buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(view).navigate(R.id.action_editUserDataFragment_to_userDetailsFragment);
 
             }
         });
+
+        binding.buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firebaseAuth.getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        sharedPreferenceManage.setLoginStatus(requireContext(), false);
+                        startActivity(new Intent(requireContext(), StartActivity.class));
+                        requireActivity().finish();
+                    }
+                });
+            }
+        });
         //binding.etdEmail.cli
         binding.profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imageCropper();
+                if (!Objects.equals(sharedPreferenceManage.getType(requireContext()), UserType.GUEST.getType())){
+                    imageCropper();
+                }else {
+                    Toast.makeText(requireContext(), "Guests can't upload images", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         binding.buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-updateUserData();
+                updateUserData();
             }
         });
 
         binding.buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                firebaseAuth.signOut();
-              sharedPreferenceManage.remove(requireActivity());
+//                firebaseAuth.signOut();
+//                sharedPreferenceManage.remove(requireActivity());
+                sharedPreferenceManage.setLoginStatus(requireContext(), false);
                 Intent intent = new Intent(requireActivity(), StartActivity.class);
                 startActivity(intent);
+                requireActivity().finish();
+            }
+        });
+
+    }
+
+    public void displayEmail() {
+        usersCollection.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Toast.makeText(requireContext(), error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    Log.i(TAG, "onEvent: " + error.getLocalizedMessage());
+                    return;
+                }
+
+//                binding.etdEmail.setText(value.toObject(User.class).getEmail().toString());
+                //   binding.txName.setText("Hello, "+viewModel.getUserName());
 
             }
         });
 
     }
- public void displayEmail() {
-     usersCollection.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-         @Override
-         public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-             if (error != null)
-             {
-                 Toast.makeText(requireContext(),error.getLocalizedMessage(),Toast.LENGTH_LONG).show();
-                 Log.i(TAG, "onEvent: "+error.getLocalizedMessage());
-                 return;
-             }
 
-             binding.etdEmail.setText(value.toObject(User.class).getEmail().toString());
-             //   binding.txName.setText("Hello, "+viewModel.getUserName());
-
-         }
-     });
-
- }
     private void updateUserData() {
         String name = binding.etdName.getText().toString().trim();
         String userName = binding.etdUsername.getText().toString().trim();
@@ -166,41 +199,40 @@ updateUserData();
             user.setSirname(userName);
             user.setEmail(email);
             user.setPassword(password);
-            firebaseAuth.confirmPasswordReset(user.getPassword(),email);
+            firebaseAuth.confirmPasswordReset(user.getPassword(), email);
             Log.i(TAG, "onClick: " + user.toString());
-         //   viewModelUser.updateUserData(user);
+            //   viewModelUser.updateUserData(user);
             HashMap<String, Object> userHashMap = new HashMap<>();
             userHashMap.put("name", name);
             userHashMap.put("sirname", userName);
             userHashMap.put("password", password);
 //        userHashMap.put("imageUrl", binding.profileImage..toString().trim());
 
-if(db!=null){
-            firebaseFirestore.collection("Recycle it database schema")
-                    .document("users").collection("regular").document(firebaseAuth.getCurrentUser().getUid())
-                    .update(userHashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Log.i(TAG, "onComplete:  yes updated");
-                                Toast.makeText(requireContext(), "Data updated. ", Toast.LENGTH_LONG).show();
-                                Navigation.findNavController(requireView()).navigate(R.id.action_editUserDataFragment_to_userDetailsFragment);
+            if (db != null) {
+                firebaseFirestore.collection("Recycle it database schema")
+                        .document("users").collection("regular").document(firebaseAuth.getCurrentUser().getUid())
+                        .update(userHashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Log.i(TAG, "onComplete:  yes updated");
+                                    Toast.makeText(requireContext(), "Data updated. ", Toast.LENGTH_LONG).show();
+                                    Navigation.findNavController(requireView()).navigate(R.id.action_editUserDataFragment_to_userDetailsFragment);
 
-                            } else {
-                                Log.i(TAG, "onComplete: " + task.getException().getLocalizedMessage().toString());
+                                } else {
+                                    Log.i(TAG, "onComplete: " + task.getException().getLocalizedMessage().toString());
+                                }
                             }
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.i(TAG, "onComplete: " + e.getLocalizedMessage().toString());
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.i(TAG, "onComplete: " + e.getLocalizedMessage().toString());
 
-                        }
-                    });}
-else
-{
-    db=FirebaseFirestore.getInstance();
-}
+                            }
+                        });
+            } else {
+                db = FirebaseFirestore.getInstance();
+            }
         }
     }
 
@@ -209,6 +241,7 @@ else
                 .start(getContext(), this);
 
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -231,30 +264,30 @@ else
     private void uploadImage(Uri imageUri) {
         storage.child("images profiles").child(firebaseAuth.getUid()).putFile(imageUri).addOnCompleteListener
                 (new OnCompleteListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(requireContext(), "the image saved", Toast.LENGTH_LONG).show();
-                    Log.i(TAG, "onComplete:the image saved ");
-                    getImageUrl();
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(requireContext(), "the image saved", Toast.LENGTH_LONG).show();
+                            Log.i(TAG, "onComplete:the image saved ");
+                            getImageUrl();
 
-                } else {
-                    String error = task.getException().getLocalizedMessage().toString();
-                    Toast.makeText(requireContext(), "the problem happen when upload " + error, Toast.LENGTH_LONG).show();
+                        } else {
+                            String error = task.getException().getLocalizedMessage().toString();
+                            Toast.makeText(requireContext(), "the problem happen when upload " + error, Toast.LENGTH_LONG).show();
 
-                    Log.i(TAG, "onComplete:the problem happen when upload " + error);
-                }
-            }
-        });
+                            Log.i(TAG, "onComplete:the problem happen when upload " + error);
+                        }
+                    }
+                });
     }
 
     private void getImageUrl() {
         storage.child("Image profile").child(firebaseAuth.getUid()).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
-                if(task.isSuccessful()){
-                    String imageUrl=task.getResult().toString();
-                    Log.i(TAG, "onComplete: "+imageUrl);
+                if (task.isSuccessful()) {
+                    String imageUrl = task.getResult().toString();
+                    Log.i(TAG, "onComplete: " + imageUrl);
                     uploadImageurl(imageUrl);
                 }
             }
@@ -262,26 +295,23 @@ else
     }
 
     private void uploadImageurl(String imageUrl) {
-        HashMap<String,Object>image=new HashMap<>();
-        image.put("Image profile",imageUrl);
+        HashMap<String, Object> image = new HashMap<>();
+        image.put("Image profile", imageUrl);
 
         firebaseFirestore.collection("image profile").document(firebaseAuth.getUid()).update(image).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-           if(task.isSuccessful())
-           {
-               Toast.makeText(requireContext(), "image updated" , Toast.LENGTH_LONG).show();
-               Log.i(TAG, "onComplete:image updated " );
+                if (task.isSuccessful()) {
+                    Toast.makeText(requireContext(), "image updated", Toast.LENGTH_LONG).show();
+                    Log.i(TAG, "onComplete:image updated ");
 
-           }
-           else {
-               Toast.makeText(requireContext(), "problem" +task.getException().getLocalizedMessage().toString(), Toast.LENGTH_LONG).show();
-               Log.i(TAG, "onComplete:image problem "+task.getException().getLocalizedMessage().toString() );
-           }
+                } else {
+                    Toast.makeText(requireContext(), "problem" + task.getException().getLocalizedMessage().toString(), Toast.LENGTH_LONG).show();
+                    Log.i(TAG, "onComplete:image problem " + task.getException().getLocalizedMessage().toString());
+                }
             }
         });
     }
-
 
 
     private void image() {
@@ -291,7 +321,7 @@ else
                     @Override
                     public void onComplete(@NonNull Task<Uri> task) {
 //                                        task.getResult().
-                        if (task.isSuccessful() && task.getResult() != null){
+                        if (task.isSuccessful() && task.getResult() != null) {
                             Glide
                                     .with(binding.profileImage)
                                     .load(task.getResult())

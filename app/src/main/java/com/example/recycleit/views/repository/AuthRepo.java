@@ -104,6 +104,8 @@ public class AuthRepo {
                             if (task.isSuccessful()) {
                                 Log.i(TAG, "onComplete login :  success1");
                                 getUser(context, email);
+                                SharedPreferenceManager manager = new SharedPreferenceManager();
+                                manager.setLoginStatus(context, true);
                                 Log.i(TAG, "onComplete login :  success2");
                             } else {
                                 status.postValue(false);

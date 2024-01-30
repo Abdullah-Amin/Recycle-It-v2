@@ -45,6 +45,7 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.Holder
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     FirebaseFirestore store = FirebaseFirestore.getInstance();
+    FirebaseStorage storage = FirebaseStorage.getInstance();
 
     public HomePostAdapter(ArrayList<PostItem> items) {
         this.items = items;
@@ -67,6 +68,34 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.Holder
         binding.itemName.setText(items.get(position).getCaption());
         binding.itemPrice.setText(items.get(position).getPrice());
         binding.nameTxt.setText(items.get(position).getUserName());
+
+//        if (items.get(position).getUserImage() != null){
+//            Glide
+//                    .with(holder.itemView.getContext())
+//                    .load(items.get(position).getUserImage())
+//                    .placeholder(R.drawable.addcircle)
+//                    .into(binding.profileImage);
+//        }
+
+        if (items.get(position).getUid() != null){
+            storage.getReference().child("images profiles").child(items.get(position).getUid())
+                    .getDownloadUrl()
+                    .addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+//                                        task.getResult().
+                            if (task.isSuccessful() && task.getResult() != null) {
+                                Glide
+                                        .with(holder.itemView.getContext())
+                                        .load(task.getResult())
+                                        .placeholder(R.drawable.addcircle)
+                                        .into(binding.profileImage);
+                            }
+                        }
+                    });
+
+        }
+
 
 //        reference.child("profileImages")
 //                .child(firebaseAuth.getUid())

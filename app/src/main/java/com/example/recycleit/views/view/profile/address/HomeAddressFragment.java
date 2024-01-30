@@ -26,6 +26,7 @@ import com.example.recycleit.views.adapter.AddressListAdapter;
 import com.example.recycleit.views.adapter.CourseAdapter;
 import com.example.recycleit.views.auth.SharedPreferenceManager;
 
+import com.example.recycleit.views.auth.UserType;
 import com.example.recycleit.views.model.firebase.Address;
 import com.example.recycleit.views.model.firebase.CourseB;
 import com.example.recycleit.views.model.local.User;
@@ -83,6 +84,13 @@ public class HomeAddressFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity(), ViewModelProvider.AndroidViewModelFactory
                 .getInstance(getActivity().getApplication())).get(AddressViewModel.class);
+
+        if (Objects.equals(sharedPreferenceManager.getType(requireContext()), UserType.GUEST.getType())){
+            binding.btAddAddress.setEnabled(false);
+            binding.addRecycler.setEnabled(false);
+        }else {
+
+        }
 
         binding.btAddAddress.setOnClickListener(new View.OnClickListener() {
             @Override

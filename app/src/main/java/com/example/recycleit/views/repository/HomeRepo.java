@@ -1,12 +1,14 @@
 package com.example.recycleit.views.repository;
 
 import android.app.Application;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.bumptech.glide.Glide;
 import com.example.recycleit.views.auth.Status;
 import com.example.recycleit.views.model.firebase.PostItem;
 import com.example.recycleit.views.model.local.User;
@@ -21,6 +23,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +34,7 @@ public class HomeRepo {
     private Application application;
     private static final String TAG = "HomeRepo";
     private FirebaseAuth auth = FirebaseAuth.getInstance();
+    FirebaseStorage storage = FirebaseStorage.getInstance();
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private FirebaseFirestore store = FirebaseFirestore.getInstance();
     Boolean state = false;
@@ -64,6 +68,19 @@ public class HomeRepo {
     }
 
     public void uploadPost(PostItem postItem){
+        storage.getReference().child("images profiles").child(auth.getCurrentUser().getUid())
+                .getDownloadUrl()
+                .addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+//                                        task.getResult().
+                        if (task.isSuccessful() && task.getResult() != null) {
+
+                        }
+                    }
+                });
+
+
         store.collection("Recycle it database schema").document("Posts")
                 .collection("all posts").add(postItem)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
