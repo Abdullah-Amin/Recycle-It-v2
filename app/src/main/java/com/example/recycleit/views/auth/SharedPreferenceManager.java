@@ -3,6 +3,8 @@ package com.example.recycleit.views.auth;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.recycleit.views.model.firebase.PostItem;
+
 public class SharedPreferenceManager {
     private static final String USER_AUTH = "user_auth";
 
@@ -11,6 +13,8 @@ public class SharedPreferenceManager {
     private static final String ADD_POST_IMAGE = "image";
     private static final String ADD_POST_PRICE = "price";
     private static final String ADD_POST_DESCR = "description";
+    private static final String ITEM_POST = "item";
+
 
 
 
@@ -30,7 +34,17 @@ public class SharedPreferenceManager {
         SharedPreferences.Editor editor = getSharedPreferences(context).edit();
         editor.putString(ADD_POST_IMAGE, image);
         editor.apply();
-    }    public String getAddPostPrice(Context context) {
+    }
+    public String getPostItem(Context context) {
+        return getSharedPreferences(context).getString(ITEM_POST, null);
+    }
+
+    public void setPostItem(Context context, PostItem item) {
+        SharedPreferences.Editor editor = getSharedPreferences(context).edit();
+        editor.putString(ITEM_POST, item.toString());
+        editor.apply();
+    }
+    public String getAddPostPrice(Context context) {
         return getSharedPreferences(context).getString(ADD_POST_PRICE, null);
     }
 
@@ -46,7 +60,8 @@ public class SharedPreferenceManager {
         SharedPreferences.Editor editor = getSharedPreferences(context).edit();
         editor.putString(ADD_POST_DESCR, desc);
         editor.apply();
-    }    public String getAddKey(Context context) {
+    }
+    public String getAddKey(Context context) {
         return getSharedPreferences(context).getString(ADD_KEY, null);
     }
 

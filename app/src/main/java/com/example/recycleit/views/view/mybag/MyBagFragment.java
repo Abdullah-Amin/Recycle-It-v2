@@ -62,13 +62,16 @@ public class MyBagFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+        if(list.size()==0)
+            binding.totalPrice.setText("000");
 //        recyclerView = binding.recycler;
 //        recyclerView.setHasFixedSize(true);
 //        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 //        list = new ArrayList<>();
 //        adapter = new MyBagAdapter(list, price -> {});
 //        recyclerView.setAdapter(adapter);
-//        getFavoriteItems();
+      getFavoriteItems();
 
         binding.checkoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +110,7 @@ public class MyBagFragment extends Fragment {
                                     @Override
                                     public void getPrice(int price) {
                                         Log.i(TAG, "getPrice: " + price);
+
                                         binding.totalPrice.setText(price + " SAR");
                                         Log.i(TAG, "getPrice: total " + Price.totalPrice);
                                     }

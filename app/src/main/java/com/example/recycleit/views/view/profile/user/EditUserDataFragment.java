@@ -282,8 +282,7 @@ else
 
 
 
-    private void image()
-    {
+    private void image() {
         storage2.getReference().child("images profiles").child(firebaseAuth.getCurrentUser().getUid())
                 .getDownloadUrl()
                 .addOnCompleteListener(new OnCompleteListener<Uri>() {

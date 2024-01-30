@@ -47,9 +47,8 @@ public class MainActivity extends AppCompatActivity {
         String type = manager.getType(this);
 
         if (type.equals(UserType.GUEST.getType())){
-            binding.fab2.setVisibility(View.VISIBLE);
-            binding.fab.setVisibility(View.GONE);
-            binding.fab.setClickable(false);
+            binding.bottomNav.getMenu().getItem(2).setEnabled(false);
+
         }
 
         // BottomNavigationView navView = binding.bottomNav;

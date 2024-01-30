@@ -80,5 +80,6 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version")
 
     implementation (platform("com.google.firebase:firebase-bom:32.7.0"))
-
+  //gson
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 }

@@ -40,7 +40,7 @@ import java.util.List;
 public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.Holder> {
 
     private static final String TAG = "HomePostAdapter";
-    private ArrayList<PostItem> items;
+    private ArrayList<PostItem> items=new ArrayList<>();
     StorageReference reference = FirebaseStorage.getInstance().getReference();
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
@@ -119,19 +119,19 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.Holder
         binding.addOrderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                store.collection("Recycle it database schema").document("Orders")
-                        .collection(firebaseAuth.getCurrentUser().getUid()).document(items.get(position).getCaption()
-                                + items.get(position).getPrice()
-                                + items.get(position).getDescription()
-                        ).set(items.get(position))
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()){
-                                    Toast.makeText(view.getContext(), "Added to cart successfully", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+//                store.collection("Recycle it database schema").document("Orders")
+//                        .collection(firebaseAuth.getCurrentUser().getUid()).document(items.get(position).getCaption()
+//                                + items.get(position).getPrice()
+//                                + items.get(position).getDescription()
+//                        ).set(items.get(position))
+//                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<Void> task) {
+//                                if (task.isSuccessful()){
+//                                    Toast.makeText(view.getContext(), "Added to cart successfully", Toast.LENGTH_SHORT).show();
+//                                }
+//                            }
+//                        });
             }
         });
 
@@ -157,9 +157,7 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.Holder
             @Override
             public void onClick(View v) {
 
-                manager.setAddPostImage(v.getContext(),items.get(position).getItemImage() );
-                manager.setAddPostDescr(v.getContext(), items.get(position).getCaption());
-                manager.setAddPostPrice(v.getContext(), items.get(position).getPrice());
+              manager.setPostItem(v.getContext(), items.get(position));
 
                 Navigation.findNavController(v).navigate(R.id.action_navigation_homeFragment_to_postFragment2);
 
