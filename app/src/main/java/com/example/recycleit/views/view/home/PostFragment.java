@@ -45,6 +45,7 @@ binding=FragmentPostBinding.inflate(inflater,container,false);
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
      String m=   manager.getPostItem(requireContext()).split("\\{")[1];
         m="\\{"+m;
       //  manager.get(requireContext());

@@ -33,6 +33,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.recycleit.R;
 import com.example.recycleit.databinding.FragmentCaptionBinding;
 import com.example.recycleit.views.auth.Status;
@@ -51,6 +52,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -60,7 +62,7 @@ import java.net.URL;
 public class CaptionFragment extends Fragment {
 
     private FragmentCaptionBinding binding;
-
+    FirebaseStorage storage2 = FirebaseStorage.getInstance();
     private HomeViewModel viewModel;
 
     ActivityResultLauncher<Intent> imagePickerLauncher = null;
@@ -87,6 +89,8 @@ public class CaptionFragment extends Fragment {
         viewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory
                 .getInstance(getActivity().getApplication())).get(HomeViewModel.class);
 
+
+        image();
         binding.buttonPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -196,6 +200,7 @@ public class CaptionFragment extends Fragment {
         }
     }
 
+
     private void uploadPostToServer() {
         String caption = binding.captionEt.getText().toString().trim();
         String price = binding.priceEt.getText().toString().trim();
@@ -252,4 +257,22 @@ public class CaptionFragment extends Fragment {
 //            Toast.makeText(this, "Required a photo to continue !!", Toast.LENGTH_SHORT).show();
 //        }
     }
+    private void image() {
+
+        storage2.getReference().child("images profiles").child(auth.getCurrentUser().getUid())
+                .getDownloadUrl()
+                .addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+//                                        task.getResult().
+                        if (task.isSuccessful() && task.getResult() != null) {
+                            Glide
+                                    .with(requireActivity())
+                                    .load(task.getResult())
+                                    .into(binding.imPerson);
+                        }
+                    }
+                });
+    }
+
 }

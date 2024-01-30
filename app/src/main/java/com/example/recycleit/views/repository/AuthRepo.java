@@ -274,6 +274,22 @@ public class AuthRepo {
 
             }
         });
+
     }
+    public void code(String email)
+    {
+        auth.verifyPasswordResetCode(email).addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                Log.i(TAG, "onComplete: verifyPasswordResetCode ");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.i(TAG, "onFailure: verifyPasswordResetCode ");
+            }
+        });
+    }
+
 
 }

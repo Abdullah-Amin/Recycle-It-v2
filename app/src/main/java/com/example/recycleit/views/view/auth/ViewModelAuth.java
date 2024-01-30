@@ -70,4 +70,8 @@ public class ViewModelAuth extends AndroidViewModel {
     {
         repository.resetPassword(email);
     }
+    public void code(String str)
+    {
+        repository.code(str);
+    }
 }

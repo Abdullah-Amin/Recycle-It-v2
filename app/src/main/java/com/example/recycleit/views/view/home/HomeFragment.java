@@ -72,8 +72,10 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Log.i("AuthRepo", "onViewCreated: " + sharedPreferenceManager.getType(requireContext()));
         if (sharedPreferenceManager.getType(requireContext()).equals(UserType.BUSINESS.getType())) {
+            image();
         //    binding.all.setVisibility(View.INVISIBLE);
         } else if (sharedPreferenceManager.getType(requireContext()).equals(UserType.REGULAR.getType())) {
+            image();
         } else {
             binding.greetingTxt.setText("welcome to our project Guest");
         }
@@ -90,6 +92,7 @@ public class HomeFragment extends Fragment {
                 return true;
             }
         });
+
 
         postList = new ArrayList<>();
         if (auth.getUid() != null) {
@@ -142,23 +145,23 @@ public class HomeFragment extends Fragment {
 
     }
 
-//    private void image() {
-//        storage2.getReference().child("images profiles").child(auth.getCurrentUser().getUid())
-//                .getDownloadUrl()
-//                .addOnCompleteListener(new OnCompleteListener<Uri>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Uri> task) {
-////                                        task.getResult().
-//                        if (task.isSuccessful() && task.getResult() != null) {
-//                            Glide
-//                                    .with(requireActivity())
-//                                    .load(task.getResult()).placeholder(R.drawable.girl)
-//                                    .into(binding.profileImage);
-//                        }
-//                    }
-//                });
-//
-//    }
+    private void image() {
+        storage2.getReference().child("images profiles").child(auth.getCurrentUser().getUid())
+                .getDownloadUrl()
+                .addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+//                                        task.getResult().
+                        if (task.isSuccessful() && task.getResult() != null) {
+                            Glide
+                                    .with(requireActivity())
+                                    .load(task.getResult()).placeholder(R.drawable.girl)
+                                    .into(binding.profileImage);
+                        }
+                    }
+                });
+
+    }
 
     public void search(String textInput) {
         ArrayList<PostItem> postList1=new ArrayList<>();

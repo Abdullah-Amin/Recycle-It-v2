@@ -48,6 +48,12 @@ public class MainActivity extends AppCompatActivity {
 
         if (type.equals(UserType.GUEST.getType())){
             binding.bottomNav.getMenu().getItem(2).setEnabled(false);
+            binding.fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(MainActivity.this,"Guest Can't add Posts",Toast.LENGTH_LONG).show();
+                }
+            });
 
         }
 

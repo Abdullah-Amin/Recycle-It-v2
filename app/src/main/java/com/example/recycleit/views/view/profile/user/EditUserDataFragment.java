@@ -139,6 +139,7 @@ updateUserData();
         String email = binding.etdEmail.getText().toString().trim();
         String password = binding.etdPassword.getText().toString().trim();
 
+
         if (name.isEmpty()) {
 
             binding.etdName.setError("insert your name");
@@ -165,6 +166,7 @@ updateUserData();
             user.setSirname(userName);
             user.setEmail(email);
             user.setPassword(password);
+            firebaseAuth.confirmPasswordReset(user.getPassword(),email);
             Log.i(TAG, "onClick: " + user.toString());
          //   viewModelUser.updateUserData(user);
             HashMap<String, Object> userHashMap = new HashMap<>();

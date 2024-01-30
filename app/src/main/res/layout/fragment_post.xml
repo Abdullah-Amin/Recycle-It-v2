@@ -40,7 +40,7 @@
                     android:textSize="@dimen/_16sdp" />
 
                 <ImageView
-                    android:layout_marginStart="@dimen/_150sdp"
+                    android:layout_marginStart="@dimen/_130sdp"
                     android:layout_width="@dimen/_50sdp"
                     android:src="@drawable/share"
                     android:layout_height="@dimen/_30sdp" />
@@ -127,11 +127,10 @@
 
             <Button
                 android:id="@+id/add_to_bag"
-                android:padding="@dimen/_15sdp"
                 android:text="@string/add_to_bag"
-                android:textSize="@dimen/_16sdp"
-                android:layout_width="@dimen/_150sdp"
-                android:layout_height="wrap_content" />
+                android:textSize="@dimen/_10sdp"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_45sdp" />
 
             <TextView
                 android:id="@+id/tv_price"
