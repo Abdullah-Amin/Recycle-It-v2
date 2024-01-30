@@ -67,13 +67,6 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.Holder
         binding.itemName.setText(items.get(position).getCaption());
         binding.itemPrice.setText(items.get(position).getPrice());
         binding.nameTxt.setText(items.get(position).getUserName());
-        binding.imageLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_navigation_homeFragment_to_postFragment2);
-
-            }
-        });
 
 //        reference.child("profileImages")
 //                .child(firebaseAuth.getUid())
@@ -160,6 +153,19 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.Holder
                         });
             }
         });
+        binding.imageLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                manager.setAddPostImage(v.getContext(),items.get(position).getItemImage() );
+                manager.setAddPostDescr(v.getContext(), items.get(position).getCaption());
+                manager.setAddPostPrice(v.getContext(), items.get(position).getPrice());
+
+                Navigation.findNavController(v).navigate(R.id.action_navigation_homeFragment_to_postFragment2);
+
+            }
+        });
+
     }
 
     @Override
@@ -176,8 +182,7 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.Holder
             this.binding = binding;
         }
     }
-    public void Search(ArrayList<PostItem>searchList)
-    {
+    public void Search(ArrayList<PostItem>searchList) {
         this.items=searchList;
         notifyDataSetChanged();
     }

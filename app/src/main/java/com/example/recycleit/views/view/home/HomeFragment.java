@@ -160,8 +160,7 @@ public class HomeFragment extends Fragment {
 //
 //    }
 
-    public void search(String textInput)
-    {
+    public void search(String textInput) {
         ArrayList<PostItem> postList1=new ArrayList<>();
         for (PostItem postItem:postList)
         {

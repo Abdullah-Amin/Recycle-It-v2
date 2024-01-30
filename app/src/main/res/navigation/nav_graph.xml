@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_myBagFragment"
-        android:name="com.example.recycleit.views.MyBagFragment"
+        android:name="com.example.recycleit.views.view.mybag.MyBagFragment"
         android:label="fragment_my_bag"
         tools:layout="@layout/fragment_my_bag" >
         <action
@@ -93,8 +93,12 @@
     </fragment>
     <fragment
         android:id="@+id/postFragment2"
-        android:name="com.example.recycleit.views.PostFragment"
+        android:name="com.example.recycleit.views.view.home.PostFragment"
         android:label="fragment_post"
-        tools:layout="@layout/fragment_post" />
+        tools:layout="@layout/fragment_post" >
+        <action
+            android:id="@+id/action_postFragment2_to_navigation_homeFragment"
+            app:destination="@id/navigation_homeFragment" />
+    </fragment>
 
 </navigation>
