@@ -73,7 +73,7 @@ public class PostItem {
 
     @Override
     public String toString() {
-        return "PostItem{" +
+        return "{" +
                 "userName='" + userName + '\'' +
                 ", userImage='" + userImage + '\'' +
                 ", itemImage='" + itemImage + '\'' +

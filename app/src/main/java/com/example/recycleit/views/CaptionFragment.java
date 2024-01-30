@@ -219,7 +219,7 @@ public class CaptionFragment extends Fragment {
 
 //                    Log.i(TAG, "uploadPostToServer: on event - " + new URL(imageUri.toString()));
                 viewModel.upload(
-                        new PostItem(user.getName(), user.getImageUrl(), imageUri + "", caption, price +" SR", "Wow!!")
+                        new PostItem(user.getName(), user.getImageUrl(), imageUri + "", caption, price +".SR", "Wow!!")
                 );
 
                 if (Status.getInstance().state.equals("success")) {
