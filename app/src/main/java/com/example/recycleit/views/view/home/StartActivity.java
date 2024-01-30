@@ -40,7 +40,11 @@ public class StartActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
         binding.loginBtn.setOnClickListener(view -> {
-            startActivity(new Intent(StartActivity.this, LoginActivity.class));
+            if (auth.getCurrentUser().getUid() == null){
+                startActivity(new Intent(StartActivity.this, LoginActivity.class));
+            }else {
+                startActivity(new Intent(StartActivity.this, MainActivity.class));
+            }
         });
 
         binding.startBtn.setOnClickListener(view -> {

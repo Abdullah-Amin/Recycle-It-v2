@@ -165,7 +165,7 @@ public class CaptionFragment extends Fragment {
         }
 
         Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.setAction(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, 1);
     }

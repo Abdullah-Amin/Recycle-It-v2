@@ -68,7 +68,7 @@ public class MyBagFragment extends Fragment {
 //        list = new ArrayList<>();
 //        adapter = new MyBagAdapter(list, price -> {});
 //        recyclerView.setAdapter(adapter);
-//        getFavoriteItems();
+        getFavoriteItems();
 
         binding.checkoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
