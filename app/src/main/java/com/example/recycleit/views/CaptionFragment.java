@@ -198,8 +198,9 @@ public class CaptionFragment extends Fragment {
 
     private void uploadPostToServer() {
         String caption = binding.captionEt.getText().toString().trim();
-        if (caption.isEmpty()) {
-            Toast.makeText(requireContext(), "Caption can't be empty", Toast.LENGTH_SHORT).show();
+        String price = binding.priceEt.getText().toString().trim();
+        if (caption.isEmpty() || price.isEmpty()) {
+            Toast.makeText(requireContext(), "Caption or price can't be empty", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -218,7 +219,7 @@ public class CaptionFragment extends Fragment {
 
 //                    Log.i(TAG, "uploadPostToServer: on event - " + new URL(imageUri.toString()));
                 viewModel.upload(
-                        new PostItem(user.getName(), user.getImageUrl(), imageUri + "", caption, "20.00 SR", "Wow!!")
+                        new PostItem(user.getName(), user.getImageUrl(), imageUri + "", caption, price +" SR", "Wow!!")
                 );
 
                 if (Status.getInstance().state.equals("success")) {
