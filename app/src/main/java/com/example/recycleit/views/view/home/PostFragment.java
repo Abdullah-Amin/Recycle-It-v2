@@ -1,5 +1,6 @@
 package com.example.recycleit.views.view.home;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -46,19 +47,20 @@ binding=FragmentPostBinding.inflate(inflater,container,false);
         super.onViewCreated(view, savedInstanceState);
 
 
-     String m=   manager.getPostItem(requireContext()).split("\\{")[1];
-        m="\\{"+m;
+//     String m=   manager.getPostItem(requireContext()).split("\\{")[1];
+//        m="\\{"+m;
       //  manager.get(requireContext());
         Log.i(TAG, "onViewCreated: "+manager.getPostItem(requireContext()));
         Gson gson = new Gson();
         PostItem item = gson.fromJson(manager.getPostItem(requireContext()), PostItem.class);
         Log.i(TAG, "onViewCreated: "+item.toString());
 
-        binding.itHeader.setText(item.getDescription());
+        binding.itHeader.setText(item.getItemName());
+        binding.desc.setText(item.getDescription());
         binding.tvPrice.setText(item.getPrice());
         Glide
                 .with(getContext())
-                .load(item.getItemImage())
+                .load(Uri.parse(item.getItemImage()))
                 .placeholder(R.drawable.wwwww)
                 .into(binding.imagePindind);
         binding.imArrowBack.setOnClickListener(new View.OnClickListener() {
@@ -88,8 +90,8 @@ binding=FragmentPostBinding.inflate(inflater,container,false);
                 Toast.makeText(requireActivity(),"post add ",Toast.LENGTH_LONG);
 
                 store.collection("Recycle it database schema").document("Orders")
-                        .collection(firebaseAuth.getCurrentUser().getUid()).document(item.getCaption()
-
+                        .collection(firebaseAuth.getCurrentUser().getUid()).document(
+                                item.getItemName()
                                 + item.getPrice()
                                 +item.getDescription()
                         ).set(item)

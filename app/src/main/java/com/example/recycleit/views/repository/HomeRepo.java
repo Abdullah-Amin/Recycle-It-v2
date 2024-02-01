@@ -68,17 +68,17 @@ public class HomeRepo {
     }
 
     public void uploadPost(PostItem postItem){
-        storage.getReference().child("images profiles").child(auth.getCurrentUser().getUid())
-                .getDownloadUrl()
-                .addOnCompleteListener(new OnCompleteListener<Uri>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Uri> task) {
-//                                        task.getResult().
-                        if (task.isSuccessful() && task.getResult() != null) {
-
-                        }
-                    }
-                });
+//        storage.getReference().child("images profiles").child(auth.getCurrentUser().getUid())
+//                .getDownloadUrl()
+//                .addOnCompleteListener(new OnCompleteListener<Uri>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Uri> task) {
+////                                        task.getResult().
+//                        if (task.isSuccessful() && task.getResult() != null) {
+//
+//                        }
+//                    }
+//                });
 
 
         store.collection("Recycle it database schema").document("Posts")

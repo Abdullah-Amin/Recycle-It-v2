@@ -8,16 +8,16 @@ public class PostItem {
     private String userImage;
     private String uid;
     private String itemImage;
-    private String caption;
+    private String itemName;
     private String price;
     private String description;
 
-    public PostItem(String userName, String userImage, String uid, String itemImage, String caption, String price, String description) {
+    public PostItem(String userName, String userImage, String uid, String itemImage, String itemName, String price, String description) {
         this.userName = userName;
         this.userImage = userImage;
         this.uid = uid;
         this.itemImage = (itemImage);
-        this.caption = caption;
+        this.itemName = itemName;
         this.price = price;
         this.description = description;
     }
@@ -57,12 +57,12 @@ public class PostItem {
         this.itemImage = itemImage;
     }
 
-    public String getCaption() {
-        return caption;
+    public String getItemName() {
+        return itemName;
     }
 
-    public void setCaption(String caption) {
-        this.caption = caption;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     public String getPrice() {
@@ -88,7 +88,7 @@ public class PostItem {
                 ", userImage='" + userImage + '\'' +
                 ", uid='" + uid + '\'' +
                 ", itemImage='" + itemImage + '\'' +
-                ", caption='" + caption + '\'' +
+                ", itemName='" + itemName + '\'' +
                 ", price='" + price + '\'' +
                 ", description='" + description + '\'' +
                 '}';

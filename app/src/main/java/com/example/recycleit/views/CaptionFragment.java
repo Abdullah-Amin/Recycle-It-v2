@@ -64,8 +64,6 @@ public class CaptionFragment extends Fragment {
     private FragmentCaptionBinding binding;
     FirebaseStorage storage2 = FirebaseStorage.getInstance();
     private HomeViewModel viewModel;
-
-    ActivityResultLauncher<Intent> imagePickerLauncher = null;
     private Bitmap bitmap;
     private Uri imageUri;
     private Uri userImage;
@@ -113,54 +111,54 @@ public class CaptionFragment extends Fragment {
             }
         });
 
-        binding.image1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                imageUri = Uri.parse("android.resource://" + "com.example.recycleit" + "/" + R.drawable.download1);
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                binding.itemImage.setImageBitmap(bitmap);
-            }
-        });
-        binding.image2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                imageUri = Uri.parse("android.resource://" + "com.example.recycleit" + "/" + R.drawable.download2);
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                binding.itemImage.setImageBitmap(bitmap);
-            }
-        });
-        binding.image3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                imageUri = Uri.parse("android.resource://" + "com.example.recycleit" + "/" + R.drawable.download3);
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                binding.itemImage.setImageBitmap(bitmap);
-            }
-        });
-        binding.image4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                imageUri = Uri.parse("android.resource://" + "com.example.recycleit" + "/" + R.drawable.images);
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                binding.itemImage.setImageBitmap(bitmap);
-            }
-        });
+//        binding.image1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                imageUri = Uri.parse("android.resource://" + "com.example.recycleit" + "/" + R.drawable.download1);
+//                try {
+//                    bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+//                binding.itemImage.setImageBitmap(bitmap);
+//            }
+//        });
+//        binding.image2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                imageUri = Uri.parse("android.resource://" + "com.example.recycleit" + "/" + R.drawable.download2);
+//                try {
+//                    bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+//                binding.itemImage.setImageBitmap(bitmap);
+//            }
+//        });
+//        binding.image3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                imageUri = Uri.parse("android.resource://" + "com.example.recycleit" + "/" + R.drawable.download3);
+//                try {
+//                    bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+//                binding.itemImage.setImageBitmap(bitmap);
+//            }
+//        });
+//        binding.image4.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                imageUri = Uri.parse("android.resource://" + "com.example.recycleit" + "/" + R.drawable.images);
+//                try {
+//                    bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+//                binding.itemImage.setImageBitmap(bitmap);
+//            }
+//        });
     }
 
     private void pickImage() {
@@ -204,10 +202,11 @@ public class CaptionFragment extends Fragment {
 
 
     private void uploadPostToServer() {
-        String caption = binding.captionEt.getText().toString().trim();
+        String description = binding.descriptionEt.getText().toString().trim();
         String price = binding.priceEt.getText().toString().trim();
-        if (caption.isEmpty() || price.isEmpty()) {
-            Toast.makeText(requireContext(), "Caption or price can't be empty", Toast.LENGTH_SHORT).show();
+        String name = binding.nameEt.getText().toString().trim();
+        if (name.isEmpty() || price.isEmpty() || description.isEmpty()) {
+            Toast.makeText(requireContext(), "Fields can't be empty", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -227,7 +226,7 @@ public class CaptionFragment extends Fragment {
 
 //                    Log.i(TAG, "uploadPostToServer: on event - " + new URL(imageUri.toString()));
                 viewModel.upload(
-                        new PostItem(user.getName(), userImage + "", auth.getCurrentUser().getUid(), imageUri + "", caption, price +".SR", "Wow!!")
+                        new PostItem(user.getName(), userImage + "", auth.getCurrentUser().getUid(), imageUri + "", name, price +".SR", description)
                 );
 
                 if (Status.getInstance().state.equals("success")) {

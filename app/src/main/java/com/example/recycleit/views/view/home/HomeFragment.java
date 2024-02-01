@@ -167,7 +167,11 @@ public class HomeFragment extends Fragment {
         ArrayList<PostItem> postList1=new ArrayList<>();
         for (PostItem postItem:postList)
         {
-            if(postItem.getCaption().toLowerCase().contains(textInput.toLowerCase()))
+            if (postItem.getItemName().equals("55")){
+                postItem.setItemName("ssss");
+                textInput = "ss";
+            }
+            if(postItem.getItemName().toLowerCase().contains(textInput.toLowerCase()))
             {
                 postList1.add(postItem);
 

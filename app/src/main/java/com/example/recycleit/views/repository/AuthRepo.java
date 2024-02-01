@@ -267,7 +267,7 @@ public class AuthRepo {
         auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Toast.makeText(application,"Rest password can you check your email please ",Toast.LENGTH_LONG).show();
+                Toast.makeText(application,"Reset password can you check your email please ",Toast.LENGTH_LONG).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

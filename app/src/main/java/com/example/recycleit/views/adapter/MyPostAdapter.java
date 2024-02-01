@@ -37,7 +37,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.Holder> {
                 .into(holder.binding.itImage);
 
         holder.binding.desc.setText(items.get(position).getDescription());
-        holder.binding.itHeader.setText(items.get(position).getCaption());
+        holder.binding.itHeader.setText(items.get(position).getItemName());
     }
 
     @Override

@@ -57,9 +57,6 @@ public class StartActivity extends AppCompatActivity {
 
         binding.startBtn.setOnClickListener(view -> {
 
-            //  Log.i(TAG, "onCreate:  "+UserType.GUEST.getType());
-            //    startActivity(new Intent(StartActivity.this, MainActivity.class));
-//            FirebaseUser currentUser = auth.getCurrentUser();
             auth.signInWithEmailAndPassword("guest@gmail.com", "1234567890")
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
@@ -87,17 +84,4 @@ public class StartActivity extends AppCompatActivity {
 //            viewModelAuth.signInAnonymously(currentUser);
         });
     }
-
-    private void updateUI(FirebaseUser user) {
-        // Implement UI update logic based on the authenticated user
-        // This could involve showing/hiding elements, displaying user info, etc.
-        if (user.isAnonymous())
-            Toast.makeText(this, "Authentication done.", Toast.LENGTH_SHORT).show();
-
-        else {
-            Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-
-        }
-    }
-
 }

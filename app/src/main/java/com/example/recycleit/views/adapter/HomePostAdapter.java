@@ -65,7 +65,7 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.Holder
 
         SharedPreferenceManager manager = new SharedPreferenceManager();
 
-        binding.itemName.setText(items.get(position).getCaption());
+        binding.itemName.setText(items.get(position).getItemName());
         binding.itemPrice.setText(items.get(position).getPrice());
         binding.nameTxt.setText(items.get(position).getUserName());
 
@@ -106,7 +106,7 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.Holder
 //                        if (task.isSuccessful() && task.getResult() != null) {
                             Glide.with(holder.itemView.getContext())
                                     .load(items.get(position).getItemImage())
-                                    .placeholder(R.drawable.ox).into(binding.itemImage);
+                                    .placeholder(R.drawable.wwwww).into(binding.itemImage);
 //                        }
 //                    }
 //                });
@@ -168,7 +168,7 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.Holder
             @Override
             public void onClick(View view) {
                 store.collection("Recycle it database schema").document("Favorites")
-                        .collection(firebaseAuth.getCurrentUser().getUid()).document(items.get(position).getCaption()
+                        .collection(firebaseAuth.getCurrentUser().getUid()).document(items.get(position).getItemName()
                                 + items.get(position).getPrice()
                                 + items.get(position).getDescription()
                         ).set(items.get(position))

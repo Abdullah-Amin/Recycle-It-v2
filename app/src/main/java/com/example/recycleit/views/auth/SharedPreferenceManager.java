@@ -15,10 +15,6 @@ public class SharedPreferenceManager {
     private static final String ADD_POST_DESCR = "description";
     private static final String ITEM_POST = "item";
     private static final String LOGIN_STATUS = "login_status";
-    private static final String EMAIL = "email_address";
-
-
-
 
     private SharedPreferences getSharedPreferences(Context context) {
         return context.getSharedPreferences(USER_AUTH, Context.MODE_PRIVATE);
