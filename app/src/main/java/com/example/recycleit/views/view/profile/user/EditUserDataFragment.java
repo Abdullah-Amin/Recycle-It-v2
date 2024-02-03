@@ -158,8 +158,8 @@ public class EditUserDataFragment extends Fragment {
                     return;
                 }
 
-//                binding.etdEmail.setText(value.toObject(User.class).getEmail().toString());
-                //   binding.txName.setText("Hello, "+viewModel.getUserName());
+               binding.etdEmail.setText(value.toObject(User.class).getEmail().toString());
+                //  binding.txName.setText("Hello, "+viewModelUser.getUserName());
 
             }
         });

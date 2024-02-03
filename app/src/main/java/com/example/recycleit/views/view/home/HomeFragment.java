@@ -167,15 +167,16 @@ public class HomeFragment extends Fragment {
         ArrayList<PostItem> postList1=new ArrayList<>();
         for (PostItem postItem:postList)
         {
-            if(postItem.getCaption().toLowerCase().contains(textInput.toLowerCase()))
+            if(postItem.getItemImage().toLowerCase().contains(textInput.toLowerCase()))
             {
                 postList1.add(postItem);
 
             }
+
         }
         if(postList1.isEmpty())
             Toast.makeText(requireActivity(),"No Data Found",Toast.LENGTH_LONG).show();
         adapter.Search(postList1);
-        adapter.notifyDataSetChanged();
+       adapter.notifyDataSetChanged();
     }
 }

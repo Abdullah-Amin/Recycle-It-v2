@@ -37,6 +37,7 @@ import com.bumptech.glide.Glide;
 import com.example.recycleit.R;
 import com.example.recycleit.databinding.FragmentCaptionBinding;
 import com.example.recycleit.views.auth.Status;
+import com.example.recycleit.views.auth.UserType;
 import com.example.recycleit.views.model.firebase.PostItem;
 import com.example.recycleit.views.model.local.User;
 import com.example.recycleit.views.view.courses.CourseViewModel;
@@ -57,14 +58,17 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Objects;
 
 
 public class CaptionFragment extends Fragment {
 
     private FragmentCaptionBinding binding;
     FirebaseStorage storage2 = FirebaseStorage.getInstance();
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private HomeViewModel viewModel;
-
+private static final int REUSLT_CODE= 22;
     ActivityResultLauncher<Intent> imagePickerLauncher = null;
     private Bitmap bitmap;
     private Uri imageUri;
@@ -108,8 +112,9 @@ public class CaptionFragment extends Fragment {
         });
         binding.uploadImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                pickImage();
+            public void onClick(View v) {
+                    imageCropper();
+
             }
         });
 
@@ -162,7 +167,11 @@ public class CaptionFragment extends Fragment {
             }
         });
     }
+    private void imageCropper() {
+        CropImage.activity()
+                .start(getContext(), this);
 
+    }
     private void pickImage() {
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) !=
                 PackageManager.PERMISSION_GRANTED) {
@@ -170,37 +179,111 @@ public class CaptionFragment extends Fragment {
             return;
         }
 
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(intent, 1);
+        Intent camiraintent = new Intent();
+        camiraintent.setAction(MediaStore.ACTION_PICK_IMAGES);
+        camiraintent.setType("image/*");
+        startActivityForResult(camiraintent, REUSLT_CODE);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            imageUri = data.getData();
-            try {
-                Log.i(TAG, "onActivityResult:  --- " + data.getData());
-                bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), data.getData());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            binding.itemImage.setImageBitmap(bitmap);
-//            storageReference.child("profileImage").child("posts")
-//                    .putFile(data.getData())
-//                    .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-//                            imageUri = task.getResult().getUploadSessionUri();
-//                            Log.i(TAG, "onComplete: image uploaded");
-//                        }
-//                    });
-            Log.i("abdo", "onActivityResult: path: " + bitmap.toString());
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
 
-//            uploadPostToServer();
+            if (resultCode == RESULT_OK) {
+               imageUri = result.getUri();
+                binding.itemImage.setImageURI(imageUri);
+                uploadImage(imageUri);
+
+
+
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
         }
     }
+    private void uploadImage(Uri imageUri) {
+        storageReference.child("profileImage").child(auth.getUid()).putFile(imageUri).addOnCompleteListener
+                (new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(requireContext(), "the image saved", Toast.LENGTH_LONG).show();
+                            Log.i(TAG, "onComplete:the image saved ");
+                            getImageUrl();
+
+                        } else {
+                            String error = task.getException().getLocalizedMessage().toString();
+                            Toast.makeText(requireContext(), "the problem happen when upload " + error, Toast.LENGTH_LONG).show();
+
+                            Log.i(TAG, "onComplete:the problem happen when upload " + error);
+                        }
+                    }
+                });
+    }
+    private void getImageUrl() {
+        storageReference.child("profileImage").child(auth.getUid()).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    String imageUrl = task.getResult().toString();
+                    Log.i(TAG, "onComplete: " + imageUrl);
+                    uploadImageurl(imageUrl);
+                }
+            }
+        });
+    }
+    private void uploadImageurl(String imageUrl) {
+        HashMap<String, Object> image = new HashMap<>();
+        image.put("profileImage", imageUrl);
+        firebaseFirestore.collection("profileImage").document(auth.getUid()).update(image).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(requireContext(), "image updated", Toast.LENGTH_LONG).show();
+                    Log.i(TAG, "onComplete:image updated ");
+
+                } else {
+                    Toast.makeText(requireContext(), "problem" + task.getException().getLocalizedMessage().toString(), Toast.LENGTH_LONG).show();
+                    Log.i(TAG, "onComplete:image problem " + task.getException().getLocalizedMessage().toString());
+                }
+            }
+        });
+    }
+
+
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        if (requestCode == REUSLT_CODE && resultCode == RESULT_OK) {
+//
+//            bitmap=(Bitmap) data.getExtras().get("data");
+//            binding.uploadImageBtn.setImageBitmap(bitmap);
+//            try {
+//                Log.i(TAG, "onActivityResult:  --- " + data.getData());
+//                bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), data.getData());
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//            binding.itemImage.setImageBitmap(bitmap);
+////            storageReference.child("profileImage").child("posts")
+////                    .putFile(data.getData())
+////                    .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+////                        @Override
+////                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+////                            imageUri = task.getResult().getUploadSessionUri();
+////                            Log.i(TAG, "onComplete: image uploaded");
+////                        }
+////                    });
+//            Log.i("abdo", "onActivityResult: path: " + bitmap.toString());
+//
+////            uploadPostToServer();
+//        }
+//        else {
+//            Toast.makeText(requireContext(),"cancel",Toast.LENGTH_LONG).show();
+//            super.onActivityResult(requestCode,resultCode,data);
+//        }
+//    }
 
 
     private void uploadPostToServer() {
@@ -253,7 +336,7 @@ public class CaptionFragment extends Fragment {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_GET_CONTENT);
             intent.setType("image/*");
-            startActivityForResult(intent, 1);
+            startActivityForResult(intent, REUSLT_CODE);
 //            imagePickerLauncher.launch(intent);
         }
 //        else {
