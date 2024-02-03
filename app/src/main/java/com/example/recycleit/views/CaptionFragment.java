@@ -113,54 +113,54 @@ public class CaptionFragment extends Fragment {
             }
         });
 
-        binding.image1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                imageUri = Uri.parse("android.resource://" + "com.example.recycleit" + "/" + R.drawable.download1);
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                binding.itemImage.setImageBitmap(bitmap);
-            }
-        });
-        binding.image2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                imageUri = Uri.parse("android.resource://" + "com.example.recycleit" + "/" + R.drawable.download2);
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                binding.itemImage.setImageBitmap(bitmap);
-            }
-        });
-        binding.image3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                imageUri = Uri.parse("android.resource://" + "com.example.recycleit" + "/" + R.drawable.download3);
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                binding.itemImage.setImageBitmap(bitmap);
-            }
-        });
-        binding.image4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                imageUri = Uri.parse("android.resource://" + "com.example.recycleit" + "/" + R.drawable.images);
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                binding.itemImage.setImageBitmap(bitmap);
-            }
-        });
+//        binding.image1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                imageUri = Uri.parse("android.resource://" + "com.example.recycleit" + "/" + R.drawable.download1);
+//                try {
+//                    bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+//                binding.itemImage.setImageBitmap(bitmap);
+//            }
+//        });
+//        binding.image2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                imageUri = Uri.parse("android.resource://" + "com.example.recycleit" + "/" + R.drawable.download2);
+//                try {
+//                    bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+//                binding.itemImage.setImageBitmap(bitmap);
+//            }
+//        });
+//        binding.image3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                imageUri = Uri.parse("android.resource://" + "com.example.recycleit" + "/" + R.drawable.download3);
+//                try {
+//                    bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+//                binding.itemImage.setImageBitmap(bitmap);
+//            }
+//        });
+//        binding.image4.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                imageUri = Uri.parse("android.resource://" + "com.example.recycleit" + "/" + R.drawable.images);
+//                try {
+//                    bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+//                binding.itemImage.setImageBitmap(bitmap);
+//            }
+//        });
     }
 
     private void pickImage() {
@@ -204,9 +204,10 @@ public class CaptionFragment extends Fragment {
 
 
     private void uploadPostToServer() {
-        String caption = binding.captionEt.getText().toString().trim();
+        String desc = binding.descriptionEt.getText().toString().trim();
         String price = binding.priceEt.getText().toString().trim();
-        if (caption.isEmpty() || price.isEmpty()) {
+        String name = binding.nameEt.getText().toString().trim();
+        if (desc.isEmpty() || price.isEmpty() || name.isEmpty()) {
             Toast.makeText(requireContext(), "Caption or price can't be empty", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -227,13 +228,13 @@ public class CaptionFragment extends Fragment {
 
 //                    Log.i(TAG, "uploadPostToServer: on event - " + new URL(imageUri.toString()));
                 viewModel.upload(
-                        new PostItem(user.getName(), userImage + "", auth.getCurrentUser().getUid(), imageUri + "", caption, price +".SR", "Wow!!")
+                        new PostItem(user.getName(), userImage + "", auth.getCurrentUser().getUid(), imageUri + "", name, price +".SR", desc + ""),
+                        requireContext(),
+                        requireView()
                 );
 
                 if (Status.getInstance().state.equals("success")) {
-                    Toast.makeText(requireContext(), "Posted successfully", Toast.LENGTH_SHORT).show();
-                    NavController navController = Navigation.findNavController(requireView());
-                    navController.navigate(R.id.action_caption_fragment_to_navigation_homeFragment);
+
                 }
             }
         });
@@ -241,7 +242,7 @@ public class CaptionFragment extends Fragment {
     }
 
     private void requestPermission() {
-        requestPermissions(new String[]{Manifest.permission.CAMERA}, 1);
+        requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
     }
 
     @Override
@@ -250,8 +251,8 @@ public class CaptionFragment extends Fragment {
         if (requestCode == 1 && grantResults.length > 0
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-            Intent intent = new Intent();
-            intent.setAction(Intent.ACTION_GET_CONTENT);
+            Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+            intent.setAction(Intent.ACTION_VIEW);
             intent.setType("image/*");
             startActivityForResult(intent, 1);
 //            imagePickerLauncher.launch(intent);

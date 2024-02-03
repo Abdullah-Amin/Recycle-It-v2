@@ -1,14 +1,19 @@
 package com.example.recycleit.views.repository;
 
 import android.app.Application;
+import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.bumptech.glide.Glide;
+import com.example.recycleit.R;
 import com.example.recycleit.views.auth.Status;
 import com.example.recycleit.views.model.firebase.PostItem;
 import com.example.recycleit.views.model.local.User;
@@ -30,8 +35,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class HomeRepo {
-
-    private Application application;
     private static final String TAG = "HomeRepo";
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -67,7 +70,7 @@ public class HomeRepo {
         return list == null ? list = new ArrayList<>() : list;
     }
 
-    public void uploadPost(PostItem postItem){
+    public void uploadPost(PostItem postItem, Context context, View view){
 //        storage.getReference().child("images profiles").child(auth.getCurrentUser().getUid())
 //                .getDownloadUrl()
 //                .addOnCompleteListener(new OnCompleteListener<Uri>() {
@@ -86,7 +89,9 @@ public class HomeRepo {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-//                        Toast.makeText(application, "Post uploaded successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Post uploaded successfully", Toast.LENGTH_SHORT).show();
+                        NavController navController = Navigation.findNavController(view);
+                        navController.navigate(R.id.action_caption_fragment_to_navigation_homeFragment);
                         Status.getInstance().state = "success";
                     }
                 }).addOnFailureListener(new OnFailureListener() {

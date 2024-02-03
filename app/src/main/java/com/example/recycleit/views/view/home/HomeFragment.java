@@ -131,9 +131,11 @@ public class HomeFragment extends Fragment {
                 for (DocumentSnapshot snapshot : value.getDocuments()) {
                     postList.add(snapshot.toObject(PostItem.class));
                     Log.i(TAG, "onEvent: workshop created " + snapshot.toObject(PostItem.class));
+                    Log.i(TAG, "onEvent: " + postList);
                     adapter = new HomePostAdapter(postList);
                     binding.postsRecycler.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
+//                    postList.clear();
                     Log.i(TAG, "onViewCreated: " + postList);
 
                 }
@@ -141,8 +143,6 @@ public class HomeFragment extends Fragment {
         });
 
       //  Log.i(TAG, "onViewCreated: after ---- " + postList);
-
-
     }
 
     private void image() {
@@ -167,7 +167,7 @@ public class HomeFragment extends Fragment {
         ArrayList<PostItem> postList1=new ArrayList<>();
         for (PostItem postItem:postList)
         {
-            if(postItem.getCaption().toLowerCase().contains(textInput.toLowerCase()))
+            if(postItem.getItemName().toLowerCase().contains(textInput.toLowerCase()))
             {
                 postList1.add(postItem);
 
