@@ -54,9 +54,8 @@ public class RegisterCourseFragment extends Fragment {
                 RegisterCourses registerCourses = new RegisterCourses(binding.etdFirstName.getText().toString().trim(),
                         binding.etdLastName.getText().toString().trim(), binding.etdEmail.getText().toString().trim(), binding.etdPlace.getText().toString());
                 viewModel.registerForCourse(registerCourses);
-                Toast.makeText(requireContext(), "The course register", Toast.LENGTH_LONG).show();
+                Toast.makeText(requireContext(), "The course registered", Toast.LENGTH_LONG).show();
                 Navigation.findNavController(v).navigate(R.id.action_registerCourseFragment_to_courseFragment);
-
             }
 
         });

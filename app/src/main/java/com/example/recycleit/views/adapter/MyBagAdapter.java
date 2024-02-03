@@ -63,7 +63,7 @@ public class MyBagAdapter extends RecyclerView.Adapter<MyBagAdapter.Holder> {
             public void onClick(View view) {
 
                 store.collection("Recycle it database schema").document("Orders")
-                        .collection(firebaseAuth.getCurrentUser().getUid()).document(favoriteItem.get(position).getCaption()
+                        .collection(firebaseAuth.getCurrentUser().getUid()).document(favoriteItem.get(position).getItemName()
                                 + favoriteItem.get(position).getPrice()
                                 + favoriteItem.get(position).getDescription()
                         ).delete()

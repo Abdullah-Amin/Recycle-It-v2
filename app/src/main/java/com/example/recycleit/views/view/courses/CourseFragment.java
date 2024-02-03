@@ -51,14 +51,11 @@ public class CourseFragment extends Fragment {
     private FragmentCourseBinding binding;
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private SharedPreferenceManager sharedPreferenceManager=new SharedPreferenceManager();
-
-    NavController navController;
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private DatabaseReference root = db.getReference().child("courses");
     private DatabaseReference rootuser = db.getReference().child(auth.getUid());
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     CourseB courseB = new CourseB();
-    User user=new User();
     private CollectionReference usersCollection =
             firestore.collection("Recycle it database schema")
                     .document("Courses").collection(Objects.requireNonNull(auth.getUid()));
@@ -174,8 +171,6 @@ public class CourseFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(view).navigate(R.id.action_courseFragment_to_addCoursesFragment);
-
-
             }
         });
         binding.imArrowBack.setOnClickListener(new View.OnClickListener() {

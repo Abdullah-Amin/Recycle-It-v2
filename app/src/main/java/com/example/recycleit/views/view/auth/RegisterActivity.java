@@ -27,7 +27,7 @@ public class RegisterActivity extends AppCompatActivity implements Auth {
     private ActivityRegisterBinding binding;
     private static final String TAG = "RegisterActivity";
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    SharedPreferenceManager sharedPreferenceManager=new SharedPreferenceManager();
+    SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager();
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private Boolean ischeck = false;
 
@@ -51,7 +51,6 @@ public class RegisterActivity extends AppCompatActivity implements Auth {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 checkBoxLogic(isChecked);
-
             }
         });
 
@@ -67,43 +66,42 @@ public class RegisterActivity extends AppCompatActivity implements Auth {
     }
 
     private void checkBoxLogic(Boolean isChecked) {
-         if (isChecked) {
-             binding.constraintlayoutCompany.setVisibility(View.VISIBLE);
-                    if (binding.etdCompany.getText().toString().isEmpty()) {
-                        binding.etdCompany.setError("Error");
+        if (isChecked) {
+            binding.constraintlayoutCompany.setVisibility(View.VISIBLE);
+            if (binding.etdCompany.getText().toString().isEmpty()) {
+                binding.etdCompany.setError("Error");
 
-                        Toast.makeText(RegisterActivity.this, "please Fill your company Name is mandatory", Toast.LENGTH_LONG).show();
-                        Log.i(TAG, "onCheckedChanged: please Fill your company Name is mandatory");
-                    }
-                    if (binding.etdCompanyNumber.getText().toString().isEmpty()) {
-                        binding.etdCompanyNumber.setError("Error");
-                        Toast.makeText(RegisterActivity.this, "please Fill your company Number ID is mandatory", Toast.LENGTH_LONG).show();
-                        Log.i(TAG, "onCheckedChanged: please Fill your company Number ID is mandatory ");
-                        return;
-                    }
+                Toast.makeText(RegisterActivity.this, "please Fill your company Name is mandatory", Toast.LENGTH_LONG).show();
+                Log.i(TAG, "onCheckedChanged: please Fill your company Name is mandatory");
+            }
+            if (binding.etdCompanyNumber.getText().toString().isEmpty()) {
+                binding.etdCompanyNumber.setError("Error");
+                Toast.makeText(RegisterActivity.this, "please Fill your company Number ID is mandatory", Toast.LENGTH_LONG).show();
+                Log.i(TAG, "onCheckedChanged: please Fill your company Number ID is mandatory ");
+                return;
+            }
 
-                    String companyName = binding.etdCompany.getText().toString().trim();
-                    String companyNumber = binding.etdCompanyNumber.getText().toString().trim();
-                } else {
-             binding.constraintlayoutCompany.setVisibility(View.GONE);
-                    Toast.makeText(RegisterActivity.this, "take care this is regular user", Toast.LENGTH_LONG).show();
-                    Log.i(TAG, "onCheckedChanged: take care this is regular user ");
+            String companyName = binding.etdCompany.getText().toString().trim();
+            String companyNumber = binding.etdCompanyNumber.getText().toString().trim();
+        } else {
+            binding.constraintlayoutCompany.setVisibility(View.GONE);
+            Toast.makeText(RegisterActivity.this, "take care this is regular user", Toast.LENGTH_LONG).show();
+            Log.i(TAG, "onCheckedChanged: take care this is regular user ");
 
-                }
+        }
 
     }
 
 
-
     private void fetchData() {
 
-        String name=binding.etdName.getText().toString().trim();
-        String password =binding.etdPassword.getText().toString().trim();
-        String email =binding.etdEmail.getText().toString().trim();
-        String userName=binding.etdUsername.getText().toString().trim();
+        String name = binding.etdName.getText().toString().trim();
+        String password = binding.etdPassword.getText().toString().trim();
+        String email = binding.etdEmail.getText().toString().trim();
+        String userName = binding.etdUsername.getText().toString().trim();
 
-        String companyName=binding.etdCompany.getText().toString().trim();
-        String companyNumber=binding.etdCompanyNumber.getText().toString().trim();
+        String companyName = binding.etdCompany.getText().toString().trim();
+        String companyNumber = binding.etdCompanyNumber.getText().toString().trim();
 
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Please enter email!!", Toast.LENGTH_LONG).show();
@@ -127,19 +125,16 @@ public class RegisterActivity extends AppCompatActivity implements Auth {
                 if (status) {
                     User user = new User();
 
-                    if(binding.checkbox.isChecked())
-                    {
-                       user.setType(UserType.BUSINESS.getType());
-                    }
-                    else
-                    {
+                    if (binding.checkbox.isChecked()) {
+                        user.setType(UserType.BUSINESS.getType());
+                    } else {
                         user.setType(UserType.REGULAR.getType());
                     }
                     user.setName(name);
                     user.setEmail(email);
                     user.setPassword(password);
                     viewModelAuth.loadUserData(user);
-                    sharedPreferenceManager.setType(RegisterActivity.this,user.getType());
+                    sharedPreferenceManager.setType(RegisterActivity.this, user.getType());
 
                     navigate();
                     Log.i(TAG, "onChanged: navigated");
@@ -154,7 +149,7 @@ public class RegisterActivity extends AppCompatActivity implements Auth {
     }
 
 
- //  private void register() {
+    //  private void register() {
 //        user.setName(binding.etdName.getText().toString().trim());
 //        user.setPassword(binding.etdPassword.getText().toString().trim());
 //        user.setEmail(binding.etdEmail.getText().toString().trim());
@@ -192,7 +187,7 @@ public class RegisterActivity extends AppCompatActivity implements Auth {
 //
 //                    user.setUser_id(task.getResult().getUser().getUid().trim());
 //                    String id = user.getUser_id().toString();
-  //               uploadUserData(id);
+    //               uploadUserData(id);
 //                    Log.i(TAG, "onComplete:  user isSuccessful login");
 //                } else {
 //                    String error = task.getException().getLocalizedMessage().toString();
@@ -252,19 +247,17 @@ public class RegisterActivity extends AppCompatActivity implements Auth {
         ch = Character.toUpperCase(ch);
         return (ch >= 'A' && ch <= 'Z');
     }
+
     public static boolean is_Numeric(char ch) {
 
         return (ch >= '0' && ch <= '9');
     }
 
-    private void showCompanyData()
-    {
-        if (binding.checkbox.isChecked())
-        {
+    private void showCompanyData() {
+        if (binding.checkbox.isChecked()) {
 
             binding.constraintlayoutCompany.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             binding.constraintlayoutCompany.setVisibility(View.GONE);
 
         }

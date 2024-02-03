@@ -60,7 +60,6 @@ public class HomeAddressFragment extends Fragment {
     private DatabaseReference root = db.getReference().child("address");
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     Address address = new Address();
-    User user=new User();
     private CollectionReference usersCollection =
             firestore.collection("Recycle it database schema")
                     .document("address").collection(auth.getCurrentUser().getUid());
