@@ -1,6 +1,7 @@
 package com.example.recycleit.views;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.CAMERA_SERVICE;
 
 import static androidx.browser.customtabs.CustomTabsClient.getPackageName;
 
@@ -53,6 +54,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -112,6 +114,7 @@ public class CaptionFragment extends Fragment {
                 pickImage();
             }
         });
+
 
 //        binding.image1.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -251,11 +254,11 @@ public class CaptionFragment extends Fragment {
         if (requestCode == 1 && grantResults.length > 0
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-            Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-            intent.setAction(Intent.ACTION_VIEW);
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_PICK);
             intent.setType("image/*");
             startActivityForResult(intent, 1);
-//            imagePickerLauncher.launch(intent);
+            imagePickerLauncher.launch(intent);
         }
 //        else {
 //            Toast.makeText(this, "Required a photo to continue !!", Toast.LENGTH_SHORT).show();
