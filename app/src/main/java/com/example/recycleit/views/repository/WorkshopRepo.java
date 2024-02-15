@@ -42,18 +42,28 @@ public class WorkshopRepo {
     }
 
     public void uploadWorkshop(WorkShop workShop) {
-String workshopId=String.valueOf(System.currentTimeMillis());
+        String workshopId = String.valueOf(System.currentTimeMillis());
         store.collection("Recycle it database schema").document("workshop").collection(auth.getUid()).document(workshopId)
                 .set(workShop).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful())
-                        {
+                        if (task.isSuccessful()) {
                             Log.i(TAG, "onComplete:  workshop added ");
+                        } else {
+                            Log.i(TAG, "onComplete:error " + task.getException().getLocalizedMessage());
                         }
-                        else
-                        {
-                            Log.i(TAG, "onComplete:error "+task.getException().getLocalizedMessage());
+
+                    }
+                });
+
+        store.collection("Recycle it database schema").document("workshop").collection("all").document(workshopId)
+                .set(workShop).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.i(TAG, "onComplete:  workshop added ");
+                        } else {
+                            Log.i(TAG, "onComplete:error " + task.getException().getLocalizedMessage());
                         }
 
                     }

@@ -55,6 +55,19 @@ public class CourseRepo {
 
                     }
                 });
+
+        store.collection("Recycle it database schema").document("Courses").collection("all")
+                .document(generatedId).set(course).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.i(TAG, "onComplete:  courses added ");
+                        } else {
+                            Log.i(TAG, "onComplete:error " + task.getException().getLocalizedMessage());
+                        }
+
+                    }
+                });
     }
 
 

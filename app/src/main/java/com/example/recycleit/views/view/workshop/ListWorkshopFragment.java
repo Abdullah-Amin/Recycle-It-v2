@@ -57,7 +57,7 @@ public class ListWorkshopFragment extends Fragment {
     private FirebaseAuth auth=FirebaseAuth.getInstance();
 
     private CollectionReference usersCollection =
-            db.collection("Recycle it database schema").document("workshop").collection(auth.getUid());
+            db.collection("Recycle it database schema").document("workshop").collection("all");
     private ArrayList<WorkShop> list=new ArrayList<>();
 
     @Override

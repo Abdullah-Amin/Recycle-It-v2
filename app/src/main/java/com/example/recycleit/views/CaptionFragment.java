@@ -1,10 +1,6 @@
 package com.example.recycleit.views;
 
 import static android.app.Activity.RESULT_OK;
-import static android.content.Context.CAMERA_SERVICE;
-
-import static androidx.browser.customtabs.CustomTabsClient.getPackageName;
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
@@ -12,19 +8,12 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
@@ -35,12 +24,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.recycleit.R;
 import com.example.recycleit.databinding.FragmentCaptionBinding;
 import com.example.recycleit.views.auth.Status;
 import com.example.recycleit.views.model.firebase.PostItem;
 import com.example.recycleit.views.model.local.User;
-import com.example.recycleit.views.view.courses.CourseViewModel;
 import com.example.recycleit.views.view.home.HomeViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

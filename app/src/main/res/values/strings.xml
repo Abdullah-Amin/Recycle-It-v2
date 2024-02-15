@@ -3,7 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" tools:ignore="ExtraTranslation">Hello blank fragment</string>
     <string name="about">About</string>
-    <string name="text_about">In our application,\n
+    <string name="text_about" tools:ignore="ExtraTranslation">In our application,\n
         we help you in your journey towards a healthier and cleaner environment for yourself and your community.\n
         You can share materials that you recycle and sell in an appropriate manner,\n
         and you can also purchase products that have been recycled. Additionally, you can register for courses and workshops offered by renowned institutions and companies to learn about recycling.</string>

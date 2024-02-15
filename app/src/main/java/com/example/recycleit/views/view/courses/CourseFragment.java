@@ -58,7 +58,7 @@ public class CourseFragment extends Fragment {
     CourseB courseB = new CourseB();
     private CollectionReference usersCollection =
             firestore.collection("Recycle it database schema")
-                    .document("Courses").collection(Objects.requireNonNull(auth.getUid()));
+                    .document("Courses").collection("all");
     CourseViewModel viewModel;
 
 
