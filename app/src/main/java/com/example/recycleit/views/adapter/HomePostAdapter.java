@@ -69,13 +69,21 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.Holder
         binding.itemPrice.setText(items.get(position).getPrice());
         binding.nameTxt.setText(items.get(position).getUserName());
 
-//        if (items.get(position).getUserImage() != null){
-//            Glide
-//                    .with(holder.itemView.getContext())
-//                    .load(items.get(position).getUserImage())
-//                    .placeholder(R.drawable.addcircle)
-//                    .into(binding.profileImage);
-//        }
+        storage.getReference().child(items.get(position).getPostId())
+                .getDownloadUrl()
+                .addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+//                                        task.getResult().
+                        if (task.isSuccessful() && task.getResult() != null) {
+                            Glide
+                                    .with(holder.itemView.getContext())
+                                    .load(task.getResult())
+                                    .placeholder(R.drawable.wwwww)
+                                    .into(binding.itemImage);
+                        }
+                    }
+                });
 
         if (items.get(position).getUid() != null){
             storage.getReference().child("images profiles").child(items.get(position).getUid())
@@ -144,25 +152,6 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.Holder
             binding.favouriteImage.setVisibility(View.INVISIBLE);
             return;
         }
-
-        binding.addOrderBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                store.collection("Recycle it database schema").document("Orders")
-//                        .collection(firebaseAuth.getCurrentUser().getUid()).document(items.get(position).getCaption()
-//                                + items.get(position).getPrice()
-//                                + items.get(position).getDescription()
-//                        ).set(items.get(position))
-//                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<Void> task) {
-//                                if (task.isSuccessful()){
-//                                    Toast.makeText(view.getContext(), "Added to cart successfully", Toast.LENGTH_SHORT).show();
-//                                }
-//                            }
-//                        });
-            }
-        });
 
         binding.favouriteImage.setOnClickListener(new View.OnClickListener() {
             @Override

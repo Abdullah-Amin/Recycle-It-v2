@@ -22,15 +22,16 @@ import com.example.recycleit.views.view.workshop.WorkShopViewModel;
 
 public class AddCoursesFragment extends Fragment {
 
-FragmentAddCoursesBinding binding;
+    FragmentAddCoursesBinding binding;
 
-CourseViewModel viewModel;
+    CourseViewModel viewModel;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding=FragmentAddCoursesBinding.inflate(inflater,container,false);
-return  binding.getRoot();
+        binding = FragmentAddCoursesBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
@@ -45,27 +46,30 @@ return  binding.getRoot();
             @Override
             public void onClick(View v) {
 
-                if(binding.etdCourseName.getText().toString().isEmpty())
-                {
-                    Toast.makeText(requireContext(),"fell course name ",Toast.LENGTH_LONG).show();
+                if (binding.etdCourseName.getText().toString().isEmpty()) {
+                    Toast.makeText(requireContext(), "fell course name ", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if(binding.etdCourseName.getText().toString().isEmpty())
-                {
-                    Toast.makeText(requireContext(),"fell course date ",Toast.LENGTH_LONG).show();
+                if (binding.etdCourseName.getText().toString().isEmpty()) {
+                    Toast.makeText(requireContext(), "fell course date ", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if(binding.etdDateCourse.getText().toString().isEmpty())
-                {
-                    Toast.makeText(requireContext(),"fell course location",Toast.LENGTH_LONG).show();
+                if (binding.etdDateCourse.getText().toString().isEmpty()) {
+                    Toast.makeText(requireContext(), "fell course location", Toast.LENGTH_LONG).show();
                     return;
                 }
-                CourseB courseB= new CourseB(binding.etdCourseName.getText().toString().trim(),
-                        binding.etdDateCourse.getText().toString().trim(),binding.etdGoalCourse.getText().toString().trim());
-                viewModel.loadcourse(courseB);
-                Toast.makeText(requireContext(),"The course created",Toast.LENGTH_LONG).show();
-                Navigation.findNavController(v).navigate(R.id.action_addCoursesFragment_to_courseFragment);
+                String state = "Online";
+                if (binding.radioGroup.getCheckedRadioButtonId() == R.id.radio_person){
+                    state = "In-Person";
+                }else {
+                    state = "Online";
+                }
 
+                CourseB courseB = new CourseB(binding.etdCourseName.getText().toString().trim(),
+                        binding.etdDateCourse.getText().toString().trim(), state, binding.etdGoalCourse.getText().toString().trim());
+                viewModel.loadcourse(courseB);
+                Toast.makeText(requireContext(), "The course created", Toast.LENGTH_LONG).show();
+                Navigation.findNavController(v).navigate(R.id.action_addCoursesFragment_to_courseFragment);
 
             }
         });

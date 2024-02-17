@@ -43,10 +43,8 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
         CourseB courseB=courseList.get(position);
         holder.courseName.setText(courseB.getCourseName());
         holder.courseDate.setText(courseB.getCourseDate());
-        holder.courseState.setText(courseB.getCourseGoals());
+        holder.courseState.setText(courseB.getCourseState());
         holder.goal_1.setText("1- "+courseB.getCourseGoals());
-
-
 
     }
 

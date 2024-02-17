@@ -51,6 +51,8 @@ public class StartActivity extends AppCompatActivity {
             if (!sharedPreferenceManager.getLoginStatus(this)){
                 startActivity(new Intent(StartActivity.this, LoginActivity.class));
             }else {
+//                sharedPreferenceManager.setType(StartActivity.this, UserType.BUSINESS.getType());
+
                 startActivity(new Intent(StartActivity.this, MainActivity.class));
             }
         });

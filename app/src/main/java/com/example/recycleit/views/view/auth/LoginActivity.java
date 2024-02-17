@@ -103,11 +103,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void goToForgetScreen() {
-
         Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
         startActivity(intent);
         finish();
-
-
     }
 }

@@ -81,7 +81,7 @@ public class EditUserDataFragment extends Fragment {
                 .getInstance(getActivity().getApplication())).get(ViewModelUser.class);
 
         if (Objects.equals(sharedPreferenceManage.getType(requireContext()), UserType.GUEST.getType())){
-            binding.buttonLogout.setEnabled(false);
+            binding.buttonLogout.setEnabled(true);
             binding.buttonSave.setEnabled(false);
             binding.etdEmail.setEnabled(false);
             binding.etdName.setEnabled(false);

@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.gson.Gson;
 
 public class PostFragment extends Fragment {
@@ -32,6 +33,7 @@ public class PostFragment extends Fragment {
     SharedPreferenceManager manager=new SharedPreferenceManager();
     private static final String TAG = "PostFragment";
     FirebaseFirestore store=FirebaseFirestore.getInstance();
+    FirebaseStorage storage  = FirebaseStorage.getInstance();
     FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,11 +60,28 @@ binding=FragmentPostBinding.inflate(inflater,container,false);
         binding.itHeader.setText(item.getItemName());
         binding.desc.setText(item.getDescription());
         binding.tvPrice.setText(item.getPrice());
-        Glide
-                .with(getContext())
-                .load(Uri.parse(item.getItemImage()))
-                .placeholder(R.drawable.wwwww)
-                .into(binding.imagePindind);
+
+        storage.getReference().child(item.getPostId())
+                .getDownloadUrl()
+                .addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+//                                        task.getResult().
+                        if (task.isSuccessful() && task.getResult() != null) {
+                            Glide
+                                    .with(requireContext())
+                                    .load(task.getResult())
+                                    .placeholder(R.drawable.wwwww)
+                                    .into(binding.imagePindind);
+                        }
+                    }
+                });
+
+//        Glide
+//                .with(getContext())
+//                .load(Uri.parse(item.getItemImage()))
+//                .placeholder(R.drawable.wwwww)
+//                .into(binding.imagePindind);
         binding.imArrowBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

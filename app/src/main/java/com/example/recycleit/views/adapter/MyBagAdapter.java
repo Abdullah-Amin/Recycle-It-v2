@@ -1,6 +1,7 @@
 package com.example.recycleit.views.adapter;
 
 import android.annotation.SuppressLint;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 
@@ -32,6 +34,7 @@ public class MyBagAdapter extends RecyclerView.Adapter<MyBagAdapter.Holder> {
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     FirebaseFirestore store = FirebaseFirestore.getInstance();
+    FirebaseStorage storage = FirebaseStorage.getInstance();
 
     public MyBagAdapter(ArrayList<PostItem> favoriteItem, PriceI priceI) {
         this.favoriteItem = favoriteItem;
@@ -52,6 +55,22 @@ public class MyBagAdapter extends RecyclerView.Adapter<MyBagAdapter.Holder> {
         holder.binding.itemName.setText(favoriteItem.get(position).getUserName());
         holder.binding.itemPrice.setText(favoriteItem.get(position).getPrice());
         Price.totalPrice = Price.totalPrice + Integer.parseInt(favoriteItem.get(position).getPrice().split("\\.")[0]);
+
+        storage.getReference().child(favoriteItem.get(position).getPostId())
+                .getDownloadUrl()
+                .addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+//                                        task.getResult().
+                        if (task.isSuccessful() && task.getResult() != null) {
+                            Glide
+                                    .with(holder.itemView.getContext())
+                                    .load(task.getResult())
+                                    .placeholder(R.drawable.wwwww)
+                                    .into(holder.binding.itemImage);
+                        }
+                    }
+                });
 
         priceI.getPrice(Price.totalPrice);
         Log.i("MyBagFragment", "onBindViewHolder: " + favoriteItem.get(position).getPrice().split("\\.")[0]);
@@ -80,11 +99,11 @@ public class MyBagAdapter extends RecyclerView.Adapter<MyBagAdapter.Holder> {
             }
         });
 
-        Glide
-                .with(holder.itemView.getContext())
-                .load(favoriteItem.get(position).getItemImage())
-                .placeholder(R.drawable.ox)
-                .into(holder.binding.itemImage);
+//        Glide
+//                .with(holder.itemView.getContext())
+//                .load(favoriteItem.get(position).getItemImage())
+//                .placeholder(R.drawable.ox)
+//                .into(holder.binding.itemImage);
     }
 
     @Override

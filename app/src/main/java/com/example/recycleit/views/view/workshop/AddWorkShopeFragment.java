@@ -55,6 +55,14 @@ binding= FragmentAddWorkShopeBinding.inflate(inflater,container,false) ;
                         Toast.makeText(requireContext(),"fell workshop location",Toast.LENGTH_LONG).show();
                         return;
                     }
+
+//                    String state = "Online";
+//                    if (binding.buttonCancel.getCheckedRadioButtonId() == R.id.radio_person){
+//                        state = "In-Person";
+//                    }else {
+//                        state = "Online";
+//                    }
+
                     WorkShop workShop= new WorkShop(binding.etdCourseName.getText().toString().trim(),
                             binding.etdCourseDate.getText().toString().trim(),binding.etdCourseLocation.getText().toString().trim(),binding.etdCourseDate2.getText().toString().trim());
                     viewModel.loadWorkShop(workShop);

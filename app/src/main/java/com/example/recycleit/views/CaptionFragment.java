@@ -46,6 +46,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Instant;
 
 
 public class CaptionFragment extends Fragment {
@@ -54,7 +55,7 @@ public class CaptionFragment extends Fragment {
     FirebaseStorage storage2 = FirebaseStorage.getInstance();
     private HomeViewModel viewModel;
 
-    ActivityResultLauncher<Intent> imagePickerLauncher = null;
+//    ActivityResultLauncher<Intent> imagePickerLauncher = null;
     private Bitmap bitmap;
     private Uri imageUri;
     private Uri userImage;
@@ -177,15 +178,7 @@ public class CaptionFragment extends Fragment {
                 throw new RuntimeException(e);
             }
             binding.itemImage.setImageBitmap(bitmap);
-//            storageReference.child("profileImage").child("posts")
-//                    .putFile(data.getData())
-//                    .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-//                            imageUri = task.getResult().getUploadSessionUri();
-//                            Log.i(TAG, "onComplete: image uploaded");
-//                        }
-//                    });
+
             Log.i("abdo", "onActivityResult: path: " + bitmap.toString());
 
 //            uploadPostToServer();
@@ -216,16 +209,22 @@ public class CaptionFragment extends Fragment {
                 Log.i(TAG, "uploadPostToServer: on event - " + imageUri);
 
 
+                String postId = generateIdBasedOnSeconds() + "";
 //                    Log.i(TAG, "uploadPostToServer: on event - " + new URL(imageUri.toString()));
                 viewModel.upload(
-                        new PostItem(user.getName(), userImage + "", auth.getCurrentUser().getUid(), imageUri + "", name, price +".SR", desc + ""),
+                        new PostItem(user.getName(), userImage + "", auth.getCurrentUser().getUid(), postId, imageUri + "", name, price +".SR", desc + ""),
                         requireContext(),
                         requireView()
                 );
 
-                if (Status.getInstance().state.equals("success")) {
-
-                }
+                storageReference.child(postId)
+                        .putFile(imageUri)
+                        .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                Log.i(TAG, "onComplete: image uploaded");
+                            }
+                        });
             }
         });
         Log.i(TAG, "uploadPostToServer: end - " + imageUri);
@@ -245,7 +244,7 @@ public class CaptionFragment extends Fragment {
             intent.setAction(Intent.ACTION_PICK);
             intent.setType("image/*");
             startActivityForResult(intent, 1);
-            imagePickerLauncher.launch(intent);
+//            imagePickerLauncher.launch(intent);
         }
 //        else {
 //            Toast.makeText(this, "Required a photo to continue !!", Toast.LENGTH_SHORT).show();
@@ -269,6 +268,17 @@ public class CaptionFragment extends Fragment {
                         }
                     }
                 });
+    }
+
+    public static long generateIdBasedOnSeconds() {
+        long currentTimestampSeconds = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            currentTimestampSeconds = Instant.now().getEpochSecond();
+        }
+
+        // You can use additional logic to modify or manipulate the timestamp as needed
+        // For simplicity, this example just returns the current timestamp as the ID
+        return currentTimestampSeconds;
     }
 
 }
